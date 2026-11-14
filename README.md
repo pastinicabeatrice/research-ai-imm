@@ -19,6 +19,7 @@ Research din faza de analiză a problemei pentru hackathon: ce date lipesc angaj
 | [07-problema.md](07-problema.md) | Problema exactă: ce firme (4 criterii), cele 5 clase de date, cum protejăm secretele financiare ale firmei |
 | [06-solutie.md](06-solutie.md) | Propunerea de valoare, fluxul exact, arhitectura (interceptare locală), categoriile configurabile, testele de fezabilitate |
 | [08-ghid-interviu.md](08-ghid-interviu.md) | **Ghidul de interviu de folosit**: întrebări Mom Test pe ton natural, pe roluri (angajat, antreprenor, IT, mentor) |
+| [09-diagrame.md](09-diagrame.md) | Diagrama cazurilor de utilizare și fluxul de dezvoltare (și ca pagină: diagrame.html) |
 | [surse.md](surse.md) | Toate sursele, cu link și dată (accesate 14.11.2026) |
 
 Marcaje: **[F]** faptă cu sursă · **[I]** ipoteza noastră · **[V]** de validat la interviuri. Cifrele firmelor de securitate sunt marcate „afirmație de vânzător”.
