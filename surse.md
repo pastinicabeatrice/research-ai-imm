@@ -99,6 +99,17 @@ Unde n-am putut citi textul oficial, scrie „de verificat”.
 | S49 | [IntuitionLabs, „Open-weight AI model licenses”](https://intuitionlabs.ai/articles/open-weight-ai-model-licenses) | Secundară | Qwen3: Apache 2.0 pentru multe checkpoint-uri; Llama: licență separată doar peste 700 mil. utilizatori lunari. **De verificat pe fișele oficiale** |
 | S50 | [OpenLLM-Ro pe Hugging Face](https://huggingface.co/OpenLLM-Ro) și [raportul tehnic arXiv 2405.07703](https://arxiv.org/abs/2405.07703) | Primară (cercetare) | Modele adaptate pentru română: RoLlama (2, 3, 3.1), RoGemma, RoGemma2, RoMistral, RoQwen-VL |
 
+## Integrări (10)
+
+| ID | Sursă | Tip | Ce am luat |
+|---|---|---|---|
+| S51 | [QwenLM/Qwen3.8 pe GitHub](https://github.com/QwenLM/Qwen3.8) | Primară (producător) | Qwen3.8 are doar 27B (14.08.2026) și 2.4T-A95B (12.08.2026), fără 8B; Qwen3.5 are 9B/4B/2B/0.8B (02.03.2026) și „201 limbi și dialecte”; repo Apache-2.0, licența ponderilor pe fișa modelului |
+| S52 | [Wavect, recenzie Jev (actualizată 11.11.2026)](https://wavect.io/blog/jev-ai-decision-model-review/) | Secundară (relatează afirmații de vânzător) | Jev = model de decizie TypeSafe, răspunsuri tipizate cu probabilități; 70–500 ms; în cloud; fără antrenare pe cereri; păstrare zero pentru enterprise |
+| S53 | [StartupHub, profil Jev Agent](https://www.startuphub.ai/startups/jagent) | Secundară | jev-agent.com: platformă independentă, „neafiliată cu TypeSafe AI”; plan gratuit 5 credite/lună |
+| S54 | [MCP Market, „jev-use”](https://mcpmarket.com/server/jev-use) | Secundară | Server MCP comunitar care trimite decizii simple către Jev; statut oficial neclar |
+| S55 | [Model Context Protocol, documentație](https://modelcontextprotocol.io/) | Primară (standard) | Standard deschis prin care asistenții AI folosesc unelte și date externe |
+| S56 | Material despre Jev trimis de echipă (14.11.2026), cu trimiteri la [TypeSafe Quickstart](https://docs.typesafe.ai/introduction/quickstart), [anunțul System One și Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) și [integrarea LangChain](https://docs.langchain.com/oss/python/integrations/providers/typesafe#quickstart) | Secundară (paginile legate nu au fost deschise de noi) | Formatul cererii: model, state, questions (noul / choice / score); întrebările sunt evaluate în paralel; `langchain-typesafe` cu `TypeSafeClassifier` |
+
 ## Metodă de interviu
 
 | ID | Sursă | Tip | Ce am luat |

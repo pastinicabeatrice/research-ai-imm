@@ -1,5 +1,7 @@
 # 06 · Soluția: propunerea de valoare și cum funcționează exact
 
+> **Completări în [10-integrari.md](10-integrari.md):** preseturi pe domenii și categorii adăugate de firmă, Jev ca a doua verificare pe textul curățat, modelul local (Qwen3.5-9B sau Qwen3.8-27B; Qwen 3.8 nu are variantă de 8B) și serverul MCP prin care antreprenorul își vede datele în asistentul lui AI.
+
 > **[F]** faptă cu sursă ([surse.md](surse.md)) · **[I]** ipoteză / decizie de design · **[V]** de validat (la interviuri sau prin test tehnic)
 > Documentul e o specificație de produs, nu cod. Decizia de a intercepta traficul la nivel de rețea e a echipei. Mai jos e transformată în cerințe exacte, cu limitele ei.
 

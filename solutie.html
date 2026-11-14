@@ -142,6 +142,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     <a class="l" href="#cum">Cum funcționează</a>
     <a class="l" href="#demo">Exemple</a>
     <a class="l" href="#local">AI local</a>
+    <a class="l" href="#integrari">Preseturi, Jev, MCP</a>
     <a class="l" href="#ce">Ce protejăm</a>
     <a class="l" href="#antreprenor">Ce vede antreprenorul</a>
     <a class="l" href="#dece">De ce noi</a>
@@ -214,8 +215,34 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     </div>
     <div class="grid g3">
       <div class="card dark"><h3>Unde rulează</h3><p><strong style="color:var(--ink)">Pe calculator:</strong> pentru microfirme cu laptopuri bune (recomandat ≥ 16 GB RAM pentru modele de 7–8B). <strong style="color:var(--ink)">Pe un server din birou:</strong> pentru firme de 5–100 de oameni, cu placă video, folosit de toți. <span class="mark f">F</span> S48 <span class="mark i">I</span></p></div>
-      <div class="card dark"><h3>Ce modele</h3><p>Qwen3 (Apache 2.0 pentru multe modele), Llama 3.1 (gratuită pentru firme mici), OpenLLM-Ro (RoLlama, RoGemma), adaptate pentru română. Licențele se verifică pe fișa fiecărui model. <span class="mark f">F</span> S49 S50</p></div>
+      <div class="card dark"><h3>Ce model</h3><p><strong style="color:var(--ink)">Qwen3.5-9B</strong> implicit: e cel mai apropiat de „8B”, pentru că Qwen 3.8 are doar variante de 27B și 2.4T. <strong style="color:var(--ink)">Qwen3.8-27B</strong> pe un server cu placă video. Schimbarea modelului e o setare. Licențele se verifică pe fișa modelului. <span class="mark f">F</span> S51 <span class="mark i">I</span></p></div>
       <div class="card dark"><h3>Ce trebuie testat</h3><p>Calitatea pe română (T8), viteza pe un laptop de birou fără placă video (T9: pe procesor, ~4–10 token-uri pe secundă) și transferul fără URL (T10). <span class="mark v">V</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="integrari" class="band">
+  <div class="wrap stack">
+    <div><h2>Preseturi, categorii proprii, Jev și MCP</h2><p class="sub">Detaliile sunt în 10-integrari.md.</p></div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Preseturi pe domenii</h3>
+        <p>La instalare, antreprenorul alege domeniul: General, Contabilitate, Medical, Juridic, Asigurări, Imobiliare, Resurse umane, IT. Firma primește din prima categoriile de date sensibile ale domeniului, cu acțiunea deja setată.</p>
+      </div>
+      <div class="card">
+        <h3>Date sensibile adăugate de firmă, pe categorii</h3>
+        <p>Antreprenorul adaugă ce e sensibil pentru el, în patru feluri: <strong style="color:var(--ink)">listă de valori</strong> (clienții din Excel), <strong style="color:var(--ink)">cuvinte-cheie</strong> („Proiectul Orion”), <strong style="color:var(--ink)">format</strong> („DOS-0000”) sau <strong style="color:var(--ink)">categorie nouă</strong>, cu acțiunea aleasă. Poate face orice regulă mai strictă, dar nu poate coborî sub minimul legal pentru clienți, angajați și parole. Totul rămâne local.</p>
+      </div>
+      <div class="card">
+        <h3>Jev: a doua verificare, pe textul deja curățat</h3>
+        <p>Jev e modelul de decizie al TypeSafe AI, primul model „System One”: răspunde la întrebări tipizate cu o decizie și o probabilitate, nu cu text. Fiind în cloud, primește <strong style="color:var(--ink)">doar textul curățat local</strong>. Îl întrebăm: „Mai poate fi recunoscută cineva?”, „Ce fel de document e?”, „Cât de sensibil e, de la 1 la 5?”. Dacă e risc, sarcina merge în AI-ul local. <span class="mark f">F</span> S52 <span class="mark i">I</span></p>
+        <p style="font-size:.9rem">jev-agent.com e un revânzător neoficial cu operator necunoscut: e bun pentru demo, cu texte fictive. În producție lucrăm direct cu TypeSafe, cu acord de prelucrare și păstrare zero. <span class="mark f">F</span> S53</p>
+      </div>
+      <div class="card">
+        <h3>Datele antreprenorului, în asistentul lui AI (MCP)</h3>
+        <p>În locul unei console în plus, un server MCP din firmă îi dă asistentului AI al antreprenorului unelte precum <code>raport_lunar</code>, <code>evenimente</code>, <code>aproba_exceptie</code> și <code>categorii</code>. Antreprenorul întreabă simplu: „Ce s-a oprit luna asta?”. <span class="mark f">F</span> S55</p>
+        <p style="font-size:.9rem"><strong style="color:var(--ink)">Conectat la Claude sau ChatGPT</strong>, serverul dă doar cifre și categorii, cu angajații sub pseudonim. Fără texte și fără nume de clienți. <strong style="color:var(--ink)">Conectat la AI-ul local</strong>, permite și adăugarea de clienți și cuvinte-cheie prin conversație. <span class="mark i">I</span></p>
+      </div>
     </div>
   </div>
 </section>
@@ -504,7 +531,7 @@ const AVOID=[
 document.getElementById("avoid").innerHTML=AVOID.map(a=>`<div><s>${esc(a[0])}</s><br><b>→ ${esc(a[1])}</b></div>`).join("");
 
 /* surse */
-const SRC=[["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training"],["S32","Microsoft Learn: Purview și aplicațiile AI","https://learn.microsoft.com/en-us/purview/ai-other-apps"],["S33","Bitdefender: GravityZone AI Visibility and Control","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise"],["S34","IT Brief: ESET AI security tools","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents"],["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp"],["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm"],["S15","Baroul Dolj: secretul comercial","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf"],["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html"],["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/"],["S48","LumaDock: Ollama hardware requirements (blog)","https://lumadock.com/tutorials/ollama-hardware-requirements"],["S49","IntuitionLabs: licențele modelelor open-weight","https://intuitionlabs.ai/articles/open-weight-ai-model-licenses"],["S50","OpenLLM-Ro pe Hugging Face","https://huggingface.co/OpenLLM-Ro"]];
+const SRC=[["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training"],["S32","Microsoft Learn: Purview și aplicațiile AI","https://learn.microsoft.com/en-us/purview/ai-other-apps"],["S33","Bitdefender: GravityZone AI Visibility and Control","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise"],["S34","IT Brief: ESET AI security tools","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents"],["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp"],["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm"],["S15","Baroul Dolj: secretul comercial","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf"],["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html"],["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/"],["S48","LumaDock: Ollama hardware requirements (blog)","https://lumadock.com/tutorials/ollama-hardware-requirements"],["S49","IntuitionLabs: licențele modelelor open-weight","https://intuitionlabs.ai/articles/open-weight-ai-model-licenses"],["S50","OpenLLM-Ro pe Hugging Face","https://huggingface.co/OpenLLM-Ro"],["S51","QwenLM/Qwen3.8 pe GitHub","https://github.com/QwenLM/Qwen3.8"],["S52","Wavect: recenzia Jev","https://wavect.io/blog/jev-ai-decision-model-review/"],["S53","StartupHub: profil Jev Agent","https://www.startuphub.ai/startups/jagent"],["S55","Model Context Protocol","https://modelcontextprotocol.io/"]];
 document.getElementById("srcList").innerHTML=SRC.map(s=>`<li>${s[0]} · <a href="${s[2]}" target="_blank" rel="noopener">${esc(s[1])}</a></li>`).join("");
 </script>
 </body>

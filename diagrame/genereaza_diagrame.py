@@ -42,8 +42,8 @@ def path(d, dash=False, arrow=None, w=1.4):
 
 
 # ---------------- CAZURI DE UTILIZARE ----------------
-W, H = 1240, 900
-RX, RY = 118, 25
+W, H = 1260, 960
+RX, RY = 108, 25
 A, B = 330, 640
 nodes = {}
 
@@ -84,12 +84,13 @@ shapes.append(uc("b_cls", B, 270, ["Clasifică: VERDE,", "GALBEN sau ROȘU"], Tr
 shapes.append(uc("b_hide", B, 340, ["Ascunde identitatea", "și scalează sumele"], True))
 shapes.append(uc("b_block", B, 410, ["Blochează parolele", "și cheile"], True))
 shapes.append(uc("b_rest", B, 480, ["Pune datele reale", "la loc în răspuns"], True))
-ANT_ROWS = [600, 658, 716, 774, 832]
+ANT_ROWS = [600, 656, 712, 768, 824, 880]
 ant = [("n_inst", ["Instalează agentul pe", "calculatoarele firmei"]),
-       ("n_loc", ["Pornește AI-ul local", "în birou"]),
-       ("n_cfg", ["Configurează categoriile", "și lista clienților"]),
+       ("n_loc", ["Pornește AI-ul local", "în birou (Qwen)"]),
+       ("n_pre", ["Alege presetul", "pentru domeniul firmei"]),
+       ("n_cfg", ["Adaugă date sensibile", "pe categorii"]),
        ("n_apr", ["Aprobă excepțiile"]),
-       ("n_rep", ["Vede raportul lunar"])]
+       ("n_rep", ["Întreabă asistentul AI", "despre date (MCP)"])]
 for (k, lines), y in zip(ant, ANT_ROWS):
     shapes.append(uc(k, A, y, lines))
 
@@ -99,36 +100,41 @@ for k in ["a_send", "a_local", "a_exc", "a_see", "a_recv"]:
     L.append(line(122, 300, x - RX, y))
 for k, _ in ant:
     x, y = nodes[k]
-    L.append(line(122, 716, x - RX, y))
+    L.append(line(122, 740, x - RX, y))
 # include / extend
 L.append(line(A + RX, 130, B - RX - 2, 130, True, "ao")); L.append(label((A + B) / 2, 118, "«include»"))
 L.append(line(B, 155, B, 173, True, "ao")); L.append(label(B - 12, 164, "«include»", 11, anchor="end"))
 L.append(line(B, 225, B, 243, True, "ao")); L.append(label(B - 12, 234, "«include»", 11, anchor="end"))
 L.append(line(B, 315, B, 297, True, "ao")); L.append(label(B + 62, 306, "«extinde» GALBEN", 11, anchor="start"))
-L.append(path(f"M{B + RX},410 C{B + RX + 70},410 {B + RX + 70},270 {B + RX + 2},270", True, "ao"))
-L.append(label(B + RX + 62, 382, "«extinde»", 11, anchor="start")); L.append(label(B + RX + 62, 396, "parolă", 11, anchor="start"))
+L.append(path(f"M{B + RX},410 C{B + RX + 40},410 {B + RX + 40},285 {B + RX - 6},280", True, "ao"))
+L.append(label(B + RX + 34, 392, "«extinde»", 11, anchor="start")); L.append(label(B + RX + 34, 406, "parolă", 11, anchor="start"))
 L.append(line(A + RX, 270, B - RX - 2, 270, True, "ao")); L.append(label((A + B) / 2, 258, "«extinde» ROȘU"))
 L.append(line(A + RX - 10, 333, B - RX + 8, 282, True, "ao")); L.append(label((A + B) / 2 + 4, 318, "«extinde»"))
 L.append(line(A + RX, 480, B - RX - 2, 480, True, "ao")); L.append(label((A + B) / 2, 468, "«include»"))
 # sisteme externe
-PUB = (1150, 340); LOC = (1150, 150)
-L.append(line(B + RX, 345, PUB[0] - 77, 345, False, "ah")); L.append(label(940, 333, "cerere fără date identificabile"))
-L.append(line(PUB[0] - 60, 370, B + RX - 6, 470, False, "ah")); L.append(label(960, 425, "răspuns"))
+PUB = (1172, 340); LOC = (1172, 150)
+JX = 905
+shapes.append(uc("b_jev", JX, 340, ["Verifică textul", "curățat cu Jev"], True))
+L.append(line(B + RX, 340, JX - RX - 2, 340, True, "ao")); L.append(label((B + RX + JX - RX) / 2, 326, "«include»", 10.5))
+L.append(line(JX + RX, 340, PUB[0] - 77, 340, False, "ah")); L.append(label(1040, 326, "cerere curată", 11))
+L.append(line(PUB[0] - 60, 370, B + RX - 6, 470, False, "ah")); L.append(label(985, 430, "răspuns"))
+JEV = (1172, 540)
+L.append(path(f"M{JX + 40},363 L{JEV[0] - 77},{JEV[1] - 8}", True, "ao")); L.append(label(1010, 470, "textul curățat", 11))
 L.append(path(f"M{A + 60},247 L{A + 170},235 L1010,235 L{LOC[0] - 77},165", False, "ah")); L.append(label(890, 223, "textul rămâne în firmă"))
 L.append(path(f"M{A + RX},658 C{A + RX + 140},620 {A + RX + 160},500 {B},{170}", True, None))  # placeholder removed below
 L.pop()
 # antreprenorul aprobă excepția
-L.append(path(f"M{A - RX},774 C150,700 150,400 {A - RX + 2},345", True, "ao")); L.append(label(150, 560, "răspunde la", 11))
+L.append(path(f"M{A - RX},824 C150,740 150,400 {A - RX + 2},345", True, "ao")); L.append(label(150, 560, "răspunde la", 11))
 # AI-ul local pornit de antreprenor alimentează sistemul extern AI local
-L.append(path(f"M{A + RX},658 L1150,658 L1150,{LOC[1] + 30}", True, "ao")); L.append(label(900, 646, "pornește"))
+L.append(path(f"M{A + RX},656 L{LOC[0]},656 L{LOC[0]},{LOC[1] + 30}", True, "ao")); L.append(label(900, 644, "pornește"))
 
-box = (f'<rect x="215" y="30" width="845" height="845" rx="18" fill="#fbfdfd" stroke="#9fbcb7" stroke-width="1.6"/>'
+box = (f'<rect x="215" y="30" width="870" height="905" rx="18" fill="#fbfdfd" stroke="#9fbcb7" stroke-width="1.6"/>'
        + text(637, 56, ["Agentul instalat pe calculatoarele firmei"], 15, 700)
        + text(A, 92, ["Ce face angajatul"], 12, 600, MUT) + text(B, 92, ["Ce face agentul singur"], 12, 600, MUT)
        + '<line x1="235" y1="530" x2="1040" y2="530" stroke="#c9dad6" stroke-dasharray="4 4"/>'
        + text(A, 562, ["Ce face antreprenorul"], 12, 600, MUT))
-act = actor(100, 300, "Angajat") + actor(100, 716, "Antreprenor")
-exts = ext(*PUB, ["ChatGPT, Claude,", "Gemini, Copilot"]) + ext(*LOC, ["AI local", "Qwen, Llama"])
+act = actor(100, 300, "Angajat") + actor(100, 740, "Antreprenor")
+exts = ext(*PUB, ["ChatGPT, Claude,", "Gemini, Copilot"]) + ext(*LOC, ["AI local", "Qwen3.5-9B"]) + ext(*JEV, ["Jev (TypeSafe)", "în cloud"])
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Diagrama cazurilor de utilizare">'
        f'<rect width="{W}" height="{H}" fill="#ffffff"/>{DEFS}{box}{"".join(L)}{"".join(shapes)}{act}{exts}</svg>')
 open(OUT + "/cazuri-de-utilizare.svg", "w", encoding="utf-8", newline="\n").write(svg)
@@ -168,10 +174,10 @@ box("PIV", 255, ["Revizuim segmentul", "sau problema"], "#fbe5e6", "#d9787d", cx
 box("F", 375, ["2 · Teste de fezabilitate", "T1 proxy local · T2 QUIC · T6 aplicații desktop"])
 dia("G2", 490, ["Interceptarea merge", "fără să strice nimic?"])
 box("EXT", 490, ["Plan B: extensie de browser", "în loc de proxy"], "#fbe5e6", "#d9787d", cx=820, w=300)
-box("D", 610, ["3 · Detectare: CNP, IBAN, CUI, nume în română,", "lista clienților, OCR (T4, T5)"])
+box("D", 610, ["3 · Detectare locală + verificare Jev pe textul curățat", "CNP, IBAN, CUI, nume, lista clienților, OCR (T4, T5, T11, T12)"])
 box("PS", 700, ["4 · Ascundere și restaurare în răspuns", "(T3, T7)"])
-box("POL", 790, ["5 · Categorii configurabile, pachete pe segmente,", "consola antreprenorului, raport lunar"])
-box("LOC", 880, ["6 · AI local pentru ROȘU", "T8 calitate · T9 viteză · T10 transfer fără URL"])
+box("POL", 790, ["5 · Preseturi pe domenii, categorii proprii,", "server MCP pentru antreprenor (T13, T14)"])
+box("LOC", 880, ["6 · AI local: Qwen3.5-9B (sau Qwen3.8-27B pe server)", "T8 calitate · T9 viteză · T10 transfer fără URL"])
 box("DEMO", 970, ["7 · Demo la hackathon", "ChatGPT web, pachetul Contabil"], "#0d8fa3", "#0d8fa3", "#ffffff", weight=700)
 box("PIL", 1060, ["8 · Pilot de o săptămână", "la 1–3 firme"])
 dia("G3", 1170, ["Ce a ieșit", "din pilot?"], w=200, h=90)

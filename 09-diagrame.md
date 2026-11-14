@@ -14,9 +14,10 @@ Cum se citește:
 | Actor | Ce face |
 |---|---|
 | **Angajatul** | Lucrează în ChatGPT ca până acum, primește răspunsul cu datele reale și vede ce s-a protejat. Pe ROȘU continuă sarcina în AI-ul local sau cere o excepție |
-| **Antreprenorul** | Instalează agentul pe calculatoarele firmei și pornește AI-ul local din birou. Alege ce e secret (categorii, lista clienților), aprobă excepțiile și citește raportul lunar |
+| **Antreprenorul** | Instalează agentul, pornește AI-ul local, alege presetul pentru domeniul firmei, adaugă date sensibile pe categorii, aprobă excepțiile și își întreabă asistentul AI despre date, prin serverul MCP |
 | **ChatGPT, Claude, Gemini, Copilot** | Sistem extern: primește doar cereri fără date identificabile |
-| **AI local (Qwen, Llama)** | Sistem care rulează în firmă: primește sarcinile ROȘU, iar textul nu iese din firmă |
+| **Jev (TypeSafe), în cloud** | Sistem extern: primește doar textul deja curățat, ca a doua verificare înainte de trimitere (vezi [10 §2](10-integrari.md)) |
+| **AI local (Qwen3.5-9B)** | Sistem care rulează în firmă: primește sarcinile ROȘU, iar textul nu iese din firmă |
 
 ## 2. Fluxul de dezvoltare al aplicației
 
