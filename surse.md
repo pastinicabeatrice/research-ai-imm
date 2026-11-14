@@ -80,6 +80,15 @@ Unde n-am putut citi textul oficial, scrie „de verificat”.
 | S39 | [StartupCafe, amenda ANSPDCP pentru Hayat Medical & Dental](https://startupcafe.ro/?p=109230) și [e-juridic, centre medicale amendate pentru date trimise pe WhatsApp/email](https://e-juridic.manager.ro/articole/centre-medicale-private-amendate-pentru-incalcarea-gdpr-datele-pacientilor-divulgate-fara-drept-pe-whatsapp-sau-prin-e-mail-29342.html) | Secundară | ANSPDCP amendează clinici mici pentru divulgarea datelor pacienților (amenzi de ordinul 2.000–3.000 €) |
 | S40 | [e-juridic, „Ce este CNP-ul și cum funcționează”](https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html) | Secundară | Structura S AA LL ZZ JJ NNN C: sex/secol, data nașterii, județ, număr de ordine, cifră de control |
 
+## Detalii tehnice pentru soluție (06)
+
+| ID | Sursă | Tip | Ce am luat |
+|---|---|---|---|
+| S43 | [Wikipedia, International Bank Account Number](https://wikipedia.com/wiki/BBAN) | Secundară | Validarea IBAN prin MOD-97-10 (ISO/IEC 7064), rest = 1; doar formatul, nu existența contului |
+| S44 | [python-stdnum, `stdnum.ro.cui`](https://arthurdejong.org/python-stdnum/doc/stdnum.ro.cui) și [stdnum-js PR #145](https://github-users.yhajoa.workers.dev/koblas/stdnum-js/pull/145) | Secundară (cod open source) | CUI: cifră de control cu cheia 753217532, aliniată la dreapta; algoritmul exact **de verificat** pe cod |
+| S45 | [Chromium, „Proxy support in Chrome”](https://chromium.googlesource.com/chromium/src/+/695245c/net/docs/proxy.md) | Primară (documentație) | Proxy-urile HTTPS negociază HTTP/2, nu QUIC; schema QUIC pentru proxy e experimentală |
+| S46 | [Zscaler, „Managing the QUIC Protocol”](https://help.zscaler.com/zia/managing-quic-protocol) | Vânzător (documentație) | Pentru inspecția TLS se recomandă blocarea QUIC; browserul revine pe TCP |
+
 ## Metodă de interviu
 
 | ID | Sursă | Tip | Ce am luat |

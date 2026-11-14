@@ -11,7 +11,8 @@ Research din faza de analiză a problemei pentru hackathon: ce date lipesc angaj
 | [02-date-sensibile.md](02-date-sensibile.md) | Datele sensibile pe segmente, cu baza legală |
 | [03-anonimizare.md](03-anonimizare.md) | Definiții, tehnici, limite, exemple în română |
 | [04-matrice-decizie.md](04-matrice-decizie.md) | Tipul de date × tehnică × risc × decizie VERDE/GALBEN/ROȘU |
-| [05-ipoteze-si-interviuri.md](05-ipoteze-si-interviuri.md) | Ipoteze de validat și întrebări de interviu după The Mom Test |
+| [05-ipoteze-si-interviuri.md](05-ipoteze-si-interviuri.md) | Ipoteze de validat și întrebări de interviu după The Mom Test (inclusiv pentru mentori) |
+| [06-solutie.md](06-solutie.md) | Propunerea de valoare, fluxul exact, arhitectura (interceptare locală), categoriile configurabile, testele de fezabilitate |
 | [surse.md](surse.md) | Toate sursele, cu link și dată (accesate 14.11.2026) |
 
 Marcaje: **[F]** faptă cu sursă · **[I]** ipoteza noastră · **[V]** de validat la interviuri. Cifrele firmelor de securitate sunt marcate „afirmație de vânzător”.

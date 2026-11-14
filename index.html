@@ -121,6 +121,10 @@ button.del{font:inherit;font-size:.72rem;border:none;background:none;color:var(-
 .composer textarea{font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-height:84px;resize:vertical;width:100%}
 .composer .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .badge{font-size:.72rem;font-family:var(--mono);color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:0 7px}
+.vp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.vp-line{font-size:1.06rem;line-height:1.55;max-width:80ch}
+.vp-k{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.25rem;margin-right:4px}
+select.act-sel{font:inherit;font-size:.85rem;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
 footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px solid var(--line)}
 @media (prefers-reduced-motion:no-preference){details.qa[open] .body{animation:fade .18s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
 </style>
@@ -135,6 +139,7 @@ footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px soli
     </div>
     <nav class="tabs" id="tabs" aria-label="Secțiuni">
       <a href="#rezumat">Rezumat</a>
+      <a href="#solutie">Soluție</a>
       <a href="#segmente">Clienți</a>
       <a href="#date">Date sensibile</a>
       <a href="#anonimizare">Anonimizare</a>
@@ -164,6 +169,83 @@ footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px soli
     <h2>Cele mai riscante 3 ipoteze</h2>
   </div>
   <div class="grid" id="topRisks"></div>
+</section>
+
+<!-- ================= SOLUȚIE ================= -->
+<section class="view" id="v-solutie" data-view="solutie" hidden>
+  <div class="vp">
+    <p class="vp-line"><span class="vp-k">Ajutăm</span> firmele de 1–100 de angajați care prelucrează zilnic documente cu date ale clienților (facturi, state de plată, fișe de pacient, contracte, dosare de daună)</p>
+    <p class="vp-line"><span class="vp-k">să</span> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele care identifică un client să plece din firmă</strong>,</p>
+    <p class="vp-line"><span class="vp-k">prin</span> un agent instalat pe calculatoarele firmei care interceptează local tot ce se trimite către aplicațiile AI, înlocuiește datele sensibile cu valori fictive înainte de trimitere, le pune la loc în răspuns, blochează ce nu poate fi protejat și îi arată patronului, în fiecare lună, ce categorii de date au fost oprite la ieșire.</p>
+    <p class="note">Pe slide: „AI pe documentele cu date de clienți, fără ca datele să plece din firmă.” · Specificația completă: 06-solutie.md</p>
+  </div>
+  <div class="cols2">
+    <div class="panel">
+      <h3>Ce vede patronul (exemplu fictiv)</h3>
+      <div class="example"><span class="lbl">Octombrie · 14 calculatoare</span>
+312 trimiteri către AI · 41 cu date de clienți · toate protejate
+Eliminate sau înlocuite: 58 CNP · 23 IBAN · 37 nume de clienți · 12 CUI
+Blocate: 3 (2 fișe medicale scanate, 1 fișier cu parole)</div>
+      <p class="note">Fără raport, un produs care funcționează e invizibil. Raportul e valoarea percepută <span class="tag I">I</span>. Dacă patronii îl citesc rămâne de verificat <span class="tag V">V</span>.</p>
+    </div>
+    <div class="panel">
+      <h3>Variante de testat la interviuri <span class="tag V">V</span></h3>
+      <ul class="clean">
+        <li><strong>Vizibilitate:</strong> „Ajutăm patronii firmelor mici să vadă ce date ale clienților ajung în ChatGPT și să le oprească automat…”</li>
+        <li><strong>Conformitate:</strong> „Ajutăm cabinetele de contabilitate, medicale și de avocatură să folosească AI-ul fără să încalce secretul profesional…”</li>
+      </ul>
+    </div>
+  </div>
+  <div><h2>Fluxul unui prompt, pas cu pas</h2></div>
+  <div class="panel"><ol class="qs" id="flow"></ol></div>
+  <div><h2>Documentele („hârtiile”)</h2><p class="lede">Fișierele binare nu se pot modifica sigur pe loc. Implicit trimitem textul extras și pseudonimizat în locul fișierului.</p></div>
+  <div class="tablewrap"><table><thead><tr><th>Tip fișier</th><th>Ce face agentul</th><th>De ce</th></tr></thead><tbody id="docs"></tbody></table></div>
+  <div><h2>Unde interceptăm: pe dispozitiv sau în rețea?</h2><p class="lede">Recomandare <span class="tag I">I</span>: agent pe fiecare calculator, plus o cutie de rețea care doar blochează AI-ul pe dispozitivele fără agent.</p></div>
+  <div class="tablewrap"><table><thead><tr><th>Criteriu</th><th>A. Agent pe calculator</th><th>B. Gateway în birou</th></tr></thead><tbody id="ab"></tbody></table></div>
+  <div class="tablewrap"><table><thead><tr><th>Componentă</th><th>Unde rulează</th><th>Ce face</th></tr></thead><tbody id="comps"></tbody></table></div>
+  <div>
+    <h2>Categoriile de entități (configurabile)</h2>
+    <p class="lede">Alege un pachet de pornire și schimbă acțiunea oricărei categorii. E o machetă a ecranului de configurare: arată cum ar decide agentul, nu detectează nimic.</p>
+  </div>
+  <div class="toolbar" role="group" aria-label="Pachet de pornire">
+    <button class="chip" data-pack="general" aria-pressed="true">General</button>
+    <button class="chip" data-pack="contabil" aria-pressed="false">Contabil</button>
+    <button class="chip" data-pack="medical" aria-pressed="false">Medical</button>
+    <button class="chip" data-pack="juridic" aria-pressed="false">Juridic</button>
+    <span class="count" id="catCount"></span>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Categorie</th><th>Detector</th><th>Acțiune</th><th>Decizie</th><th>Sursa detectorului</th></tr></thead><tbody id="cats"></tbody></table></div>
+  <div class="panel">
+    <h3>Categorii proprii firmei</h3>
+    <ul class="clean">
+      <li><strong>Lista clienților</strong> (import CSV sau din programul de contabilitate): prinde nume pe care modelul de recunoaștere le ratează, inclusiv declinate</li>
+      <li><strong>Termeni interni</strong>: coduri de proiect, produse nelansate → Blochează</li>
+      <li><strong>Cuvinte-cheie de segment</strong>: „dosar penal”, „partaj”, „HIV”, „psihiatric” → Blochează</li>
+    </ul>
+  </div>
+  <div class="cols2">
+    <div class="panel risk">
+      <h3>Ce NU face (spus deschis la pitch)</h3>
+      <ul class="clean">
+        <li>Nu protejează telefoanele personale; le poate doar bloca în rețeaua biroului</li>
+        <li>Nu interceptează aplicațiile cu certificate pinning; acolo doar blocare</li>
+        <li>Nu garantează anonimizarea textului liber</li>
+        <li>Nu face trimisibile contractele, strategiile sau codul sursă</li>
+        <li>Nu înlocuiește abonamentul AI de business; e complementar</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Cerințe tehnice obligatorii</h3>
+      <ul class="clean">
+        <li>QUIC blocat sau ocolit: Chrome nu folosește QUIC cu rădăcini nepublice, iar inspecția TLS cere blocarea lui <a class="src" href="#surse" data-s="S45">S45</a> <a class="src" href="#surse" data-s="S46">S46</a></li>
+        <li>Decriptăm doar domeniile AI; băncile și e-mailul rămân neatinse</li>
+        <li>Textul nu pleacă de pe calculator; raportul e pe categorii, nu pe persoane</li>
+        <li>Monitorizarea angajaților: informare, DPIA, proporționalitate (de verificat cu un jurist)</li>
+      </ul>
+    </div>
+  </div>
+  <div><h2>Testele care decid fezabilitatea</h2><p class="lede">Pragurile sunt propunerile noastre <span class="tag I">I</span>, nu standarde.</p></div>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>Test</th><th>Criteriu de trecere</th></tr></thead><tbody id="tests"></tbody></table></div>
 </section>
 
 <!-- ================= SEGMENTE ================= -->
@@ -392,7 +474,11 @@ const S = [
  ["S39","StartupCafe: amendă ANSPDCP pentru o clinică","https://startupcafe.ro/?p=109230","Secundară","Amenzi de ~2.000–3.000 € pentru clinici mici"],
  ["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html","Secundară","S AA LL ZZ JJ NNN C: sex, data nașterii, județ"],
  ["S41","Lewis Silkin: Latombe v Comisia (03.09.2025)","https://www.lewissilkin.com/insights/2025/09/03/transatlantic-trouble-not-this-time-latombes-challenge-to-eu-us-data-transfers-fails","Secundară","Cadrul UE–SUA (DPF) menținut; recurs posibil"],
- ["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/","Secundară","Trei reguli de interviu"]
+ ["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/","Secundară","Trei reguli de interviu"],
+ ["S43","Wikipedia: International Bank Account Number","https://wikipedia.com/wiki/BBAN","Secundară","Validare IBAN MOD-97-10, rest = 1"],
+ ["S44","python-stdnum: stdnum.ro.cui","https://arthurdejong.org/python-stdnum/doc/stdnum.ro.cui","Secundară","CUI: cifră de control cu cheia 753217532 (de verificat)"],
+ ["S45","Chromium: Proxy support in Chrome","https://chromium.googlesource.com/chromium/src/+/695245c/net/docs/proxy.md","Primară","Proxy HTTPS negociază HTTP/2, nu QUIC"],
+ ["S46","Zscaler: Managing the QUIC Protocol","https://help.zscaler.com/zia/managing-quic-protocol","Vânzător","Inspecția TLS recomandă blocarea QUIC"]
 ];
 const SRC = Object.fromEntries(S.map(s=>[s[0],s]));
 const esc = t => String(t).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -434,6 +520,97 @@ const top3 = [
  ["H2","Patronii plătesc, nu doar își fac griji","Lipsa expertizei (70,89%) bate protecția datelor (48,83%) [S2]. Abonamentele AI business rezolvă deja antrenarea [S26] [S27]."]
 ];
 document.getElementById("topRisks").innerHTML = top3.map(r=>`<div class="panel risk"><span class="tag V">${r[0]}</span><h3>${esc(r[1])}</h3><p>${rich(r[2])}</p></div>`).join("");
+
+/* ---------- SOLUȚIE ---------- */
+const FLOW = [
+ "Angajatul scrie în ChatGPT (browser): „Scrie-i Anei Ionescu, CNP 2850312400123, că Alfa Construct SRL are de plată 14.320 lei din contul RO49BTRL…”",
+ "Browserul trimite cererea HTTPS; proxy-ul local o primește pentru că domeniul e pe lista AI.",
+ "Proxy-ul o decriptează cu certificatul autorității locale a calculatorului și extrage textul promptului.",
+ "Motorul de detectare (local) găsește: nume, CNP, firmă, sumă, IBAN.",
+ "Politica aplică categoriile: CNP eliminat · nume → „Maria Dobre” · firmă → „Beta Instal SRL” · IBAN → IBAN fictiv valid · suma după configurare.",
+ "Corespondențele real ↔ fictiv se scriu în seiful local criptat, legat de conversație.",
+ "Cererea modificată pleacă la OpenAI. Datele reale nu ies de pe calculator.",
+ "Răspunsul vine în flux; proxy-ul îl ține în buffer până la cuvinte întregi și pune la loc valorile reale.",
+ "Angajatul vede răspunsul cu numele real și o bulină: „3 date protejate”.",
+ "Se scrie un eveniment de jurnal: doar metadate (oră, aplicație, categorii, acțiune), fără text."
+];
+document.getElementById("flow").innerHTML = FLOW.map(f=>`<li>${esc(f)}</li>`).join("");
+const DOCS = [
+ ["PDF cu text, Word, Excel, CSV","Extrage textul local → detectare → trimite textul pseudonimizat în locul fișierului, cu confirmarea angajatului","Păstrează utilitatea; fișierul original nu pleacă"],
+ ["PDF scanat, poză, poză de pe telefon","OCR local pentru română → același flux; încredere scăzută → ROȘU","Un OCR ratat e o scurgere"],
+ ["Fișier cu categorii ROȘU","Blocat, cu explicație și alternativă","Vezi matricea"],
+ ["Fișier mare cu clienți","ROȘU implicit; GALBEN doar cu toate coloanele recunoscute","O coloană ratată = scurgere în masă"]
+];
+document.getElementById("docs").innerHTML = DOCS.map(d=>`<tr><td><strong>${esc(d[0])}</strong></td><td>${esc(d[1])}</td><td>${esc(d[2])}</td></tr>`).join("");
+const AB = [
+ ["Laptopul acasă sau pe 4G","✅ protejat","❌ neprotejat"],
+ ["Telefoane personale","❌","⚠️ doar blocare"],
+ ["Certificatul de decriptare","Unul pe dispozitiv, cheia rămâne local","Unul central: un singur punct de compromis"],
+ ["Unde stau datele reale","Pe calculatorul angajatului","Pe gateway"],
+ ["Instalare la 3 oameni fără IT","Installer + acord de administrator","Hardware și configurarea routerului"],
+ ["Dacă se strică","Un calculator","Tot biroul fără AI"]
+];
+document.getElementById("ab").innerHTML = AB.map(r=>`<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+const COMPS = [
+ ["Agent (serviciu de sistem)","Fiecare calculator","Pornește proxy-ul, aplică politica, ține seiful, trimite metadate"],
+ ["Proxy HTTPS local","127.0.0.1","Interceptează doar domeniile AI; restul trece neatins"],
+ ["Autoritate de certificare locală","Generată la instalare, pe calculator","Permite decriptarea traficului AI; cere acord de administrator"],
+ ["Motor de detectare","Local","Tipare + cifre de control, liste, model NER local, cuvinte de context"],
+ ["Motor de politică","Local","Categorie × acțiune × segment → VERDE / GALBEN / ROȘU"],
+ ["Seif de corespondențe","Local, criptat","Real ↔ fictiv pe conversație; ștergere după un termen"],
+ ["Restaurare în flux","În proxy","Pune la loc valorile reale în răspunsul primit bucată cu bucată"],
+ ["Interfața angajatului","Bara de sistem","Ce s-a protejat, de ce s-a blocat, cereri de excepție"],
+ ["Consola patronului","Web (metadate)","Categorii, raport lunar, aprobarea excepțiilor"],
+ ["Cutie de rețea (opțional)","Router sau mini-PC","Blochează AI-ul prin DNS pe dispozitivele fără agent; nu decriptează"]
+];
+document.getElementById("comps").innerHTML = COMPS.map(r=>`<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+const ACTS = ["Permite","Pseudonimizează","Elimină","Generalizează","Blochează"];
+const actColor = a => a==="Permite"?"VERDE":a==="Blochează"?"ROȘU":"GALBEN";
+const CATS = [
+ ["cnp","CNP","13 cifre, structura S AA LL ZZ JJ NNN C + cifra de control","Elimină","[S40]"],
+ ["iban","IBAN","RO + 22 caractere, validare mod 97","Pseudonimizează","[S43]"],
+ ["cui","CUI / CIF","2–10 cifre + cifra de control (cheia 753217532) + context","Pseudonimizează","[S44]"],
+ ["ci","Serie și număr CI","2 litere + 6 cifre + context","Elimină","{I}"],
+ ["email","E-mail","tipar","Pseudonimizează","{I}"],
+ ["tel","Telefon RO","+40 / 07xx + 8 cifre","Pseudonimizează","{I}"],
+ ["auto","Număr de înmatriculare","B 123 ABC, CJ 12 ABC","Pseudonimizează","{I}"],
+ ["nume","Nume de persoane","model NER + listă de nume românești","Pseudonimizează","{V} calitate necunoscută"],
+ ["adresa","Adresă","NER + „str.”, „bl.”, „ap.”","Generalizează","{I}"],
+ ["sume","Sume","tipar + monedă","Permite","{I}"],
+ ["sanatate","Date de sănătate","dicționar de diagnostice + context","Blochează","{I}"],
+ ["secrete","Chei API, parole, tokenuri","tipare + entropie","Blochează","{I}"],
+ ["cod","Cod sursă","detectarea limbajului de programare","Permite","{I}"],
+ ["clienti","Lista clienților firmei","listă importată (CSV)","Pseudonimizează","{I}"],
+ ["termeni","Termeni de segment","cuvinte-cheie ale pachetului","Permite","{I}"]
+];
+const PACKS = {
+ general:{},
+ contabil:{sume:"Permite",cui:"Pseudonimizează",termeni:"Blochează"},
+ medical:{sume:"Permite",sanatate:"Blochează",nume:"Pseudonimizează",termeni:"Blochează"},
+ juridic:{nume:"Pseudonimizează",termeni:"Blochează",sume:"Pseudonimizează"}
+};
+const PACK_NOTE = {general:"categoriile implicite",contabil:"termenii AML („tranzacție suspectă”, „ONPCSB”) blocați",medical:"termenii medicali lângă nume, dată de naștere sau localitate blocați",juridic:"„strategie”, „partaj”, „penal” blocați; contractele încărcate = ROȘU"};
+let pack="general"; let catState={};
+function resetPack(p){pack=p; catState={}; CATS.forEach(c=>catState[c[0]]=(PACKS[p][c[0]])||c[3]);}
+function renderCats(){
+  document.querySelectorAll("[data-pack]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.pack===pack));
+  document.getElementById("cats").innerHTML = CATS.map(c=>`<tr><td><strong>${esc(c[1])}</strong></td><td>${esc(c[2])}</td><td><select class="act-sel" data-cat="${c[0]}" aria-label="Acțiune pentru ${esc(c[1])}">${ACTS.map(a=>`<option${catState[c[0]]===a?" selected":""}>${a}</option>`).join("")}</select></td><td data-dec="${c[0]}">${pill(actColor(catState[c[0]]))}</td><td>${rich(c[4])}</td></tr>`).join("");
+  const n={VERDE:0,GALBEN:0,"ROȘU":0}; Object.values(catState).forEach(a=>n[actColor(a)]++);
+  document.getElementById("catCount").textContent = `Pachet ${pack}: ${PACK_NOTE[pack]} · ${n.VERDE} verzi, ${n.GALBEN} galbene, ${n["ROȘU"]} roșii`;
+}
+document.querySelectorAll("[data-pack]").forEach(b=>b.addEventListener("click",()=>{resetPack(b.dataset.pack); renderCats()}));
+document.getElementById("cats").addEventListener("change",e=>{const s=e.target.closest("select[data-cat]"); if(!s) return; catState[s.dataset.cat]=s.value; renderCats();});
+resetPack("general"); renderCats();
+const TESTS = [
+ ["T1","Proxy local + certificat local, ChatGPT web în Chrome și Edge","Promptul e citit și modificat; site-ul merge normal 30 de minute"],
+ ["T2","QUIC blocat","Zero cereri către chatgpt.com ocolesc proxy-ul (captură de trafic)"],
+ ["T3","Restaurare în flux","20 de prompturi fictivizate: datele reale la locul lor în ≥ 19"],
+ ["T4","Detectare pe română","100 de texte fictive: CNP/IBAN/CUI ≈ 100%; se măsoară numele ratate"],
+ ["T5","OCR pe un document scanat românesc","Toate CNP-urile și IBAN-urile găsite"],
+ ["T6","Aplicațiile desktop (ChatGPT, Claude, Copilot)","Interceptabile sau nu (pinning)"],
+ ["T7","Latență","Întârziere adăugată < 1 s pe un laptop de birou modest"]
+];
+document.getElementById("tests").innerHTML = TESTS.map(t=>`<tr><td class="num">${t[0]}</td><td><strong>${esc(t[1])}</strong></td><td>${esc(t[2])}</td></tr>`).join("");
 
 /* ---------- SEGMENTE ---------- */
 const roles = [
@@ -785,7 +962,7 @@ document.getElementById("srcType").addEventListener("change",renderSrc);
 renderSrc();
 
 /* ---------- NAVIGARE ---------- */
-const VIEWS=["rezumat","segmente","date","anonimizare","matrice","ipoteze","mentori","critica","surse"];
+const VIEWS=["rezumat","solutie","segmente","date","anonimizare","matrice","ipoteze","mentori","critica","surse"];
 function show(){
   const h=(location.hash||"#rezumat").slice(1), v=VIEWS.includes(h)?h:"rezumat";
   document.querySelectorAll("section.view").forEach(s=>s.hidden = s.dataset.view!==v);
