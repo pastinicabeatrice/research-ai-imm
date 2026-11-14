@@ -2,7 +2,9 @@
 
 Research din faza de analiză a problemei pentru hackathon: ce date lipesc angajații firmelor mici (10–100 de oameni) în ChatGPT, Claude, Gemini și Copilot, ce se poate pseudonimiza și ce trebuie blocat.
 
-**Dashboard interactiv:** https://pastinicabeatrice.github.io/research-ai-imm/
+**Pagina provocării:** https://pastinicabeatrice.github.io/research-ai-imm/provocare.html
+
+**Dashboard interactiv (research detaliat):** https://pastinicabeatrice.github.io/research-ai-imm/
 
 | Fișier | Conținut |
 |---|---|

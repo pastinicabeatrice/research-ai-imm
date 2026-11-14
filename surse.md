@@ -89,6 +89,8 @@ Unde n-am putut citi textul oficial, scrie „de verificat”.
 | S45 | [Chromium, „Proxy support in Chrome”](https://chromium.googlesource.com/chromium/src/+/695245c/net/docs/proxy.md) | Primară (documentație) | Proxy-urile HTTPS negociază HTTP/2, nu QUIC; schema QUIC pentru proxy e experimentală |
 | S46 | [Zscaler, „Managing the QUIC Protocol”](https://help.zscaler.com/zia/managing-quic-protocol) | Vânzător (documentație) | Pentru inspecția TLS se recomandă blocarea QUIC; browserul revine pe TCP |
 
+| S47 | [RONEC, Romanian Named Entity Corpus (GitHub)](https://github.com/dumitrescustefan/ronec) și [articolul LREC 2020](https://aclanthology.org/2020.lrec-1.546) | Primară (cercetare) | ~26.000 de entități în ~5.000 de propoziții din presă, 16 clase; licență MIT (după fișa Hugging Face) |
+
 ## Metodă de interviu
 
 | ID | Sursă | Tip | Ce am luat |
