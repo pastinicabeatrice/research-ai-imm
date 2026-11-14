@@ -5,20 +5,22 @@
 
 ## 1. Propoziția de valoare
 
-### Varianta recomandată (formula „Ajutăm… să… prin…”)
+### Varianta recomandată (formula „Ajutăm… să… prin…”), revizuită
 
-> **Ajutăm** firmele de 1–100 de angajați care prelucrează zilnic documente cu date ale clienților (facturi, state de plată, fișe de pacient, contracte, dosare de daună)
-> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente **fără ca datele care identifică un client să plece din firmă**,
-> **prin** un agent instalat pe calculatoarele firmei care interceptează local tot ce se trimite către aplicațiile AI, înlocuiește datele sensibile cu valori fictive înainte de trimitere, le pune la loc în răspuns, blochează ce nu poate fi protejat și îi arată patronului, în fiecare lună, ce categorii de date au fost oprite la ieșire.
+Revizuită după [07-problema.md](07-problema.md): protejăm **cinci clase de date**, nu doar datele clienților.
 
-**Pe scurt, pentru slide:** *„AI pe documentele cu date de clienți, fără ca datele să plece din firmă.”*
+> **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)
+> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
+> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.
+
+**Pe scurt, pentru slide:** *„AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă.”*
 
 ### De ce formularea asta, cuvânt cu cuvânt [I]
 | Bucată | De ce e aleasă |
 |---|---|
 | „prelucrează zilnic documente cu date ale clienților” | Definește clientul după **ce face**, nu după domeniu. Testul de calificare la interviu e simplu: „ce documente cu date de clienți ați deschis ieri?” |
 | „să folosească … pe aceste documente” | Valoarea e **câștigul** (AI pe munca reală), nu frica. Patronul cumpără productivitate fără risc, nu un al doilea antivirus |
-| „fără ca datele care identifică un client să plece din firmă” | Promisiune verificabilă și mai îngustă decât „datele sunt în siguranță”. Nu promitem anonimizare (vezi [03](03-anonimizare.md)) |
+| „să plece din firmă în formă identificabilă” | Promisiune verificabilă și mai îngustă decât „datele sunt în siguranță”. Nu promitem anonimizare (vezi [03](03-anonimizare.md)). La cifrele firmei ascundem **a cui** sunt, nu cifrele însele (vezi [07 §4.3](07-problema.md)) |
 | „interceptează local” | Diferența față de soluțiile cloud: nimic nu trece printr-un server al nostru [I] |
 | „îi arată patronului … ce a fost oprit” | **Valoarea percepută.** Fără raport, un produs care funcționează e invizibil. Raportul face protecția vizibilă |
 
@@ -142,7 +144,9 @@ Fiecare categorie are aceleași câmpuri, editabile din consolă:
 | Număr de înmatriculare | `B 123 ABC`, `CJ 12 ABC` | Pseudonimizează | [I] |
 | Nume de persoane | model NER + listă de prenume și nume românești | Pseudonimizează (nume fictiv de același gen) | [V] calitate necunoscută |
 | Adresă | NER + cuvinte („str.”, „bl.”, „ap.”) | Generalizează (doar orașul) | [I] |
-| Sume | tipar + monedă | Permite (implicit) / Pseudonimizează (configurabil) | [I] |
+| Sume | tipar + monedă | Permite (implicit) / **Scalează** cu factor secret pentru cifrele firmei (configurabil); nu scalează când promptul pomenește praguri legale | [I], vezi [07 §4.3](07-problema.md) |
+| Numele și CUI-ul firmei proprii | listă (setată la instalare) | Pseudonimizează | [I] |
+| Furnizori, produse, proiecte interne | listă importată de patron | Pseudonimizează / Blochează | [I] |
 | Date de sănătate | dicționar de diagnostice + cuvinte („diagnostic”, „tratament”) | **Blochează** | [I] |
 | Secrete tehnice | chei API, parole, tokenuri (tipare + entropie) | **Blochează** | [I] |
 | Cod sursă | detectarea limbajului de programare | Blochează (firme IT) / Permite (alții) | [I] |

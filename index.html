@@ -139,6 +139,7 @@ footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px soli
     </div>
     <nav class="tabs" id="tabs" aria-label="Secțiuni">
       <a href="#rezumat">Rezumat</a>
+      <a href="#problema">Problema</a>
       <a href="#solutie">Soluție</a>
       <a href="#segmente">Clienți</a>
       <a href="#date">Date sensibile</a>
@@ -171,13 +172,74 @@ footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px soli
   <div class="grid" id="topRisks"></div>
 </section>
 
+<!-- ================= PROBLEMA ================= -->
+<section class="view" id="v-problema" data-view="problema" hidden>
+  <div class="callout">
+    <h3>Problema într-o frază</h3>
+    <p>În firmele de 1–100 de angajați, oamenii lipesc în ChatGPT, Claude, Gemini sau Copilot documente de lucru care conțin <strong>cinci feluri de date protejate</strong>: ale clienților persoane fizice, ale firmelor-client, ale angajaților, <strong>secretele financiare și comerciale ale firmei însăși</strong> și parole. Patronul nu vede ce pleacă, deci fie interzice AI-ul, fie speră că nu se întâmplă nimic.</p>
+    <p class="note">„Oamenii lipesc” e ipoteza cea mai riscantă <span class="tag V">V</span>: în RO nu avem date, doar cifre de la vânzători <a class="src" href="#surse" data-s="S29">S29</a> <a class="src" href="#surse" data-s="S31">S31</a>.</p>
+  </div>
+  <div class="cols2">
+    <div class="panel">
+      <h3>Ce firme: toate patru criteriile</h3>
+      <ol class="qs">
+        <li><strong>1–100 de angajați</strong> care lucrează la calculator</li>
+        <li>Prelucrează <strong>documente cu date ale altora</strong> sau <strong>cifre ale firmei</strong> pe care concurența n-ar trebui să le vadă</li>
+        <li>Au o <strong>obligație de confidențialitate</strong>: GDPR, secret profesional, NDA sau secret comercial</li>
+        <li><strong>N-au departament de IT sau securitate</strong></li>
+      </ol>
+      <p class="note">Întrebarea de calificare: „Ce document cu date de clienți sau cu cifre ale firmei ați deschis ieri la calculator?”</p>
+    </div>
+    <div class="panel">
+      <h3>Piața (cifre găsite)</h3>
+      <div class="tablewrap"><table><thead><tr><th>Mărime</th><th>Firme RO 2025</th><th>Pentru noi</th></tr></thead><tbody>
+        <tr><td>Micro (0–9)</td><td class="num">987.671</td><td>Fără IT: patronul instalează singur</td></tr>
+        <tr><td>Mici (10–49)</td><td class="num">44.894</td><td>De obicei firmă IT externă (de verificat)</td></tr>
+        <tr><td>Mijlocii (50–100)</td><td class="num">? din 7.659</td><td>Cifra pentru 50–100 e necunoscută</td></tr>
+      </tbody></table></div>
+      <p class="note">Sursă <a class="src" href="#surse" data-s="S3">S3</a>. Câte sunt în segmentele noastre: necunoscut (INS TEMPO pe cod CAEN).</p>
+    </div>
+  </div>
+  <div><h2>Cele cinci clase de date</h2><p class="lede">Nu protejăm doar datele clienților. Protejăm toate cele cinci clase, dar diferit, pentru că diferă cine decide și ce se poate ascunde.</p></div>
+  <div class="tablewrap"><table><thead><tr><th>Clasa</th><th>Exemple concrete</th><th>Cine e prejudiciat</th><th>Baza legală</th><th>Implicit</th><th>Se poate relaxa?</th></tr></thead><tbody id="classes"></tbody></table></div>
+  <div><h2>Documentele, pe segmente</h2></div>
+  <div class="tablewrap"><table><thead><tr><th>Segment</th><th>Documente zilnice</th><th>Clase de date</th></tr></thead><tbody id="segdocs"></tbody></table></div>
+  <div class="cols2">
+    <div class="panel">
+      <h3>De ce nu doar datele clienților <span class="tag I">I</span></h3>
+      <ul class="clean">
+        <li>La firmele B2B, „datele clientului” sunt chiar <strong>secretele lui financiare</strong>: pentru un contabil, balanța unui client e clasa B, nu A</li>
+        <li>Patronul plătește. Ipoteză: <strong>marjele și ofertele</strong> îl dor mai tare decât o amendă GDPR <span class="tag V">V</span></li>
+        <li>Secretul comercial e protejat doar dacă firma ia <strong>„măsuri rezonabile”</strong> <a class="src" href="#surse" data-s="S15">S15</a>; instrumentul poate fi dovada acestor măsuri</li>
+        <li>Toate firmele au clasa D, deci piața e mai largă</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Secretele financiare: ascundem a cui sunt, nu cifrele</h3>
+      <ul class="clean">
+        <li><strong>Nume, CUI, clienți, furnizori, produse</strong> → nume fictive: AI-ul nu mai știe a cui e balanța</li>
+        <li><strong>Sume absolute</strong> → scalare cu un factor secret, același pe conversație: marjele, procentele și creșterile rămân corecte</li>
+        <li><strong>Praguri legale</strong> în prompt („plafon”, „micro”, „TVA la încasare”) → nu scalăm; doar ascundem identitatea și avertizăm</li>
+        <li><strong>Oferte la licitație, strategii de preț, planuri de concedieri</strong> → ROȘU implicit; patronul poate permite</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols2" id="finExample"></div>
+  <div class="vp">
+    <p class="note">Propunerea de valoare, revizuită</p>
+    <p class="vp-line"><span class="vp-k">Ajutăm</span> firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)</p>
+    <p class="vp-line"><span class="vp-k">să</span> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă</strong>,</p>
+    <p class="vp-line"><span class="vp-k">prin</span> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.</p>
+  </div>
+</section>
+
 <!-- ================= SOLUȚIE ================= -->
 <section class="view" id="v-solutie" data-view="solutie" hidden>
   <div class="vp">
-    <p class="vp-line"><span class="vp-k">Ajutăm</span> firmele de 1–100 de angajați care prelucrează zilnic documente cu date ale clienților (facturi, state de plată, fișe de pacient, contracte, dosare de daună)</p>
-    <p class="vp-line"><span class="vp-k">să</span> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele care identifică un client să plece din firmă</strong>,</p>
-    <p class="vp-line"><span class="vp-k">prin</span> un agent instalat pe calculatoarele firmei care interceptează local tot ce se trimite către aplicațiile AI, înlocuiește datele sensibile cu valori fictive înainte de trimitere, le pune la loc în răspuns, blochează ce nu poate fi protejat și îi arată patronului, în fiecare lună, ce categorii de date au fost oprite la ieșire.</p>
-    <p class="note">Pe slide: „AI pe documentele cu date de clienți, fără ca datele să plece din firmă.” · Specificația completă: 06-solutie.md</p>
+    <p class="vp-line"><span class="vp-k">Ajutăm</span> firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)</p>
+    <p class="vp-line"><span class="vp-k">să</span> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă</strong>,</p>
+    <p class="vp-line"><span class="vp-k">prin</span> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.</p>
+    <p class="note">Pe slide: „AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă.” · Specificația completă: 06-solutie.md · Problema exactă: fila Problema</p>
   </div>
   <div class="cols2">
     <div class="panel">
@@ -521,6 +583,35 @@ const top3 = [
 ];
 document.getElementById("topRisks").innerHTML = top3.map(r=>`<div class="panel risk"><span class="tag V">${r[0]}</span><h3>${esc(r[1])}</h3><p>${rich(r[2])}</p></div>`).join("");
 
+/* ---------- PROBLEMA ---------- */
+const CLASSES = [
+ ["A. Clienți persoane fizice","Nume + CNP, diagnostic, adresă, IBAN personal, istoric de daune","Persoana, apoi firma (amendă)","GDPR, art. 9; Legea 190/2018; secret profesional [S13] [S10] [S11]","Pornit","Nu, sub minimul legal"],
+ ["B. Firme-client","Balanța unui SRL-client, contractul lui, codul lui sursă, datoriile lui la ANAF","Firma-client, apoi noi","Secret profesional (contabil, avocat), NDA; nu GDPR [S7] [S9]","Pornit","Doar cu acordul clientului"],
+ ["C. Angajați proprii","Salarii individuale, CNP-uri, concedii medicale, evaluări","Angajatul, apoi firma","GDPR, Codul muncii [S17]","Pornit","Nu, sub minimul legal"],
+ ["D. Secretele firmei","Cifra de afaceri, marje, prețuri și oferte, lista și tarifele clienților, contracte cu furnizori, datorii, planuri","Firma (concurența)","Secret comercial, doar cu „măsuri rezonabile” [S15]","Pornit, configurabil","Da, complet: patronul decide"],
+ ["E. Date de acces","Parole, chei API, token SPV, coduri bancare, certificate","Toți","GDPR art. 32 (securitate)","Blocat mereu","Nu"]
+];
+document.getElementById("classes").innerHTML = CLASSES.map(c=>`<tr><td><strong>${esc(c[0])}</strong></td><td>${esc(c[1])}</td><td>${esc(c[2])}</td><td>${rich(c[3])}</td><td>${c[4]==="Blocat mereu"?pill("ROȘU").replace("Roșu","Blocat"):`<span class="pill GALBEN"><span class="dot"></span>${esc(c[4])}</span>`}</td><td>${esc(c[5])}</td></tr>`).join("");
+const SEGDOCS = [
+ ["Contabilitate","Balanțe, state de plată, D112/D300, extrase bancare, facturi","B · A · C · D · E"],
+ ["Medical","Fișe de consultație, scrisori medicale, analize, programări","A · C · D"],
+ ["Avocatură","Contracte, cereri de chemare în judecată, corespondență, acte de identitate","A · B · D"],
+ ["Asigurări","Cereri de ofertă, chestionare medicale, dosare de daună, copii CI și talon","A · B · D"],
+ ["Imobiliare","Contracte de intermediere, extrase CF, copii CI, oferte de preț","A · D"],
+ ["Recrutare / HR","CV-uri, evaluări, grile de salarizare, contracte de muncă","A · C · D"],
+ ["IT outsourcing","Cod sursă al clienților, specificații, chei de acces, oferte","B · D · E"],
+ ["Orice firmă mică","Situații financiare, oferte, contracte cu furnizori, salarii, cash-flow","C · D"]
+];
+document.getElementById("segdocs").innerHTML = SEGDOCS.map(s=>`<tr><td><strong>${esc(s[0])}</strong></td><td>${esc(s[1])}</td><td class="num">${esc(s[2])}</td></tr>`).join("");
+document.getElementById("finExample").innerHTML = `<div class="panel"><div class="legend">${pill("GALBEN")} <span>Cabinet de contabilitate · exemplu fictiv</span></div>
+<div class="example"><span class="lbl">Original</span>\nAnalizează balanța Alfa Construct SRL (CUI 12345678) pe T3: cifră de afaceri 2.340.000 lei, profit 312.000 lei, 41% din vânzări către Dedeman.</div>
+<div class="example"><span class="lbl">Trimis la AI (×1,37, nume fictive)</span>\nAnalizează balanța <mark class="ph">Beta Instal SRL</mark> (CUI <mark class="ph">[fictiv]</mark>) pe T3: cifră de afaceri <mark class="ph">3.205.800</mark> lei, profit <mark class="ph">427.440</mark> lei, 41% din vânzări către <mark class="ph">Client_A</mark>.</div>
+<p class="note">Marja (13,3%) și concentrarea pe un client (41%) rămân corecte.</p></div>
+<div class="panel"><div class="legend">${pill("GALBEN")} <span>Același document, cu prag legal</span></div>
+<div class="example"><span class="lbl">Prompt</span>\n…Merită să treacă pe impozit pe profit?</div>
+<p>Răspunsul depinde de <strong>plafoane fixe din lege</strong>. Pe sume scalate, AI-ul poate greși. Agentul <strong>nu scalează</strong>: ascunde doar numele și CUI-ul și îl avertizează pe angajat că sumele pleacă reale, fără nume. <span class="tag I">I</span></p>
+<p class="note">Limită: firmele unice se pot recunoaște din cifre și context chiar și fără nume.</p></div>`;
+
 /* ---------- SOLUȚIE ---------- */
 const FLOW = [
  "Angajatul scrie în ChatGPT (browser): „Scrie-i Anei Ionescu, CNP 2850312400123, că Alfa Construct SRL are de plată 14.320 lei din contul RO49BTRL…”",
@@ -564,7 +655,7 @@ const COMPS = [
  ["Cutie de rețea (opțional)","Router sau mini-PC","Blochează AI-ul prin DNS pe dispozitivele fără agent; nu decriptează"]
 ];
 document.getElementById("comps").innerHTML = COMPS.map(r=>`<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
-const ACTS = ["Permite","Pseudonimizează","Elimină","Generalizează","Blochează"];
+const ACTS = ["Permite","Pseudonimizează","Scalează","Elimină","Generalizează","Blochează"];
 const actColor = a => a==="Permite"?"VERDE":a==="Blochează"?"ROȘU":"GALBEN";
 const CATS = [
  ["cnp","CNP","13 cifre, structura S AA LL ZZ JJ NNN C + cifra de control","Elimină","[S40]"],
@@ -576,7 +667,9 @@ const CATS = [
  ["auto","Număr de înmatriculare","B 123 ABC, CJ 12 ABC","Pseudonimizează","{I}"],
  ["nume","Nume de persoane","model NER + listă de nume românești","Pseudonimizează","{V} calitate necunoscută"],
  ["adresa","Adresă","NER + „str.”, „bl.”, „ap.”","Generalizează","{I}"],
- ["sume","Sume","tipar + monedă","Permite","{I}"],
+ ["sume","Sume (cifrele firmei)","tipar + monedă; fără scalare dacă promptul pomenește praguri legale","Scalează","{I} factor secret pe conversație"],
+ ["firma","Numele și CUI-ul firmei proprii","listă setată la instalare","Pseudonimizează","{I}"],
+ ["furnizori","Furnizori, produse, proiecte interne","listă importată de patron","Pseudonimizează","{I}"],
  ["sanatate","Date de sănătate","dicționar de diagnostice + context","Blochează","{I}"],
  ["secrete","Chei API, parole, tokenuri","tipare + entropie","Blochează","{I}"],
  ["cod","Cod sursă","detectarea limbajului de programare","Permite","{I}"],
@@ -585,9 +678,9 @@ const CATS = [
 ];
 const PACKS = {
  general:{},
- contabil:{sume:"Permite",cui:"Pseudonimizează",termeni:"Blochează"},
+ contabil:{sume:"Scalează",cui:"Pseudonimizează",clienti:"Pseudonimizează",termeni:"Blochează"},
  medical:{sume:"Permite",sanatate:"Blochează",nume:"Pseudonimizează",termeni:"Blochează"},
- juridic:{nume:"Pseudonimizează",termeni:"Blochează",sume:"Pseudonimizează"}
+ juridic:{nume:"Pseudonimizează",termeni:"Blochează",sume:"Scalează"}
 };
 const PACK_NOTE = {general:"categoriile implicite",contabil:"termenii AML („tranzacție suspectă”, „ONPCSB”) blocați",medical:"termenii medicali lângă nume, dată de naștere sau localitate blocați",juridic:"„strategie”, „partaj”, „penal” blocați; contractele încărcate = ROȘU"};
 let pack="general"; let catState={};
@@ -962,7 +1055,7 @@ document.getElementById("srcType").addEventListener("change",renderSrc);
 renderSrc();
 
 /* ---------- NAVIGARE ---------- */
-const VIEWS=["rezumat","solutie","segmente","date","anonimizare","matrice","ipoteze","mentori","critica","surse"];
+const VIEWS=["rezumat","problema","solutie","segmente","date","anonimizare","matrice","ipoteze","mentori","critica","surse"];
 function show(){
   const h=(location.hash||"#rezumat").slice(1), v=VIEWS.includes(h)?h:"rezumat";
   document.querySelectorAll("section.view").forEach(s=>s.hidden = s.dataset.view!==v);

@@ -1,7 +1,16 @@
 # 00 · Rezumat
 
 > Data research-ului: **2026-11-14**. **[F]** faptă cu sursă ([surse.md](surse.md)) · **[I]** ipoteză · **[V]** de validat la interviuri.
-> Fișiere: [01 Clienți](01-clienti.md) · [02 Date sensibile](02-date-sensibile.md) · [03 Anonimizare](03-anonimizare.md) · [04 Matrice](04-matrice-decizie.md) · [05 Interviuri](05-ipoteze-si-interviuri.md)
+> Fișiere: [01 Clienți](01-clienti.md) · [02 Date sensibile](02-date-sensibile.md) · [03 Anonimizare](03-anonimizare.md) · [04 Matrice](04-matrice-decizie.md) · [05 Interviuri](05-ipoteze-si-interviuri.md) · [06 Soluție](06-solutie.md) · [07 Problema exactă](07-problema.md)
+
+> **Actualizare:** problema acoperă **cinci clase de date**, nu doar datele clienților:
+> - **A.** clienți persoane fizice;
+> - **B.** firme-client;
+> - **C.** angajați;
+> - **D.** secretele financiare și comerciale ale firmei;
+> - **E.** parole și date de acces.
+>
+> A, C și E sunt protejate obligatoriu. B se poate relaxa doar cu acordul clientului. D e configurabilă de patron. La cifrele financiare ascundem **a cui** sunt (nume, CUI) și, la nevoie, scalăm sumele, fără să le ascundem de tot. Detalii în [07](07-problema.md).
 
 ## Răspunsuri scurte la cele 9 întrebări
 
