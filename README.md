@@ -4,6 +4,8 @@ Research din faza de analiză a problemei pentru hackathon: ce date lipesc angaj
 
 **Pagina provocării:** https://pastinicabeatrice.github.io/research-ai-imm/provocare.html
 
+**Pagina soluției (cu ghidul de interviu):** https://pastinicabeatrice.github.io/research-ai-imm/solutie.html
+
 **Dashboard interactiv (research detaliat):** https://pastinicabeatrice.github.io/research-ai-imm/
 
 | Fișier | Conținut |

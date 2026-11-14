@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Soluția AI fără scurgeri</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: pagină lungă de prezentare, aceeași familie vizuală cu pagina provocării; benzi alternante, max 1180px.
+   O singură temă, întunecată, aleasă deliberat. */
+:root{
+  --bg:#0a1416; --band:#0e1d20; --card:#12272b; --card2:#0b1a1d; --line:#21403f; --ink:#ecf4f2; --muted:#a6bcb8;
+  --mint:#62e3d5; --mint-ink:#062023; --teal:#0d8fa3; --coral:#f2766b; --amber:#f2c14e; --violet:#b989f0; --green:#6fd99a;
+  --g-soft:#123d2a; --y-soft:#3d3110; --r-soft:#45201d;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--mint)}
+:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-block:12px;scrollbar-width:thin}
+nav.top .brand{font-weight:700;color:var(--mint);white-space:nowrap;margin-right:18px;text-decoration:none}
+nav.top a.l{color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:.85}
+nav.top a.l:hover{opacity:1;background:var(--card)}
+section{padding-block:72px}
+section.band{background:var(--band)}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,5.5vw,3.7rem);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+h2{font-size:clamp(1.9rem,4.4vw,3rem);font-weight:800;letter-spacing:-.025em;line-height:1.08}
+h3{font-size:1.25rem;font-weight:700;line-height:1.25}
+p{margin:0}
+.sub{color:var(--muted);font-size:1.08rem;margin-top:8px;max-width:75ch}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.stack{display:flex;flex-direction:column;gap:28px}
+.grid{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.dark{background:var(--card2)}
+.card p{color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.88rem;font-weight:600;padding:8px 14px;border-radius:999px;background:#0f3b3c;color:var(--mint);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--mint);color:var(--mint-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.mark{font-size:.75rem;font-weight:700;padding:1px 7px;border-radius:5px;border:1px solid currentColor;vertical-align:2px;margin-left:4px}
+.mark.i{color:var(--violet)} .mark.v{color:var(--amber)} .mark.f{color:var(--mint)}
+/* hero */
+.status{display:inline-flex;gap:8px;align-items:center;background:var(--y-soft);color:var(--amber);font-weight:700;font-size:.85rem;padding:6px 14px;border-radius:999px;align-self:flex-start}
+.vp{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px 30px;display:flex;flex-direction:column;gap:12px}
+.vp p{font-size:1.12rem;line-height:1.55;max-width:80ch}
+.vp b.k{font-family:var(--display);color:var(--mint);font-size:1.35rem;margin-right:4px}
+/* flux */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:stretch}
+.fstep{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;position:relative}
+.fstep.agent{background:var(--teal);border-color:var(--teal)}
+.fstep.agent p,.fstep.agent h3{color:#fff}
+.fstep .n{font-family:var(--display);font-weight:800;color:var(--mint);font-size:1.6rem}
+.fstep.agent .n{color:#fff}
+.arrow{display:grid;place-items:center;color:var(--mint);font-size:1.6rem}
+.flow{grid-template-columns:minmax(0,1fr) 34px minmax(0,1.2fr) 34px minmax(0,1fr) 34px minmax(0,1.2fr) 34px minmax(0,1fr)}
+@media (max-width:900px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);height:34px}}
+.local{border:2px dashed var(--mint);border-radius:26px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.local .eyebrow{color:var(--mint)}
+/* demo */
+.demo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.demo{grid-template-columns:1fr}}
+.pane{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pane .eyebrow{color:var(--muted)}
+.pane pre{margin:0;font-family:var(--mono);font-size:.86rem;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+mark.r{background:var(--r-soft);color:#ffb4ad;border-radius:4px;padding:0 3px}
+mark.f{background:var(--y-soft);color:var(--amber);border-radius:4px;padding:0 3px}
+mark.g{background:var(--g-soft);color:var(--green);border-radius:4px;padding:0 3px}
+.verdict{display:inline-flex;gap:8px;align-items:center;font-weight:700;padding:6px 14px;border-radius:999px;align-self:flex-start}
+.verdict.VERDE{background:var(--g-soft);color:var(--green)} .verdict.GALBEN{background:var(--y-soft);color:var(--amber)} .verdict.ROSU{background:var(--r-soft);color:var(--coral)}
+.verdict i{width:9px;height:9px;border-radius:50%;background:currentColor}
+/* clase */
+.cls{border-top:4px solid var(--line)}
+.cls .tag{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1}
+.cls .rule{font-weight:700;color:var(--ink)}
+/* raport */
+.report{background:#f6fbfa;color:var(--mint-ink);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:14px;font-variant-numeric:tabular-nums}
+.report h3{color:var(--mint-ink)}
+.report .row{display:flex;flex-wrap:wrap;gap:12px}
+.report .kv{background:#e3f4f1;border-radius:14px;padding:12px 16px;min-width:120px}
+.report .kv b{display:block;font-family:var(--display);font-size:1.8rem;line-height:1.1}
+.report .kv span{font-size:.85rem;color:#2e5753}
+.report .note{font-size:.82rem;color:#4b6e6a}
+/* comparație */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--card2)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td.y{color:var(--green);font-weight:700} td.n{color:var(--coral);font-weight:700} td.p{color:var(--amber);font-weight:700}
+tr.us td{background:#0f2f2e}
+tr.us td:first-child{color:var(--mint);font-weight:700}
+/* limite & teste */
+ul.pm{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ul.pm li{display:flex;gap:10px;color:var(--muted)}
+ul.pm li b{flex:0 0 auto;font-weight:800;color:var(--coral)}
+.test{display:flex;gap:14px;align-items:flex-start}
+.test .id{font-family:var(--mono);font-weight:600;background:#0f3b3c;color:var(--mint);padding:3px 9px;border-radius:7px;flex:0 0 auto}
+/* interviu */
+.script{background:var(--mint);color:var(--mint-ink);border-radius:32px;padding:clamp(22px,4vw,48px);display:flex;flex-direction:column;gap:22px}
+.script h2,.script h3{color:var(--mint-ink)}
+.script .lead{color:#0d3a3a;font-size:1.05rem;max-width:80ch}
+.rules{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.rules div{background:#fff;border-radius:16px;padding:14px 16px;font-weight:600}
+.rules div span{display:block;font-weight:400;color:#2e5753;font-size:.9rem;margin-top:4px}
+.roles{display:flex;flex-wrap:wrap;gap:8px}
+.rb{font:inherit;font-weight:700;padding:10px 18px;border-radius:999px;border:2px solid var(--mint-ink);background:transparent;color:var(--mint-ink);cursor:pointer}
+.rb[aria-pressed="true"]{background:var(--mint-ink);color:var(--mint)}
+.phase{background:#fff;border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.phase .ph{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.phase .ph small{color:#2e5753;font-weight:600}
+.phase ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:10px}
+.phase li span.why{display:block;color:#3c5f5c;font-size:.88rem;margin-top:2px}
+.cp{font:inherit;font-weight:700;padding:12px 22px;border-radius:999px;border:2px solid var(--mint-ink);background:transparent;color:var(--mint-ink);cursor:pointer;align-self:flex-start}
+.avoid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.avoid div{background:#fff;border-radius:14px;padding:12px 14px;font-size:.92rem}
+.avoid s{color:#a2392e}
+.avoid b{color:#0b6a3f}
+footer{padding-block:48px;border-top:1px solid var(--line)}
+footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:4px}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Secțiuni">
+  <div class="wrap">
+    <a class="brand" href="#start">Soluția</a>
+    <a class="l" href="#cum">Cum funcționează</a>
+    <a class="l" href="#demo">Exemple</a>
+    <a class="l" href="#ce">Ce protejăm</a>
+    <a class="l" href="#patron">Ce vede patronul</a>
+    <a class="l" href="#dece">De ce noi</a>
+    <a class="l" href="#limite">Limite și teste</a>
+    <a class="l" href="#interviu">Întrebări de interviu</a>
+  </div>
+</nav>
+
+<main>
+<section id="start">
+  <div class="wrap stack">
+    <span class="status">● În validare: designul e gata, prototipul nu e testat încă</span>
+    <h1>AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă</h1>
+    <div class="vp">
+      <p><b class="k">Ajutăm</b> firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)</p>
+      <p><b class="k">să</b> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă</strong>,</p>
+      <p><b class="k">prin</b> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>Pentru angajat</h3><p>Lucrează în ChatGPT ca până acum. Primește răspunsul cu datele reale. Vede ce a fost protejat.</p></div>
+      <div class="card"><h3>Pentru patron</h3><p>Nu mai alege între a interzice AI-ul și a spera. Vede lunar ce a fost oprit la ieșire.</p></div>
+      <div class="card"><h3>Pentru omul de IT</h3><p>Un agent de instalat, fără hardware nou. Categoriile se configurează dintr-o consolă.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cum" class="band">
+  <div class="wrap stack">
+    <div><h2>Cum funcționează</h2><p class="sub">Tot ce e în chenarul punctat se întâmplă pe calculatorul angajatului. Datele reale nu ies de acolo.</p></div>
+    <div class="local">
+      <p class="eyebrow">Pe calculatorul firmei</p>
+      <div class="flow">
+        <div class="fstep"><span class="n">1</span><h3>Angajatul scrie</h3><p>Lipește în ChatGPT un e-mail sau o balanță cu nume, CNP, IBAN, sume.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fstep agent"><span class="n">2</span><h3>Agentul prinde cererea</h3><p>Un proxy local interceptează doar domeniile AI și găsește datele sensibile.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fstep agent"><span class="n">3</span><h3>Decide și ascunde</h3><p>VERDE trece. GALBEN: nume și CUI fictive, CNP eliminat, sume scalate. ROȘU: blocat.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fstep"><span class="n">4</span><h3>AI-ul răspunde</h3><p>Primește doar valori fictive. Răspunde normal.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fstep agent"><span class="n">5</span><h3>Pune la loc</h3><p>Agentul înlocuiește valorile fictive cu cele reale în răspuns. Angajatul vede „3 date protejate”.</p></div>
+      </div>
+    </div>
+    <div class="grid g4">
+      <div class="card dark"><h3>Doar domeniile AI</h3><p>ChatGPT, Claude, Gemini, Copilot. Băncile, e-mailul și restul traficului nu sunt atinse.</p></div>
+      <div class="card dark"><h3>Categorii configurabile</h3><p>CNP, IBAN, CUI cu cifră de control; nume; lista clienților firmei; cifrele firmei; termeni interni.</p></div>
+      <div class="card dark"><h3>Documente</h3><p>PDF, Word, Excel, scanuri: se extrage textul local (cu OCR) și pleacă textul curățat, nu fișierul.</p></div>
+      <div class="card dark"><h3>La îndoială, mai strict</h3><p>Dacă nu e sigur că a găsit tot, agentul alege varianta mai protectoare.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap stack">
+    <div><h2>Ce scrie angajatul și ce pleacă de fapt</h2><p class="sub">Exemple fictive. Alegeți un caz.</p></div>
+    <div class="chips" role="group" aria-label="Alege exemplul" id="demoBtns"></div>
+    <span class="verdict" id="demoVerdict"></span>
+    <div class="demo">
+      <div class="pane"><p class="eyebrow">1 · Ce scrie angajatul</p><pre id="dIn"></pre></div>
+      <div class="pane"><p class="eyebrow">2 · Ce pleacă la AI</p><pre id="dOut"></pre></div>
+      <div class="pane"><p class="eyebrow">3 · Ce vede angajatul</p><pre id="dBack"></pre></div>
+    </div>
+    <p class="sub" id="dNote"></p>
+  </div>
+</section>
+
+<section id="ce" class="band">
+  <div class="wrap stack">
+    <div><h2>Ce protejăm: cinci clase de date</h2><p class="sub">Nu doar datele clienților. Fiecare clasă are altă regulă, pentru că diferă cine decide.</p></div>
+    <div class="grid g3" id="classes"></div>
+  </div>
+</section>
+
+<section id="patron">
+  <div class="wrap grid g2" style="align-items:center">
+    <div class="stack" style="gap:16px">
+      <h2>Ce vede patronul</h2>
+      <p class="sub">Fără raport, un produs care funcționează e invizibil. Raportul face protecția vizibilă și poate servi ca dovadă a „măsurilor rezonabile” pentru secretul comercial.</p>
+      <p class="sub">Raportul arată categorii, nu persoane. Textul prompturilor nu pleacă de pe calculatoare.</p>
+    </div>
+    <div class="report" aria-label="Exemplu fictiv de raport lunar">
+      <h3>Octombrie · 14 calculatoare</h3>
+      <div class="row">
+        <div class="kv"><b>312</b><span>trimiteri către AI</span></div>
+        <div class="kv"><b>41</b><span>cu date sensibile</span></div>
+        <div class="kv"><b>38</b><span>protejate automat</span></div>
+        <div class="kv"><b>3</b><span>blocate</span></div>
+      </div>
+      <div class="row">
+        <div class="kv"><b>58</b><span>CNP eliminate</span></div>
+        <div class="kv"><b>37</b><span>nume de clienți</span></div>
+        <div class="kv"><b>23</b><span>IBAN</span></div>
+        <div class="kv"><b>9</b><span>balanțe cu sume scalate</span></div>
+      </div>
+      <p class="note">Exemplu fictiv, ca să arătăm forma. Nu sunt cifre reale.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dece" class="band">
+  <div class="wrap stack">
+    <div><h2>De ce noi și nu ce există deja</h2><p class="sub">Celelalte soluții blochează sau observă. Noi facem AI-ul folosibil pe datele sensibile. <span class="mark i">I</span> Diferențiatorul e îngust și poate fi copiat: îl spunem deschis.</p></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Soluție</th><th>Ascunde datele și le pune la loc</th><th>Cifrele firmei</th><th>Pentru firme fără IT</th><th>Română (CNP, CUI, IBAN RO)</th></tr></thead>
+      <tbody id="cmp"></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="limite">
+  <div class="wrap grid g2">
+    <div class="card dark">
+      <h2 style="font-size:2rem">Ce nu rezolvă</h2>
+      <ul class="pm">
+        <li><b>✕</b><span>Telefoanele personale: le putem doar bloca în rețeaua biroului.</span></li>
+        <li><b>✕</b><span>Aplicațiile care refuză interceptarea: acolo doar blocăm.</span></li>
+        <li><b>✕</b><span>Textul liber cu fapte unice poate identifica o persoană și fără nume.</span></li>
+        <li><b>✕</b><span>Contractele negociate, strategiile și codul sursă rămân blocate: acolo conținutul e secretul.</span></li>
+        <li><b>✕</b><span>Citirea traficului angajaților e monitorizare: cere informarea lor și o evaluare de impact.</span></li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <h2 style="font-size:2rem">Ce testăm înainte de demo</h2>
+      <div class="stack" style="gap:14px" id="tests"></div>
+    </div>
+  </div>
+</section>
+
+<section id="interviu" class="band">
+  <div class="wrap">
+    <div class="script">
+      <div>
+        <p class="eyebrow" style="color:#0b4b4a">Ghid de interviu · 20 de minute</p>
+        <h2>Întrebările de pus la interviu</h2>
+        <p class="lead">Interviul validează <strong>problema</strong>, nu soluția. Nu arătați pagina asta până la ultima parte. Întrebați despre ce s-a întâmplat deja, nu despre ce ar face.</p>
+      </div>
+      <div class="rules">
+        <div>Vorbiți despre viața lor<span>nu despre ideea voastră</span></div>
+        <div>Întrebați despre trecut, concret<span>„ultima dată când…”</span></div>
+        <div>Ascultați mai mult<span>notați citate exacte</span></div>
+        <div>Complimentele nu se numără<span>„ce idee bună” nu e dovadă</span></div>
+      </div>
+      <div class="roles" role="group" aria-label="Cu cine vorbiți" id="roleBtns"></div>
+      <div class="stack" style="gap:16px" id="phases"></div>
+      <button type="button" class="cp" id="copyScript">Copiază ghidul ca text</button>
+      <div>
+        <h3 style="margin-bottom:10px">Reformulați întrebările proaste</h3>
+        <div class="avoid" id="avoid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>Research AI în IMM-uri · pagina soluției</h3>
+    <p class="sub">Specificația completă e în 06-solutie.md și 07-problema.md. Sursele sunt în surse.md, accesate la 14.11.2026.</p>
+    <ul id="srcList"></ul>
+  </div>
+</footer>
+
+<script>
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* marcaje în exemple: [[r:text]] real sensibil, [[f:text]] fictiv, [[g:text]] restaurat */
+const hl=t=>esc(t).replace(/\[\[(r|f|g):(.+?)\]\]/g,(m,k,x)=>`<mark class="${k}">${x}</mark>`);
+
+/* exemple */
+const DEMOS=[
+ {k:"cont",l:"Contabil: e-mail către client",v:"GALBEN",
+  in:"Scrie-i Anei Ionescu ([[r:CNP 2850312400123]]) că firma [[r:Alfa Construct SRL]] (CUI [[r:12345678]]) are de plată [[r:14.320 lei]] TVA până pe 25 noiembrie, din contul [[r:RO49 BTRL 0000 0000 0000 1234]].",
+  out:"Scrie-i [[f:Mariei Dobre]] că firma [[f:Beta Instal SRL]] (CUI [[f:20398414]]) are de plată [[f:14.320 lei]] TVA până pe 25 noiembrie, din contul [[f:RO66 BACX 0000 0012 3456 7890]].",
+  back:"Bună ziua, doamna [[g:Ionescu]],\n\nVă reamintim că [[g:Alfa Construct SRL]] are de plată [[g:14.320 lei]] TVA până pe 25 noiembrie, din contul [[g:RO49 BTRL 0000 0000 0000 1234]]…",
+  note:"CNP-ul nu e necesar pentru e-mail, așa că e eliminat, nu înlocuit. Suma rămâne reală pentru că nu identifică pe nimeni fără nume (configurabil)."},
+ {k:"fin",l:"Patron: analiza cifrelor firmei",v:"GALBEN",
+  in:"Analizează T3 pentru [[r:Alfa Construct SRL]]: cifră de afaceri [[r:2.340.000 lei]], profit [[r:312.000 lei]], 41% din vânzări către [[r:Dedeman]]. E sănătoasă concentrarea asta?",
+  out:"Analizează T3 pentru [[f:Beta Instal SRL]]: cifră de afaceri [[f:3.205.800 lei]], profit [[f:427.440 lei]], 41% din vânzări către [[f:Client_A]]. E sănătoasă concentrarea asta?",
+  back:"Marja de profit de 13,3% e bună pentru construcții, dar faptul că 41% din vânzări merg la [[g:Dedeman]] e un risc: dacă [[g:Dedeman]] reduce comenzile, [[g:Alfa Construct]] pierde aproape jumătate din venit…",
+  note:"Sumele sunt înmulțite cu un factor secret (×1,37), același pe toată conversația. Marja (13,3%) și concentrarea (41%) rămân corecte. Dacă întrebarea ar pomeni un plafon din lege, sumele n-ar fi scalate."},
+ {k:"med",l:"Clinică: rezumat de fișă",v:"ROSU",
+  in:"Rezumă fișa: pacient [[r:67 ani]], [[r:Comuna Săliște]], diagnostic [[r:mielom multiplu]], a refuzat chimioterapia, fiica lucrează la primărie.",
+  out:"— nimic nu pleacă —",
+  back:"Blocat: textul conține date de sănătate despre o persoană care poate fi recunoscută după vârstă, localitate și familie, chiar fără nume.\n\nAlternative: folosiți instrumentul aprobat de clinică sau întrebați fără date despre pacient (de ex. „cum structurez un rezumat de fișă oncologică?”).",
+  note:"Datele de sănătate legate de o persoană identificabilă sunt pe ROȘU. Ascunderea numelui nu ajunge: comuna, vârsta și familia o identifică."},
+ {k:"gen",l:"Oricine: întrebare generală",v:"VERDE",
+  in:"Explică-mi pe scurt cum funcționează TVA la încasare.",
+  out:"Explică-mi pe scurt cum funcționează TVA la încasare.",
+  back:"TVA la încasare înseamnă că firma datorează TVA-ul la stat abia când încasează factura de la client, nu când o emite…",
+  note:"Nicio dată sensibilă: cererea pleacă neschimbată. În jurnal ajunge doar ora și aplicația, fără text."}
+];
+const VL={VERDE:"VERDE · trece neschimbat",GALBEN:"GALBEN · ascuns și pus la loc",ROSU:"ROȘU · blocat cu explicație"};
+function showDemo(k){
+  const d=DEMOS.find(x=>x.k===k);
+  document.querySelectorAll("#demoBtns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
+  const v=document.getElementById("demoVerdict"); v.className="verdict "+d.v; v.innerHTML=`<i></i>${VL[d.v]}`;
+  document.getElementById("dIn").innerHTML=hl(d.in);
+  document.getElementById("dOut").innerHTML=hl(d.out);
+  document.getElementById("dBack").innerHTML=hl(d.back);
+  document.getElementById("dNote").textContent=d.note;
+}
+document.getElementById("demoBtns").innerHTML=DEMOS.map(d=>`<button type="button" class="chip" data-k="${d.k}" aria-pressed="false">${esc(d.l)}</button>`).join("");
+document.getElementById("demoBtns").addEventListener("click",e=>{const b=e.target.closest("button"); if(b) showDemo(b.dataset.k)});
+showDemo("cont");
+
+/* clase */
+const CLS=[
+ ["A","Clienți persoane fizice","CNP, diagnostic, adresă, IBAN personal","Protecție obligatorie. Patronul nu o poate relaxa sub minimul legal.","var(--mint)"],
+ ["B","Firme-client","Balanța, contractul, datoriile unui client SRL","Protejate. Se relaxează doar cu acordul clientului.","var(--teal)"],
+ ["C","Angajați proprii","Salarii, CNP-uri, concedii medicale","Protecție obligatorie.","var(--green)"],
+ ["D","Secretele firmei","Cifra de afaceri, marje, oferte, tarife, furnizori","Ascundem a cui sunt cifrele; scalăm sumele la nevoie. Patronul decide ce e secret.","var(--violet)"],
+ ["E","Date de acces","Parole, chei, token SPV","Blocate mereu. Nicio sarcină AI nu are nevoie de ele.","var(--coral)"]
+];
+document.getElementById("classes").innerHTML=CLS.map(c=>`<div class="card cls" style="border-top-color:${c[4]}"><span class="tag" style="color:${c[4]}">${c[0]}</span><h3>${esc(c[1])}</h3><p>${esc(c[2])}</p><p class="rule">${esc(c[3])}</p></div>`).join("");
+
+/* comparație */
+const CMP=[
+ ["Noi (în validare)","y:Da, local","y:Da, scalare","y:Da, instalare simplă","y:Da"],
+ ["Interdicție totală","n:Nu (blochează tot)","n:Nu","y:Da","n:—"],
+ ["ChatGPT Business / Claude for Work","n:Nu, datele pleacă","n:Nu","y:Da","n:Nu"],
+ ["Microsoft Purview DLP","n:Nu, avertizează sau blochează","p:Parțial","n:Cere licențe E5","p:Parțial"],
+ ["Bitdefender GravityZone AIVC","n:Nu, blochează aplicații","n:Nu","p:Prin firma IT","n:Nu"],
+ ["ESET AI Conversation Security","p:Inspectează fișiere","n:Nu","p:Prin firma IT","n:Nemenționat"],
+ ["Harmonic, Nightfall, LayerX","n:Nu, avertizează sau blochează","p:Parțial","n:Companii mari","n:Nu"],
+ ["Presidio, gateway-uri","y:Da, pentru dezvoltatori","n:Nu","n:Cer programare","n:Nu"]
+];
+document.getElementById("cmp").innerHTML=CMP.map((r,i)=>`<tr${i===0?' class="us"':""}><td>${esc(r[0])}</td>${r.slice(1).map(c=>{const [k,t]=c.split(/:(.+)/);return `<td class="${k}">${esc(t)}</td>`}).join("")}</tr>`).join("");
+
+/* teste */
+const TESTS=[
+ ["T1","Proxy local + certificat local pe ChatGPT web în Chrome și Edge: promptul e citit și modificat, site-ul merge normal 30 de minute."],
+ ["T3","Restaurare: 20 de prompturi fictive, datele reale la locul lor în cel puțin 19."],
+ ["T4","Detectare pe română: 100 de texte fictive; CNP, IBAN, CUI găsite aproape 100%; măsurăm câte nume scapă."],
+ ["T5","OCR pe o factură scanată românească: toate CNP-urile și IBAN-urile găsite."],
+ ["T7","Întârziere sub 1 secundă pe un laptop de birou modest."]
+];
+document.getElementById("tests").innerHTML=TESTS.map(t=>`<div class="test"><span class="id">${t[0]}</span><p>${esc(t[1])}</p></div>`).join("")+`<p class="sub" style="font-size:.9rem">Pragurile sunt propunerile noastre, nu standarde. <span class="mark i">I</span></p>`;
+
+/* ghid de interviu */
+const ROLES={
+ angajat:{l:"Angajat",who:"Contabil, asistentă medicală, jurist, broker: cineva care lucrează la calculator cu documente de clienți.",
+  phases:[
+   ["Deschidere","2 min",[["Cu ce vă ocupați concret într-o zi obișnuită? Ce documente deschideți cel mai des?","Calificare: dacă nu lucrează cu documente cu date, nu e utilizatorul nostru."]]],
+   ["Ce s-a întâmplat deja","12 min",[
+    ["Povestiți-mi ultima sarcină de muncă la care ați folosit ChatGPT sau alt AI. Ce ați lipit acolo?","Aflăm dacă problema există (ipoteza H1)."],
+    ["Pe ce cont ați făcut-o: personal sau al firmei? Pe calculator sau pe telefon?","Shadow AI și ocolirea pe telefon."],
+    ["Conținea nume, CNP-uri, sume sau date ale firmei? Ați scos ceva înainte? Cum anume?","Cât de des ajung datele sensibile în AI și ce fac azi."],
+    ["Ultima dată când ați vrut să folosiți AI pe un document de client și n-ați făcut-o: de ce?","Costul interdicției sau al fricii."],
+    ["V-a spus cineva din firmă ce aveți voie să puneți în AI? Când și cum?","Există reguli? Cine le-a făcut?"],
+    ["Când v-a blocat ultima dată un program de la firmă ceva? Ce ați făcut atunci?","Ocolirea blocărilor."]]],
+   ["Închidere","3 min",[["Pe cine din firmă ar trebui să mai întrebăm despre asta? Ne puteți pune în legătură?","Angajament: o prezentare valorează mai mult decât un compliment."]]],
+   ["Abia la final: arătați soluția","3 min",[["(Arătați exemplul contabil de mai sus.) Ce caz din munca dvs. n-ar încăpea aici?","Căutăm unde nu se potrivește, nu laude."],["Ne-ați da un document de-al vostru, cu datele schimbate, ca să-l testăm?","Angajament concret: acces la un caz real."]]]
+  ]},
+ patron:{l:"Patron",who:"Patronul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.",
+  phases:[
+   ["Deschidere","2 min",[["Câți oameni aveți și ce documente cu date de clienți sau cifre ale firmei circulă zilnic?","Calificare."]]],
+   ["Ce s-a întâmplat deja","12 min",[
+    ["Povestiți-mi ultima dată când ați aflat că cineva din firmă a folosit ChatGPT pentru muncă. Ce făcea și ce ați făcut dvs.?","Problema, în cuvintele lor (întrebarea de pitch 2)."],
+    ["Ce reguli despre AI aveți acum, scrise sau nescrise? Cine le-a stabilit și când?","Ce fac azi (întrebarea de pitch 5)."],
+    ["Ultima dată când date ale unui client sau cifre ale firmei au ajuns unde nu trebuia: ce s-a întâmplat și cât v-a costat?","Costul (întrebarea de pitch 4)."],
+    ["Ce document intern ar fi cel mai grav să ajungă la un concurent? Vi s-a întâmplat ceva apropiat?","Doare mai tare clasa D (secretele firmei) decât GDPR?"],
+    ["Ce ați cheltuit în ultimul an pe protecția datelor sau pe IT? Cine a propus și cine a decis?","Cine plătește (întrebarea de pitch 1)."],
+    ["Ați plătit vreodată un abonament AI pentru angajați? De ce da sau de ce nu?","Alternativa ChatGPT Business."]]],
+   ["Închidere","3 min",[["Pe cine mai întrebați când luați decizii de IT? Ne puteți face cunoștință?","Ajungem la firma IT externă."]]],
+   ["Abia la final: arătați soluția","3 min",[["(Arătați raportul lunar.) Ce ați face cu un astfel de raport? Cui l-ați arăta?","Contează valoarea percepută, nu dacă le place."],["Ați instala agentul pe un calculator, o săptămână, ca test?","Angajament: pilot."]]]
+  ]},
+ it:{l:"Omul de IT",who:"Firma IT externă sau omul care administrează calculatoarele mai multor firme mici.",
+  phases:[
+   ["Deschidere","2 min",[["La câte firme mici administrați calculatoarele? Ce antivirus rulează la ele?","Canalul de distribuție."]]],
+   ["Ce s-a întâmplat deja","12 min",[
+    ["V-a cerut vreun client în ultimele 6 luni ceva legat de AI? Ce ați făcut?","Există cerere la ei?"],
+    ["Ați blocat vreodată ChatGPT la un client? Cum? Ce s-a întâmplat după?","Ocolirea și reacțiile."],
+    ["Ați instalat vreodată un certificat pe calculatoarele clienților (pentru filtrare web sau antivirus)? Ce s-a stricat?","Fezabilitatea interceptării (testele T1, T6)."],
+    ["Ce instrument de securitate ați văzut abandonat din cauza alarmelor false?","Cât de precis trebuie să fie."],
+    ["Vi s-au prezentat modulele AI lansate în 2026 de Bitdefender sau ESET? Ce ați făcut cu ele?","Concurența, din teren."]]],
+   ["Închidere","3 min",[["Care dintre clienții voștri ar vorbi cu noi 20 de minute?","Prezentări."]]],
+   ["Abia la final: arătați soluția","3 min",[["(Arătați fluxul.) Ce s-ar strica la clienții voștri dacă ați instala asta?","Riscurile de instalare."],["Ați încerca să-l instalați la un client, ca test?","Angajament: pilot prin canal."]]]
+  ]},
+ mentor:{l:"Mentor",who:"Mentorii joacă și rolul utilizatorilor. Întrebați-i ce au văzut și trăit, nu ce cred despre idee.",
+  phases:[
+   ["Ce au văzut","10 min",[
+    ["La ultima firmă mică pe care ați condus-o sau ați consiliat-o, cum folosea echipa AI-ul? Cine a început și pentru ce?","Problema, din experiența lor."],
+    ["Povestiți-mi ultimul caz în care cineva a pus date de client într-un instrument online fără să întrebe. Ce s-a întâmplat?","Incidente reale."],
+    ["Ultima dată când ați văzut o firmă mică cumpărând un soft de securitate: cine l-a propus, cine a aprobat?","Cine plătește."]]],
+   ["Expertiza lor","6 min",[
+    ["(Jurist, medic, contabil) Ce ați considerat până acum divulgare a secretului profesional? Ați întâlnit un caz cu un instrument online?","Limita juridică a soluției."],
+    ["(IT) Ați văzut angajați ocolind o blocare de la firmă? Cum și cât de repede?","Riscul ocolirii pe telefon."]]],
+   ["Închidere și angajament","4 min",[["Pe cine cunoașteți care conduce o firmă de contabilitate, o clinică sau un cabinet și ar vorbi 20 de minute cu noi?","Prezentări: semnalul cel mai puternic."],["(Abia acum, arătați matricea.) Ce caz din experiența dvs. n-ar încăpea aici?","Unde se rupe soluția."]]]
+  ]}
+};
+let role="angajat";
+function renderScript(){
+  const r=ROLES[role];
+  document.querySelectorAll("#roleBtns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.r===role));
+  let n=0;
+  document.getElementById("phases").innerHTML=`<p class="lead"><strong>Cu cine:</strong> ${esc(r.who)}</p>`+r.phases.map(p=>`<div class="phase"><div class="ph"><h3>${esc(p[0])}</h3><small>${esc(p[1])}</small></div><ol start="${n+1}">${p[2].map(q=>{n++;return `<li>${esc(q[0])}<span class="why">De ce: ${esc(q[1])}</span></li>`}).join("")}</ol></div>`).join("");
+}
+document.getElementById("roleBtns").innerHTML=Object.entries(ROLES).map(([k,r])=>`<button type="button" class="rb" data-r="${k}" aria-pressed="false">${esc(r.l)}</button>`).join("");
+document.getElementById("roleBtns").addEventListener("click",e=>{const b=e.target.closest("button"); if(b){role=b.dataset.r; renderScript();}});
+renderScript();
+document.getElementById("copyScript").addEventListener("click",async e=>{
+  const b=e.currentTarget, old=b.textContent, r=ROLES[role]; let n=0;
+  let t=`Ghid de interviu: ${r.l}\nCu cine: ${r.who}\nReguli: despre viața lor, nu despre idee; despre trecut, concret; ascultați; notați citate exacte.\n`;
+  r.phases.forEach(p=>{t+=`\n${p[0]} (${p[1]})\n`; p[2].forEach(q=>{n++; t+=`${n}. ${q[0]}\n   De ce: ${q[1]}\n`})});
+  try{await navigator.clipboard.writeText(t); b.textContent="Copiat";}catch(err){const ta=document.createElement("textarea"); ta.value=t; ta.style.cssText="width:100%;min-height:160px"; b.after(ta); ta.select(); b.textContent="Selectat mai jos";}
+  setTimeout(()=>b.textContent=old,2000);
+});
+const AVOID=[
+ ["Ați folosi un program care ascunde datele?","Ultima dată când ați pus un document de client în AI, ce ați făcut cu datele din el?"],
+ ["Cât ați plăti pentru asta?","Ce ați cheltuit în ultimul an pe protecția datelor? Pe ce?"],
+ ["Vi se pare o problemă reală?","Când ați văzut ultima dată date ajunse unde nu trebuia?"],
+ ["Ar accepta angajații blocarea?","Când a fost blocat ultima dată ceva la calculator și ce au făcut?"]
+];
+document.getElementById("avoid").innerHTML=AVOID.map(a=>`<div><s>${esc(a[0])}</s><br><b>→ ${esc(a[1])}</b></div>`).join("");
+
+/* surse */
+const SRC=[["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training"],["S32","Microsoft Learn: Purview și aplicațiile AI","https://learn.microsoft.com/en-us/purview/ai-other-apps"],["S33","Bitdefender: GravityZone AI Visibility and Control","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise"],["S34","IT Brief: ESET AI security tools","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents"],["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp"],["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm"],["S15","Baroul Dolj: secretul comercial","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf"],["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html"],["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/"]];
+document.getElementById("srcList").innerHTML=SRC.map(s=>`<li>${s[0]} · <a href="${s[2]}" target="_blank" rel="noopener">${esc(s[1])}</a></li>`).join("");
+</script>
+</body>
+</html>
