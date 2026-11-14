@@ -8,7 +8,7 @@ Varianta asta înlocuiește listele mai formale din [05](05-ipoteze-si-interviur
 - **Cerem povești, nu păreri.** „Povestiți-mi” bate „ce credeți”.
 - **Sapă cu întrebări scurte:** *Și apoi? · Cum adică? · Îmi dați un exemplu? · Când s-a întâmplat ultima dată? · Ce ați făcut atunci? · Cât v-a luat?*
 - **Notăm cuvânt cu cuvânt** ce spune omul, cu data și rolul lui. Complimentele („ce idee bună!”) nu se numără.
-- **Tonul:** cu patronii și mentorii, „dumneavoastră”. Cu angajații tineri, „tu” e în regulă dacă vă tutuiesc ei primii.
+- **Tonul:** cu antreprenorii și mentorii, „dumneavoastră”. Cu angajații tineri, „tu” e în regulă dacă vă tutuiesc ei primii.
 
 **Cum începem, cu oricine:**
 > „Mersi că ne dați 20 de minute. Nu vindem nimic. Suntem la un hackathon și încercăm să înțelegem cum se lucrează de fapt într-un cabinet ca al dumneavoastră. Nu există răspunsuri greșite, și dacă ceva nu vreți să povestiți, sărim peste.”
@@ -34,8 +34,8 @@ Varianta asta înlocuiește listele mai formale din [05](05-ipoteze-si-interviur
 11. *(Abia acum arătăm exemplul de pe pagina soluției.)* Unde nu s-ar potrivi asta cu ce faceți voi zi de zi?
 12. Ne-ați putea da un document de-al vostru, cu numele și cifrele schimbate, ca să încercăm pe el?
 
-## Patronul
-*Patronul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.*
+## Antreprenorul
+*Antreprenorul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.*
 
 **Firma, pe scurt**
 1. Povestiți-mi puțin cum arată firma acum: câți sunteți, cine ce face?
@@ -71,6 +71,7 @@ Varianta asta înlocuiește listele mai formale din [05](05-ipoteze-si-interviur
 
 ## Mentorii
 *Nu sunt clienți. Îi întrebăm ce au văzut și trăit, nu ce cred despre idee.*
+Setul scurt e mai jos. Setul extins, de 22 de întrebări pe teme, e în [05 §2](05-ipoteze-si-interviuri.md).
 
 1. Ați condus sau ați lucrat cu firme mici. Cum au început oamenii de acolo să folosească AI-ul? Povestiți-mi un caz.
 2. Ați văzut vreodată pe cineva punând date de client într-un program online fără să întrebe? Ce s-a întâmplat?

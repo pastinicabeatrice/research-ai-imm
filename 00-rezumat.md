@@ -10,12 +10,12 @@
 > - **D.** secretele financiare și comerciale ale firmei;
 > - **E.** parole și date de acces.
 >
-> A, C și E sunt protejate obligatoriu. B se poate relaxa doar cu acordul clientului. D e configurabilă de patron. La cifrele financiare ascundem **a cui** sunt (nume, CUI) și, la nevoie, scalăm sumele, fără să le ascundem de tot. Detalii în [07](07-problema.md).
+> A, C și E sunt protejate obligatoriu. B se poate relaxa doar cu acordul clientului. D e configurabilă de antreprenor. La cifrele financiare ascundem **a cui** sunt (nume, CUI) și, la nevoie, scalăm sumele, fără să le ascundem de tot. Detalii în [07](07-problema.md).
 
 ## Răspunsuri scurte la cele 9 întrebări
 
 **1. Cui vindem? Cine decide și cine plătește?**
-[I] Patronului unei firme de 10–100 de oameni dintr-o profesie reglementată. El plătește și răspunde. MSP-ul (firma IT externă) e canalul: instalează și recomandă. [F] Bitdefender își vinde modulul AI tocmai „organizațiilor și MSP-urilor” (S33). [V] Cine a ales ultimul soft de securitate?
+[I] Antreprenorului unei firme de 10–100 de oameni dintr-o profesie reglementată. El plătește și răspunde. MSP-ul (firma IT externă) e canalul: instalează și recomandă. [F] Bitdefender își vinde modulul AI tocmai „organizațiilor și MSP-urilor” (S33). [V] Cine a ales ultimul soft de securitate?
 
 **2. Ce firme au cea mai mare durere?**
 [I] Ca obligație juridică: avocatură și clinici (secret profesional + art. 9). Ca potrivire cu produsul: **contabilitatea**, pentru că datele ei sunt structurate (CNP, IBAN, CUI, sume) și se pseudonimizează bine. Piața: 44.894 firme mici și 7.659 mijlocii în RO [F] S3. Doar 5,2% din firmele RO folosesc oficial AI [F] S1.
@@ -58,7 +58,7 @@ Două noutăți schimbă analiza:
 
 1. **H1: problema există la scară în IMM-urile românești.** Toate cifrele de „shadow AI” vin de la vânzători (S29–S31) și din afara RO. Adoptarea oficială în RO e 5,2% (S1). Dacă angajații firmelor mici nu folosesc AI cu date reale, n-avem client.
 2. **H3: GALBEN păstrează răspunsul util pentru sarcinile reale.** În segmentele cu cea mai mare durere (avocați, medici), sarcinile valoroase sunt pe ROȘU. **Paradoxul: unde durerea e mare, produsul blochează; unde produsul ajută (contabilitate), durerea juridică e mai mică.**
-3. **H2: patronii plătesc pentru asta, nu doar își fac griji.** Principalul motiv de neadoptare a AI în UE e lipsa expertizei (70,89%), nu protecția datelor (48,83%) (S2). Abonamentele AI de business rezolvă deja antrenarea pe date (S26–S28) la un preț cunoscut.
+3. **H2: antreprenorii plătesc pentru asta, nu doar își fac griji.** Principalul motiv de neadoptare a AI în UE e lipsa expertizei (70,89%), nu protecția datelor (48,83%) (S2). Abonamentele AI de business rezolvă deja antrenarea pe date (S26–S28) la un preț cunoscut.
 
 ---
 
@@ -78,10 +78,10 @@ Două noutăți schimbă analiza:
 
 ### C. Concurență subestimată
 - **Bitdefender (românesc, cu canal MSP)** a lansat în 09.2026 descoperirea și blocarea instrumentelor AI (S33). **ESET** inspectează fișierele trimise la AI (S34). Microsoft Purview face avertizare și blocare (S32). Pseudonimizarea reversibilă există în gateway-uri (S36). **Diferențiatorul nostru (pseudonimizare reversibilă pentru utilizatorul final, în română, la preț de IMM) e îngust și poate fi copiat de Bitdefender.** Răspunsul nostru la întrebarea „de ce nu Bitdefender?” trebuie construit.
-- **Abonamentul AI de business** e alternativa ieftină și simplă. Nu rezolvă secretul profesional și minimizarea, dar mulți patroni pot considera că e „suficient” [V].
+- **Abonamentul AI de business** e alternativa ieftină și simplă. Nu rezolvă secretul profesional și minimizarea, dar mulți antreprenori pot considera că e „suficient” [V].
 
 ### D. Contradicții verificate între fișiere
-- 01 îl numește pe patron cumpărător, iar 05/H5 pune MSP-ul ca posibil decident. Am lăsat-o intenționat deschisă (H5).
+- 01 îl numește pe antreprenor cumpărător, iar 05/H5 pune MSP-ul ca posibil decident. Am lăsat-o intenționat deschisă (H5).
 - 02 marchează „situația fiscală a clientului” ca ANON, iar 04 (rândul 11) cere ROȘU dacă nu se poate generaliza contextul. Sunt consecvente: depinde de context.
 - Cifrele Harmonic (4,37% din prompturi; ~22%–26,38% din fișiere) apar la fel în 01, 04 și surse.md.
 
@@ -98,5 +98,5 @@ Două noutăți schimbă analiza:
 4. Ce procent din sarcinile reale ar ieși GALBEN vs. ROȘU? → cerem 20 de exemple reale (fictivizate) de la 3 firme.
 5. Ce face MSP-ul azi când un client întreabă de AI? → interviuri (05 C).
 6. Cât de bine detectează instrumentele open source (Presidio + modele pentru română) CNP, nume declinate și CUI? → test tehnic pe un set de date fictiv.
-7. Acceptă patronii (și angajații) ca un instrument să citească local fiecare prompt?
+7. Acceptă antreprenorii (și angajații) ca un instrument să citească local fiecare prompt?
 8. Ce ne diferențiază de Bitdefender GravityZone AIVC dacă Bitdefender adaugă inspecția prompturilor?

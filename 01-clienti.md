@@ -27,13 +27,13 @@
 
 | Rol | Ce face | Ce știm |
 |---|---|---|
-| **Patronul / asociatul administrator** | Semnează și plătește. Răspunde personal (GDPR, secret profesional, deontologie) | [I] El e cumpărătorul în firmele de 10–50 de oameni |
+| **Antreprenorul / asociatul administrator** | Semnează și plătește. Răspunde personal (GDPR, secret profesional, deontologie) | [I] El e cumpărătorul în firmele de 10–50 de oameni |
 | **Firma IT externă (MSP) sau „omul de IT”** | Instalează antivirusul și administrează licențele. De multe ori recomandă produsul | [F] Bitdefender își vinde noul modul AI „organizațiilor și MSP-urilor” S33. [I] MSP-ul e canalul de distribuție, nu cumpărătorul |
 | **DPO / consultantul GDPR extern** | Redactează politici. Poate cere sau recomanda o soluție | [I] Influențează decizia. [V] Câte firme mici au DPO extern |
 | **Contabilul extern** | Plătește facturile, nu ia decizii de securitate | [I] Rol minor în decizie. [V] |
 | **Angajatul** | Folosește AI-ul. Poate ocoli controlul (telefonul personal) | [F] Pe conturile personale datele pot fi folosite la antrenare implicit (ChatGPT Free/Plus S26, Claude Free/Pro S27) |
 
-[I] **Cumpărătorul principal:** patronul unei firme de 10–100 de oameni dintr-o profesie reglementată, la recomandarea MSP-ului.
+[I] **Cumpărătorul principal:** antreprenorul unei firme de 10–100 de oameni dintr-o profesie reglementată, la recomandarea MSP-ului.
 [V] Cine a cumpărat ultimul antivirus sau soft de securitate în firmă, cine l-a ales și din ce buget.
 
 ## 3. Segmentele: tabel comparativ
@@ -76,7 +76,7 @@ Durerea este estimarea noastră [I], pe baza obligațiilor legale [F] și a sarc
 
 ## 6. De validat la interviuri (rezumat)
 
-- Ultima dată când un angajat a folosit AI cu date de client: ce a introdus și de unde a aflat patronul?
+- Ultima dată când un angajat a folosit AI cu date de client: ce a introdus și de unde a aflat antreprenorul?
 - Cine a ales ultimul soft de securitate și cât a costat?
 - Există o politică scrisă despre AI? Cine a scris-o?
 - Folosesc deja un abonament AI de business?

@@ -143,7 +143,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     <a class="l" href="#demo">Exemple</a>
     <a class="l" href="#local">AI local</a>
     <a class="l" href="#ce">Ce protejăm</a>
-    <a class="l" href="#patron">Ce vede patronul</a>
+    <a class="l" href="#antreprenor">Ce vede antreprenorul</a>
     <a class="l" href="#dece">De ce noi</a>
     <a class="l" href="#limite">Limite și teste</a>
     <a class="l" href="#interviu">Întrebări de interviu</a>
@@ -158,11 +158,11 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     <div class="vp">
       <p><b class="k">Ajutăm</b> firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)</p>
       <p><b class="k">să</b> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă</strong>,</p>
-      <p><b class="k">prin</b> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează în firmă și îi arată patronului, în fiecare lună, ce a fost oprit sau mutat.</p>
+      <p><b class="k">prin</b> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează în firmă și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat.</p>
     </div>
     <div class="grid g3">
       <div class="card"><h3>Pentru angajat</h3><p>Lucrează în ChatGPT ca până acum. Primește răspunsul cu datele reale. Vede ce a fost protejat.</p></div>
-      <div class="card"><h3>Pentru patron</h3><p>Nu mai alege între a interzice AI-ul și a spera. Vede lunar ce a fost oprit la ieșire.</p></div>
+      <div class="card"><h3>Pentru antreprenor</h3><p>Nu mai alege între a interzice AI-ul și a spera. Vede lunar ce a fost oprit la ieșire.</p></div>
       <div class="card"><h3>Pentru omul de IT</h3><p>Un agent de instalat, fără hardware nou. Categoriile se configurează dintr-o consolă.</p></div>
     </div>
   </div>
@@ -241,10 +241,10 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
   </div>
 </section>
 
-<section id="patron">
+<section id="antreprenor">
   <div class="wrap grid g2" style="align-items:center">
     <div class="stack" style="gap:16px">
-      <h2>Ce vede patronul</h2>
+      <h2>Ce vede antreprenorul</h2>
       <p class="sub">Fără raport, un produs care funcționează e invizibil. Raportul face protecția vizibilă și poate servi ca dovadă a „măsurilor rezonabile” pentru secretul comercial.</p>
       <p class="sub">Raportul arată categorii, nu persoane. Textul prompturilor nu pleacă de pe calculatoare.</p>
     </div>
@@ -347,7 +347,7 @@ const DEMOS=[
   out:"Scrie-i [[f:Mariei Dobre]] că firma [[f:Beta Instal SRL]] (CUI [[f:20398414]]) are de plată [[f:14.320 lei]] TVA până pe 25 noiembrie, din contul [[f:RO66 BACX 0000 0012 3456 7890]].",
   back:"Bună ziua, doamna [[g:Ionescu]],\n\nVă reamintim că [[g:Alfa Construct SRL]] are de plată [[g:14.320 lei]] TVA până pe 25 noiembrie, din contul [[g:RO49 BTRL 0000 0000 0000 1234]]…",
   note:"CNP-ul nu e necesar pentru e-mail, așa că e eliminat, nu înlocuit. Suma rămâne reală pentru că nu identifică pe nimeni fără nume (configurabil)."},
- {k:"fin",l:"Patron: analiza cifrelor firmei",v:"GALBEN",
+ {k:"fin",l:"Antreprenor: analiza cifrelor firmei",v:"GALBEN",
   in:"Analizează T3 pentru [[r:Alfa Construct SRL]]: cifră de afaceri [[r:2.340.000 lei]], profit [[r:312.000 lei]], 41% din vânzări către [[r:Dedeman]]. E sănătoasă concentrarea asta?",
   out:"Analizează T3 pentru [[f:Beta Instal SRL]]: cifră de afaceri [[f:3.205.800 lei]], profit [[f:427.440 lei]], 41% din vânzări către [[f:Client_A]]. E sănătoasă concentrarea asta?",
   back:"Marja de profit de 13,3% e bună pentru construcții, dar faptul că 41% din vânzări merg la [[g:Dedeman]] e un risc: dacă [[g:Dedeman]] reduce comenzile, [[g:Alfa Construct]] pierde aproape jumătate din venit…",
@@ -379,10 +379,10 @@ showDemo("cont");
 
 /* clase */
 const CLS=[
- ["A","Clienți persoane fizice","CNP, diagnostic, adresă, IBAN personal","Protecție obligatorie. Patronul nu o poate relaxa sub minimul legal.","var(--mint)"],
+ ["A","Clienți persoane fizice","CNP, diagnostic, adresă, IBAN personal","Protecție obligatorie. Antreprenorul nu o poate relaxa sub minimul legal.","var(--mint)"],
  ["B","Firme-client","Balanța, contractul, datoriile unui client SRL","Protejate. Se relaxează doar cu acordul clientului.","var(--teal)"],
  ["C","Angajați proprii","Salarii, CNP-uri, concedii medicale","Protecție obligatorie.","var(--green)"],
- ["D","Secretele firmei","Cifra de afaceri, marje, oferte, tarife, furnizori","Ascundem a cui sunt cifrele; scalăm sumele la nevoie. Patronul decide ce e secret.","var(--violet)"],
+ ["D","Secretele firmei","Cifra de afaceri, marje, oferte, tarife, furnizori","Ascundem a cui sunt cifrele; scalăm sumele la nevoie. Antreprenorul decide ce e secret.","var(--violet)"],
  ["E","Date de acces","Parole, chei, token SPV","Blocate mereu. Nicio sarcină AI nu are nevoie de ele.","var(--coral)"]
 ];
 document.getElementById("classes").innerHTML=CLS.map(c=>`<div class="card cls" style="border-top-color:${c[4]}"><span class="tag" style="color:${c[4]}">${c[0]}</span><h3>${esc(c[1])}</h3><p>${esc(c[2])}</p><p class="rule">${esc(c[3])}</p></div>`).join("");
@@ -430,7 +430,7 @@ const ROLES={
     ["(Abia acum arătați exemplul de mai sus.) Unde nu s-ar potrivi asta cu ce faceți voi zi de zi?","Căutăm unde se rupe, nu laude."],
     ["Ne-ați putea da un document de-al vostru, cu numele și cifrele schimbate, ca să încercăm pe el?","Angajament concret."]]]
   ]},
- patron:{l:"Patron",who:"Patronul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.",
+ antreprenor:{l:"Antreprenor",who:"Antreprenorul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.",
   phases:[
    ["Firma și AI-ul","6 min",[
     ["Povestiți-mi puțin cum arată firma acum: câți sunteți, cine ce face?","Calificare și context."],

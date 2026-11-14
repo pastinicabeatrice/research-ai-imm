@@ -47,7 +47,7 @@
 ### 🔴 ROȘU: redirecționare către AI-ul local (sau blocare)
 0. **Actualizare:** dacă firma are un AI local (Qwen, Llama pe calculator sau pe un server din birou), angajatul primește butonul **„Deschide în AI-ul local”**, cu textul deja încărcat, transferat prin agentul local, nu prin URL. Parolele și cheile rămân blocate oricum. Detalii în [06 §11b](06-solutie.md).
 1. Fără AI local, trimiterea e blocată, iar angajatul vede **de ce** („conține date de sănătate legate de un pacient”) și **ce alternativă are** (instrumentul aprobat de firmă, o versiune generică a întrebării, întrebarea pusă fără date).
-2. Angajatul poate cere o **excepție motivată**, aprobată de patron sau de DPO.
+2. Angajatul poate cere o **excepție motivată**, aprobată de antreprenor sau de DPO.
 3. **Propunem să înlocuim regula „taie accesul la AI după ignorare”** cu o escaladare treptată:
    - prima dată: blocare + explicație;
    - repetat: notificare către responsabil;
@@ -61,6 +61,6 @@
 - **Fișierele încărcate** sunt cel puțin GALBEN implicit. Datele vânzătorilor arată că o parte importantă a fișierelor trimise conțin date sensibile: ~22% (T2 2025) și 26,38% (T3 2025) după Harmonic [F] S29, **afirmație de vânzător**.
 
 ## 4. Ce trebuie validat
-- [V] Acceptă patronii ca un instrument să *citească* prompturile angajaților, chiar și local?
+- [V] Acceptă antreprenorii ca un instrument să *citească* prompturile angajaților, chiar și local?
 - [V] Câte trimiteri ar ajunge pe ROȘU într-o zi tipică? Dacă sunt peste ~20%, produsul e perceput ca interdicție. Pragul de 20% e o ipoteză, nu o cifră cunoscută.
 - [V] Ar accepta un avocat sau un medic GALBEN pentru datele lui, sau consideră orice trimitere drept divulgare?

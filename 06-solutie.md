@@ -11,7 +11,7 @@ Revizuită după [07-problema.md](07-problema.md): protejăm **cinci clase de da
 
 > **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)
 > **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
-> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.
+> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată antreprenorului, în fiecare lună, ce a fost oprit la ieșire.
 
 **Pe scurt, pentru slide:** *„AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă.”*
 
@@ -19,16 +19,16 @@ Revizuită după [07-problema.md](07-problema.md): protejăm **cinci clase de da
 | Bucată | De ce e aleasă |
 |---|---|
 | „prelucrează zilnic documente cu date ale clienților” | Definește clientul după **ce face**, nu după domeniu. Testul de calificare la interviu e simplu: „ce documente cu date de clienți ați deschis ieri?” |
-| „să folosească … pe aceste documente” | Valoarea e **câștigul** (AI pe munca reală), nu frica. Patronul cumpără productivitate fără risc, nu un al doilea antivirus |
+| „să folosească … pe aceste documente” | Valoarea e **câștigul** (AI pe munca reală), nu frica. Antreprenorul cumpără productivitate fără risc, nu un al doilea antivirus |
 | „să plece din firmă în formă identificabilă” | Promisiune verificabilă și mai îngustă decât „datele sunt în siguranță”. Nu promitem anonimizare (vezi [03](03-anonimizare.md)). La cifrele firmei ascundem **a cui** sunt, nu cifrele însele (vezi [07 §4.3](07-problema.md)) |
 | „interceptează local” | Diferența față de soluțiile cloud: nimic nu trece printr-un server al nostru [I] |
-| „îi arată patronului … ce a fost oprit” | **Valoarea percepută.** Fără raport, un produs care funcționează e invizibil. Raportul face protecția vizibilă |
+| „îi arată antreprenorului … ce a fost oprit” | **Valoarea percepută.** Fără raport, un produs care funcționează e invizibil. Raportul face protecția vizibilă |
 
 ### Variante alternative (de testat care rezonează) [V]
-- **Unghiul vizibilitate:** „Ajutăm patronii firmelor mici să **vadă** ce date ale clienților ajung în ChatGPT și să le oprească automat, prin…”
+- **Unghiul vizibilitate:** „Ajutăm antreprenorii firmelor mici să **vadă** ce date ale clienților ajung în ChatGPT și să le oprească automat, prin…”
 - **Unghiul conformitate:** „Ajutăm cabinetele de contabilitate, medicale și de avocatură să folosească AI-ul fără să încalce secretul profesional, prin…”
 
-### Ce vede concret patronul (valoarea percepută) [I]
+### Ce vede concret antreprenorul (valoarea percepută) [I]
 Exemplu **fictiv** de raport lunar, ca să arătăm forma, nu cifre reale:
 
 > **Octombrie · 14 calculatoare**
@@ -37,7 +37,7 @@ Exemplu **fictiv** de raport lunar, ca să arătăm forma, nu cifre reale:
 > Blocate: 3 (2 fișe medicale scanate, 1 fișier cu parole)
 > Angajații care au încercat cel mai des să trimită date: *(opțional, vezi §8)*
 
-[V] Patronii citesc un astfel de raport? Ce cifră îi interesează: numărul de trimiteri protejate sau numărul de blocări?
+[V] Antreprenorii citesc un astfel de raport? Ce cifră îi interesează: numărul de trimiteri protejate sau numărul de blocări?
 
 ## 2. Fluxul exact, pas cu pas
 
@@ -83,7 +83,7 @@ Aici e cel mai mare risc tehnic. Fișierele binare (PDF, imagine, Excel) nu se p
 | 6 | **Seif de corespondențe** | Local, criptat | Real ↔ fictiv, pe conversație; se șterge după un termen configurabil |
 | 7 | **Restaurare în flux** | În proxy | Pune la loc valorile reale în răspunsul primit bucată cu bucată |
 | 8 | **Interfața angajatului** | Pictogramă în bara de sistem + notificări | Arată ce s-a protejat, de ce s-a blocat, cere excepții |
-| 9 | **Consola patronului** | Web; metadatele stau în cloud **sau** pe un calculator al firmei [V] | Categorii configurabile, raport lunar, aprobarea excepțiilor |
+| 9 | **Consola antreprenorului** | Web; metadatele stau în cloud **sau** pe un calculator al firmei [V] | Categorii configurabile, raport lunar, aprobarea excepțiilor |
 | 10 | **Cutie de rețea** (opțional) | Router sau mini-PC în birou | Blochează domeniile AI pentru dispozitivele **fără** agent (telefoane, oaspeți) prin DNS. Nu decriptează nimic |
 
 ### 3.2 De ce pe dispozitiv, nu doar la nivel de rețea
@@ -146,7 +146,7 @@ Fiecare categorie are aceleași câmpuri, editabile din consolă:
 | Adresă | NER + cuvinte („str.”, „bl.”, „ap.”) | Generalizează (doar orașul) | [I] |
 | Sume | tipar + monedă | Permite (implicit) / **Scalează** cu factor secret pentru cifrele firmei (configurabil); nu scalează când promptul pomenește praguri legale | [I], vezi [07 §4.3](07-problema.md) |
 | Numele și CUI-ul firmei proprii | listă (setată la instalare) | Pseudonimizează | [I] |
-| Furnizori, produse, proiecte interne | listă importată de patron | Pseudonimizează / Blochează | [I] |
+| Furnizori, produse, proiecte interne | listă importată de antreprenor | Pseudonimizează / Blochează | [I] |
 | Date de sănătate | dicționar de diagnostice + cuvinte („diagnostic”, „tratament”) | **Blochează** | [I] |
 | Secrete tehnice | chei API, parole, tokenuri (tipare + entropie) | **Blochează** | [I] |
 | Cod sursă | detectarea limbajului de programare | Blochează (firme IT) / Permite (alții) | [I] |
@@ -182,7 +182,7 @@ Fiecare categorie are aceleași câmpuri, editabile din consolă:
 
 ## 8. Riscuri juridice ale soluției însăși [I] [V]
 - Decriptarea traficului angajaților = **monitorizare la locul de muncă**, deci intră sub GDPR art. 88 și regulile din dreptul muncii. Probabil e nevoie de: informarea scrisă a angajaților, o evaluare de impact (DPIA), proporționalitate. **De verificat cu un jurist.**
-- **Proporționalitate prin design:** decriptăm doar domeniile AI; textul nu pleacă de pe calculator; raportul patronului e **pe categorii**, nu pe persoane (raportul pe persoane e opțional și dezactivat implicit).
+- **Proporționalitate prin design:** decriptăm doar domeniile AI; textul nu pleacă de pe calculator; raportul antreprenorului e **pe categorii**, nu pe persoane (raportul pe persoane e opțional și dezactivat implicit).
 - Seiful local conține date reale. Dacă laptopul e furat, e protejat de criptare și de termenul de ștergere.
 
 ## 9. Testele tehnice care decid fezabilitatea (înainte de orice pitch)
@@ -219,7 +219,7 @@ Asta rezolvă două probleme din critica de până acum [I]:
 |---|---|---|
 | Sănătate, contracte negociate, strategii, oferte, cod sursă (A, B, D) | Blocat | **Redirecționat către AI-ul local** (dacă firma îl are); altfel blocat |
 | Parole, chei, token SPV (E) | Blocat | **Tot blocat**: nicio sarcină nu are nevoie de ele, nici local |
-| Excepții motivate | Aprobare de la patron | La fel |
+| Excepții motivate | Aprobare de la antreprenor | La fel |
 
 ### Fluxul exact
 1. Angajatul trimite în ChatGPT o fișă medicală. Agentul o clasifică ROȘU.
@@ -228,7 +228,7 @@ Asta rezolvă două probleme din critica de până acum [I]:
    - **Textul se transferă prin agentul local** (în memoria calculatorului), **niciodată prin adresa paginii (URL)**. Altfel datele ar ajunge în istoricul browserului și în jurnale [I].
 4. Tabul are un marcaj vizibil: **„AI local · datele nu părăsesc firma”**, ca angajatul să știe unde lucrează.
 5. Răspunsul rămâne local. Istoricul conversațiilor e criptat pe disc și se șterge după un termen configurabil.
-6. În raportul patronului apare categoria: *„3 sarcini mutate în AI-ul local”*.
+6. În raportul antreprenorului apare categoria: *„3 sarcini mutate în AI-ul local”*.
 
 ### Unde rulează modelul: două variante
 | Criteriu | A. Pe calculatorul angajatului | B. „AI-ul biroului”: un server în rețeaua locală |
@@ -262,13 +262,13 @@ Asta rezolvă două probleme din critica de până acum [I]:
 | T10 | Transferul textului din ChatGPT în tabul local | Textul ajunge complet; nu apare în URL, în istoricul browserului sau în jurnale |
 
 ### Propunerea de valoare, completată
-> … blochează parolele, **mută documentele care nu pot pleca într-un AI care rulează în firmă** și îi arată patronului, în fiecare lună, ce a fost oprit sau mutat.
+> … blochează parolele, **mută documentele care nu pot pleca într-un AI care rulează în firmă** și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat.
 
-## 11. Întrebări noi pentru interviuri (Mom Test)
-- „Ce document cu date de clienți ați deschis ultima dată pe calculator? Ce ați făcut cu el?” (calificare)
-- „Ultima dată când ați vrut să folosiți AI pe un document de client, ce ați făcut: l-ați trimis, l-ați rescris de mână sau ați renunțat?”
-- (patron) „Ce rapoarte primiți acum despre calculatoarele firmei? Pe care l-ați citit ultima dată?”
-- (IT) „Ați instalat vreodată un certificat la clienți (pentru filtrare web sau antivirus)? Ce s-a stricat?”
-- (IT) „Ce calculatoare au clienții voștri: câtă memorie, au placă video? Au vreun server în birou?” (fezabilitatea AI-ului local)
-- (angajat) „Ultima dată când n-ați putut folosi AI-ul pe un document, cum ați terminat sarcina? Cât v-a luat?” (valoarea AI-ului local)
-- (patron) „Ați cumpărat vreodată un echipament doar ca datele să rămână în firmă (server, NAS)? Ce v-a convins?” (disponibilitatea de a investi în varianta B)
+## 11. Întrebări noi pentru interviuri (Mom Test, pe ton natural)
+- „Hai să luăm ziua de ieri. Ce ați avut de lucru pe calculator care avea și date de clienți? Ce ați făcut cu el?” (calificare)
+- „Ultima dată când ați vrut să folosiți AI-ul pe ceva de-al unui client, ce ați făcut până la urmă? L-ați pus așa, l-ați rescris sau ați renunțat?”
+- (antreprenor) „Vă vine acum vreun raport despre calculatoarele firmei? Pe care l-ați citit ultima dată?”
+- (IT) „Ați pus vreodată certificate pe calculatoarele clienților, pentru filtrare sau antivirus? Ce s-a stricat?”
+- (IT) „Ce calculatoare au de obicei clienții voștri? Câtă memorie, au placă video? Are vreunul server în birou?” (fezabilitatea AI-ului local)
+- (angajat) „A fost vreo dată când n-ați putut folosi AI-ul pe un document? Cum ați terminat treaba? Cât v-a luat?” (valoarea AI-ului local)
+- (antreprenor) „Ați cumpărat vreodată ceva doar ca datele să rămână la voi în birou, un server sau un hard extern? Ce v-a convins?” (disponibilitatea de a investi în varianta B)
