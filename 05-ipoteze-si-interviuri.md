@@ -1,5 +1,7 @@
 # 05 · Ipoteze de validat și ghid de interviu (The Mom Test)
 
+> **Pentru interviurile propriu-zise folosiți [08-ghid-interviu.md](08-ghid-interviu.md).** E aceeași logică, dar cu întrebări scrise cum se vorbește, nu ca într-un formular. Listele de mai jos rămân ca bază de lucru pentru ipoteze.
+
 > Regulile The Mom Test [F] S42: **vorbește despre viața lor, nu despre ideea ta · întreabă despre situații concrete din trecut, nu despre opinii sau viitor · vorbește puțin, ascultă mult.**
 > Interzis: „ați folosi…?”, „cât ați plăti…?”, „vi se pare o idee bună?”.
 > Juriul acceptă ca dovadă doar **notițe și citate de la oameni reali**, deci notăm cuvânt cu cuvânt, cu data și rolul persoanei.

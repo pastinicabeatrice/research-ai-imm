@@ -44,8 +44,9 @@
 4. Restaurare în răspuns. Dacă restaurarea eșuează (eticheta a fost modificată de AI), angajatul vede răspunsul cu etichete și un avertisment.
 5. Angajatul **vede ce s-a înlocuit** înainte de trimitere. Asta face parte din pregătirea AI cerută de AI Act art. 4 [F] S4 [I].
 
-### 🔴 ROȘU: blocare cu explicație
-1. Trimiterea e blocată, iar angajatul vede **de ce** („conține date de sănătate legate de un pacient”) și **ce alternativă are** (instrumentul aprobat de firmă, o versiune generică a întrebării, întrebarea pusă fără date).
+### 🔴 ROȘU: redirecționare către AI-ul local (sau blocare)
+0. **Actualizare:** dacă firma are un AI local (Qwen, Llama pe calculator sau pe un server din birou), angajatul primește butonul **„Deschide în AI-ul local”**, cu textul deja încărcat, transferat prin agentul local, nu prin URL. Parolele și cheile rămân blocate oricum. Detalii în [06 §11b](06-solutie.md).
+1. Fără AI local, trimiterea e blocată, iar angajatul vede **de ce** („conține date de sănătate legate de un pacient”) și **ce alternativă are** (instrumentul aprobat de firmă, o versiune generică a întrebării, întrebarea pusă fără date).
 2. Angajatul poate cere o **excepție motivată**, aprobată de patron sau de DPO.
 3. **Propunem să înlocuim regula „taie accesul la AI după ignorare”** cu o escaladare treptată:
    - prima dată: blocare + explicație;

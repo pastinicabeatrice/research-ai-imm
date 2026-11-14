@@ -91,6 +91,14 @@ Unde n-am putut citi textul oficial, scrie „de verificat”.
 
 | S47 | [RONEC, Romanian Named Entity Corpus (GitHub)](https://github.com/dumitrescustefan/ronec) și [articolul LREC 2020](https://aclanthology.org/2020.lrec-1.546) | Primară (cercetare) | ~26.000 de entități în ~5.000 de propoziții din presă, 16 clase; licență MIT (după fișa Hugging Face) |
 
+## AI local (06 §11b)
+
+| ID | Sursă | Tip | Ce am luat |
+|---|---|---|---|
+| S48 | [LumaDock, „Ollama hardware requirements”](https://lumadock.com/tutorials/ollama-hardware-requirements) și [LocalAIMaster, „Ollama System Requirements 2026”](https://localaimaster.com/blog/ollama-system-requirements) | Secundară (bloguri, nu teste controlate) | 16 GB RAM recomandat pentru modele de 7–8B; pe procesor ~4–10 token/s la 7–8B Q4; la 14B devine lent |
+| S49 | [IntuitionLabs, „Open-weight AI model licenses”](https://intuitionlabs.ai/articles/open-weight-ai-model-licenses) | Secundară | Qwen3: Apache 2.0 pentru multe checkpoint-uri; Llama: licență separată doar peste 700 mil. utilizatori lunari. **De verificat pe fișele oficiale** |
+| S50 | [OpenLLM-Ro pe Hugging Face](https://huggingface.co/OpenLLM-Ro) și [raportul tehnic arXiv 2405.07703](https://arxiv.org/abs/2405.07703) | Primară (cercetare) | Modele adaptate pentru română: RoLlama (2, 3, 3.1), RoGemma, RoGemma2, RoMistral, RoQwen-VL |
+
 ## Metodă de interviu
 
 | ID | Sursă | Tip | Ce am luat |

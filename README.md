@@ -18,6 +18,7 @@ Research din faza de analiză a problemei pentru hackathon: ce date lipesc angaj
 | [05-ipoteze-si-interviuri.md](05-ipoteze-si-interviuri.md) | Ipoteze de validat și întrebări de interviu după The Mom Test (inclusiv pentru mentori) |
 | [07-problema.md](07-problema.md) | Problema exactă: ce firme (4 criterii), cele 5 clase de date, cum protejăm secretele financiare ale firmei |
 | [06-solutie.md](06-solutie.md) | Propunerea de valoare, fluxul exact, arhitectura (interceptare locală), categoriile configurabile, testele de fezabilitate |
+| [08-ghid-interviu.md](08-ghid-interviu.md) | **Ghidul de interviu de folosit**: întrebări Mom Test pe ton natural, pe roluri (angajat, patron, IT, mentor) |
 | [surse.md](surse.md) | Toate sursele, cu link și dată (accesate 14.11.2026) |
 
 Marcaje: **[F]** faptă cu sursă · **[I]** ipoteza noastră · **[V]** de validat la interviuri. Cifrele firmelor de securitate sunt marcate „afirmație de vânzător”.

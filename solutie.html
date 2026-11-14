@@ -141,6 +141,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     <a class="brand" href="#start">Soluția</a>
     <a class="l" href="#cum">Cum funcționează</a>
     <a class="l" href="#demo">Exemple</a>
+    <a class="l" href="#local">AI local</a>
     <a class="l" href="#ce">Ce protejăm</a>
     <a class="l" href="#patron">Ce vede patronul</a>
     <a class="l" href="#dece">De ce noi</a>
@@ -157,7 +158,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
     <div class="vp">
       <p><b class="k">Ajutăm</b> firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte)</p>
       <p><b class="k">să</b> folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente <strong>fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă</strong>,</p>
-      <p><b class="k">prin</b> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele și documentele care nu pot fi protejate și îi arată patronului, în fiecare lună, ce a fost oprit la ieșire.</p>
+      <p><b class="k">prin</b> un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează în firmă și îi arată patronului, în fiecare lună, ce a fost oprit sau mutat.</p>
     </div>
     <div class="grid g3">
       <div class="card"><h3>Pentru angajat</h3><p>Lucrează în ChatGPT ca până acum. Primește răspunsul cu datele reale. Vede ce a fost protejat.</p></div>
@@ -177,7 +178,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
         <div class="arrow" aria-hidden="true">→</div>
         <div class="fstep agent"><span class="n">2</span><h3>Agentul prinde cererea</h3><p>Un proxy local interceptează doar domeniile AI și găsește datele sensibile.</p></div>
         <div class="arrow" aria-hidden="true">→</div>
-        <div class="fstep agent"><span class="n">3</span><h3>Decide și ascunde</h3><p>VERDE trece. GALBEN: nume și CUI fictive, CNP eliminat, sume scalate. ROȘU: blocat.</p></div>
+        <div class="fstep agent"><span class="n">3</span><h3>Decide și ascunde</h3><p>VERDE trece. GALBEN: nume și CUI fictive, CNP eliminat, sume scalate. ROȘU: mutat în AI-ul local.</p></div>
         <div class="arrow" aria-hidden="true">→</div>
         <div class="fstep"><span class="n">4</span><h3>AI-ul răspunde</h3><p>Primește doar valori fictive. Răspunde normal.</p></div>
         <div class="arrow" aria-hidden="true">→</div>
@@ -189,6 +190,32 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
       <div class="card dark"><h3>Categorii configurabile</h3><p>CNP, IBAN, CUI cu cifră de control; nume; lista clienților firmei; cifrele firmei; termeni interni.</p></div>
       <div class="card dark"><h3>Documente</h3><p>PDF, Word, Excel, scanuri: se extrage textul local (cu OCR) și pleacă textul curățat, nu fișierul.</p></div>
       <div class="card dark"><h3>La îndoială, mai strict</h3><p>Dacă nu e sigur că a găsit tot, agentul alege varianta mai protectoare.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="local">
+  <div class="wrap stack">
+    <div><h2>Ce nu poate pleca, rămâne în firmă</h2><p class="sub">Pentru datele care nu pot ajunge într-un AI public (fișe medicale, contracte negociate, oferte, strategii), angajatul nu mai dă de un zid. Primește un buton care deschide un AI local (Qwen, Llama), care rulează pe calculator sau pe un server din birou. <span class="mark i">I</span></p></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="pane" style="gap:14px">
+        <p class="eyebrow">Ce vede angajatul în ChatGPT</p>
+        <span class="verdict ROSU"><i></i>Nu poate pleca în ChatGPT</span>
+        <p style="color:var(--ink)">Textul conține date de sănătate despre un pacient care poate fi recunoscut.</p>
+        <div class="chips"><span class="chip" style="background:var(--mint);color:var(--mint-ink)">Deschide în AI-ul local</span><span class="chip">Editează textul</span><span class="chip">Cere o excepție</span></div>
+        <p class="sub" style="font-size:.9rem;margin:0">Textul se mută în tabul local prin agent, nu prin adresa paginii, ca să nu rămână în istoricul browserului.</p>
+      </div>
+      <div class="pane" style="gap:14px;border-color:var(--mint)">
+        <p class="eyebrow" style="color:var(--mint)">Tab nou · AI local · datele nu părăsesc firma</p>
+        <pre>Rezumă fișa: pacient 67 ani, Comuna Săliște, mielom multiplu, a refuzat chimioterapia…</pre>
+        <pre style="color:var(--muted)">Rezumat: pacient de 67 de ani cu mielom multiplu, a refuzat chimioterapia propusă. De discutat opțiunile alternative și sprijinul familiei…</pre>
+        <p class="sub" style="font-size:.85rem;margin:0">Exemplu fictiv, scris de mână. Modelele locale mici pot greși: răspunsul se verifică.</p>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="card dark"><h3>Unde rulează</h3><p><strong style="color:var(--ink)">Pe calculator:</strong> pentru microfirme cu laptopuri bune (recomandat ≥ 16 GB RAM pentru modele de 7–8B). <strong style="color:var(--ink)">Pe un server din birou:</strong> pentru firme de 5–100 de oameni, cu placă video, folosit de toți. <span class="mark f">F</span> S48 <span class="mark i">I</span></p></div>
+      <div class="card dark"><h3>Ce modele</h3><p>Qwen3 (Apache 2.0 pentru multe modele), Llama 3.1 (gratuită pentru firme mici), OpenLLM-Ro (RoLlama, RoGemma), adaptate pentru română. Licențele se verifică pe fișa fiecărui model. <span class="mark f">F</span> S49 S50</p></div>
+      <div class="card dark"><h3>Ce trebuie testat</h3><p>Calitatea pe română (T8), viteza pe un laptop de birou fără placă video (T9: pe procesor, ~4–10 token-uri pe secundă) și transferul fără URL (T10). <span class="mark v">V</span></p></div>
     </div>
   </div>
 </section>
@@ -258,7 +285,7 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
         <li><b>✕</b><span>Telefoanele personale: le putem doar bloca în rețeaua biroului.</span></li>
         <li><b>✕</b><span>Aplicațiile care refuză interceptarea: acolo doar blocăm.</span></li>
         <li><b>✕</b><span>Textul liber cu fapte unice poate identifica o persoană și fără nume.</span></li>
-        <li><b>✕</b><span>Contractele negociate, strategiile și codul sursă rămân blocate: acolo conținutul e secretul.</span></li>
+        <li><b>✕</b><span>Contractele negociate, strategiile și codul sursă nu pleacă la AI-ul public. Merg doar în AI-ul local, care e mai slab și, fără placă video, mai lent.</span></li>
         <li><b>✕</b><span>Citirea traficului angajaților e monitorizare: cere informarea lor și o evaluare de impact.</span></li>
       </ul>
     </div>
@@ -282,6 +309,11 @@ footer ul{margin:10px 0 0;padding-left:1.1em;color:var(--muted);font-size:.9rem;
         <div>Întrebați despre trecut, concret<span>„ultima dată când…”</span></div>
         <div>Ascultați mai mult<span>notați citate exacte</span></div>
         <div>Complimentele nu se numără<span>„ce idee bună” nu e dovadă</span></div>
+      </div>
+      <div class="phase">
+        <h3>Cum începeți, cu oricine</h3>
+        <p>„Mersi că ne dați 20 de minute. Nu vindem nimic. Suntem la un hackathon și încercăm să înțelegem cum se lucrează de fapt într-un cabinet ca al dumneavoastră. Nu există răspunsuri greșite, și dacă ceva nu vreți să povestiți, sărim peste.”</p>
+        <p style="color:#2e5753;font-size:.92rem"><strong>Ca să săpați mai adânc:</strong> Și apoi? · Cum adică? · Îmi dați un exemplu? · Când s-a întâmplat ultima dată? · Ce ați făcut atunci? · Cât v-a luat?</p>
       </div>
       <div class="roles" role="group" aria-label="Cu cine vorbiți" id="roleBtns"></div>
       <div class="stack" style="gap:16px" id="phases"></div>
@@ -322,16 +354,16 @@ const DEMOS=[
   note:"Sumele sunt înmulțite cu un factor secret (×1,37), același pe toată conversația. Marja (13,3%) și concentrarea (41%) rămân corecte. Dacă întrebarea ar pomeni un plafon din lege, sumele n-ar fi scalate."},
  {k:"med",l:"Clinică: rezumat de fișă",v:"ROSU",
   in:"Rezumă fișa: pacient [[r:67 ani]], [[r:Comuna Săliște]], diagnostic [[r:mielom multiplu]], a refuzat chimioterapia, fiica lucrează la primărie.",
-  out:"— nimic nu pleacă —",
-  back:"Blocat: textul conține date de sănătate despre o persoană care poate fi recunoscută după vârstă, localitate și familie, chiar fără nume.\n\nAlternative: folosiți instrumentul aprobat de clinică sau întrebați fără date despre pacient (de ex. „cum structurez un rezumat de fișă oncologică?”).",
-  note:"Datele de sănătate legate de o persoană identificabilă sunt pe ROȘU. Ascunderea numelui nu ajunge: comuna, vârsta și familia o identifică."},
+  out:"— nimic nu pleacă în ChatGPT —\n\nTextul se mută, pe calculator, în AI-ul local.",
+  back:"[AI local · datele nu părăsesc firma]\n\nRezumat: pacient de [[g:67 de ani]] din [[g:Săliște]], cu [[g:mielom multiplu]], a refuzat chimioterapia propusă…",
+  note:"Datele de sănătate legate de o persoană identificabilă sunt pe ROȘU: ascunderea numelui nu ajunge, pentru că localitatea, vârsta și familia o identifică. În loc de blocare, sarcina se face pe un model care rulează în firmă. Fără AI local, cererea e blocată cu explicație."},
  {k:"gen",l:"Oricine: întrebare generală",v:"VERDE",
   in:"Explică-mi pe scurt cum funcționează TVA la încasare.",
   out:"Explică-mi pe scurt cum funcționează TVA la încasare.",
   back:"TVA la încasare înseamnă că firma datorează TVA-ul la stat abia când încasează factura de la client, nu când o emite…",
   note:"Nicio dată sensibilă: cererea pleacă neschimbată. În jurnal ajunge doar ora și aplicația, fără text."}
 ];
-const VL={VERDE:"VERDE · trece neschimbat",GALBEN:"GALBEN · ascuns și pus la loc",ROSU:"ROȘU · blocat cu explicație"};
+const VL={VERDE:"VERDE · trece neschimbat",GALBEN:"GALBEN · ascuns și pus la loc",ROSU:"ROȘU · mutat în AI-ul local"};
 function showDemo(k){
   const d=DEMOS.find(x=>x.k===k);
   document.querySelectorAll("#demoBtns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
@@ -380,54 +412,69 @@ document.getElementById("tests").innerHTML=TESTS.map(t=>`<div class="test"><span
 
 /* ghid de interviu */
 const ROLES={
- angajat:{l:"Angajat",who:"Contabil, asistentă medicală, jurist, broker: cineva care lucrează la calculator cu documente de clienți.",
+ angajat:{l:"Angajat",who:"Contabil, asistentă, jurist, broker: cineva care lucrează la calculator cu acte de clienți.",
   phases:[
-   ["Deschidere","2 min",[["Cu ce vă ocupați concret într-o zi obișnuită? Ce documente deschideți cel mai des?","Calificare: dacă nu lucrează cu documente cu date, nu e utilizatorul nostru."]]],
-   ["Ce s-a întâmplat deja","12 min",[
-    ["Povestiți-mi ultima sarcină de muncă la care ați folosit ChatGPT sau alt AI. Ce ați lipit acolo?","Aflăm dacă problema există (ipoteza H1)."],
-    ["Pe ce cont ați făcut-o: personal sau al firmei? Pe calculator sau pe telefon?","Shadow AI și ocolirea pe telefon."],
-    ["Conținea nume, CNP-uri, sume sau date ale firmei? Ați scos ceva înainte? Cum anume?","Cât de des ajung datele sensibile în AI și ce fac azi."],
-    ["Ultima dată când ați vrut să folosiți AI pe un document de client și n-ați făcut-o: de ce?","Costul interdicției sau al fricii."],
-    ["V-a spus cineva din firmă ce aveți voie să puneți în AI? Când și cum?","Există reguli? Cine le-a făcut?"],
-    ["Când v-a blocat ultima dată un program de la firmă ceva? Ce ați făcut atunci?","Ocolirea blocărilor."]]],
-   ["Închidere","3 min",[["Pe cine din firmă ar trebui să mai întrebăm despre asta? Ne puteți pune în legătură?","Angajament: o prezentare valorează mai mult decât un compliment."]]],
-   ["Abia la final: arătați soluția","3 min",[["(Arătați exemplul contabil de mai sus.) Ce caz din munca dvs. n-ar încăpea aici?","Căutăm unde nu se potrivește, nu laude."],["Ne-ați da un document de-al vostru, cu datele schimbate, ca să-l testăm?","Angajament concret: acces la un caz real."]]]
+   ["Ziua de ieri","8 min",[
+    ["Hai să luăm ziua de ieri. Cu ce v-ați apucat de lucru dimineață?","Pornim de la o zi reală, nu de la „de obicei”. Continuați cu „și apoi?”."],
+    ["Ați folosit săptămâna asta ChatGPT sau ceva asemănător pentru muncă? La ce anume?","Aflăm dacă problema există (ipoteza H1)."],
+    ["Puteți să-mi povestiți ce ați scris acolo? Nu conținutul exact, doar ce fel de lucruri erau.","Ce fel de date ajung în AI."],
+    ["Erau și nume de clienți sau cifre în ce ați pus acolo? Le-ați lăsat așa sau ați umblat la ele înainte?","Ce fac azi ca să se protejeze."],
+    ["De pe ce l-ați folosit: de pe calculatorul de la birou, de pe laptopul personal, de pe telefon?","Cât de mult trece pe lângă firmă."]]],
+   ["Momentele de ezitare","7 min",[
+    ["Vi s-a întâmplat să vă gândiți de două ori înainte să lipiți ceva acolo? Ce era?","Momentul în care apare frica."],
+    ["A fost vreo dată când ați vrut să-l folosiți și v-ați răzgândit? Cum ați terminat treaba până la urmă? Cât v-a luat?","Costul renunțării: aici se vede valoarea AI-ului local."],
+    ["V-a zis cineva la birou ceva de genul „nu băgați asta în ChatGPT”? Cine, și când?","Există reguli și cine le face."],
+    ["Ultima dată când calculatorul de la serviciu v-a blocat un site sau un program, ce ați făcut?","Ocolirea blocărilor."]]],
+   ["La final","5 min",[
+    ["Mai e cineva la voi care folosește mult chestiile astea și cu care ar merita să vorbim?","O prezentare valorează mai mult decât un compliment."],
+    ["(Abia acum arătați exemplul de mai sus.) Unde nu s-ar potrivi asta cu ce faceți voi zi de zi?","Căutăm unde se rupe, nu laude."],
+    ["Ne-ați putea da un document de-al vostru, cu numele și cifrele schimbate, ca să încercăm pe el?","Angajament concret."]]]
   ]},
  patron:{l:"Patron",who:"Patronul sau asociatul unei firme de 1–100 de oameni care lucrează cu date de clienți.",
   phases:[
-   ["Deschidere","2 min",[["Câți oameni aveți și ce documente cu date de clienți sau cifre ale firmei circulă zilnic?","Calificare."]]],
-   ["Ce s-a întâmplat deja","12 min",[
-    ["Povestiți-mi ultima dată când ați aflat că cineva din firmă a folosit ChatGPT pentru muncă. Ce făcea și ce ați făcut dvs.?","Problema, în cuvintele lor (întrebarea de pitch 2)."],
-    ["Ce reguli despre AI aveți acum, scrise sau nescrise? Cine le-a stabilit și când?","Ce fac azi (întrebarea de pitch 5)."],
-    ["Ultima dată când date ale unui client sau cifre ale firmei au ajuns unde nu trebuia: ce s-a întâmplat și cât v-a costat?","Costul (întrebarea de pitch 4)."],
-    ["Ce document intern ar fi cel mai grav să ajungă la un concurent? Vi s-a întâmplat ceva apropiat?","Doare mai tare clasa D (secretele firmei) decât GDPR?"],
-    ["Ce ați cheltuit în ultimul an pe protecția datelor sau pe IT? Cine a propus și cine a decis?","Cine plătește (întrebarea de pitch 1)."],
-    ["Ați plătit vreodată un abonament AI pentru angajați? De ce da sau de ce nu?","Alternativa ChatGPT Business."]]],
-   ["Închidere","3 min",[["Pe cine mai întrebați când luați decizii de IT? Ne puteți face cunoștință?","Ajungem la firma IT externă."]]],
-   ["Abia la final: arătați soluția","3 min",[["(Arătați raportul lunar.) Ce ați face cu un astfel de raport? Cui l-ați arăta?","Contează valoarea percepută, nu dacă le place."],["Ați instala agentul pe un calculator, o săptămână, ca test?","Angajament: pilot."]]]
+   ["Firma și AI-ul","6 min",[
+    ["Povestiți-mi puțin cum arată firma acum: câți sunteți, cine ce face?","Calificare și context."],
+    ["Știți dacă oamenii dumneavoastră folosesc ChatGPT la muncă? Cum ați aflat?","Problema, cu cuvintele lor. Continuați cu „și ce-ați zis atunci?”."],
+    ["Ați apucat să stabiliți vreo regulă pentru asta, chiar și una spusă verbal, la o cafea?","Ce fac azi."],
+    ["Plătiți vreun abonament de AI pentru oameni? Cum s-a ajuns la decizia asta?","Alternativa ChatGPT Business."]]],
+   ["Când a scăpat ceva","8 min",[
+    ["V-a scăpat vreodată ceva ce nu trebuia: un e-mail trimis cui nu trebuia, un fișier, un laptop pierdut? Ce s-a întâmplat după?","Un incident real."],
+    ["Cât v-a costat povestea aia, în bani, în timp sau în nervi?","Costul, cu o cifră."],
+    ["Ce informații de-ale firmei țineți cel mai ascunse? A ajuns vreodată ceva din ele unde nu trebuia?","Doare mai tare secretul firmei decât GDPR-ul?"],
+    ["Ultima dată când ați dat bani pe ceva de IT sau de securitate, ce a fost? Cine v-a convins?","Cine decide și cine plătește."],
+    ["Aveți în birou vreun calculator sau server pe care țineți datele la voi, nu în cloud? De ce l-ați luat?","Ar investi în AI-ul local din birou?"]]],
+   ["La final","6 min",[
+    ["Cine se ocupă de calculatoarele voastre? Ne-ați putea face cunoștință?","Ajungem la omul de IT."],
+    ["(Abia acum arătați raportul lunar.) Cui i-ați arăta un astfel de raport?","Valoarea percepută, nu dacă le place."],
+    ["V-ar deranja să-l punem pe un calculator o săptămână, ca test?","Angajament: pilot."]]]
   ]},
- it:{l:"Omul de IT",who:"Firma IT externă sau omul care administrează calculatoarele mai multor firme mici.",
+ it:{l:"Omul de IT",who:"Firma IT externă sau omul care se ocupă de calculatoarele mai multor firme mici.",
   phases:[
-   ["Deschidere","2 min",[["La câte firme mici administrați calculatoarele? Ce antivirus rulează la ele?","Canalul de distribuție."]]],
-   ["Ce s-a întâmplat deja","12 min",[
-    ["V-a cerut vreun client în ultimele 6 luni ceva legat de AI? Ce ați făcut?","Există cerere la ei?"],
-    ["Ați blocat vreodată ChatGPT la un client? Cum? Ce s-a întâmplat după?","Ocolirea și reacțiile."],
-    ["Ați instalat vreodată un certificat pe calculatoarele clienților (pentru filtrare web sau antivirus)? Ce s-a stricat?","Fezabilitatea interceptării (testele T1, T6)."],
-    ["Ce instrument de securitate ați văzut abandonat din cauza alarmelor false?","Cât de precis trebuie să fie."],
-    ["Vi s-au prezentat modulele AI lansate în 2026 de Bitdefender sau ESET? Ce ați făcut cu ele?","Concurența, din teren."]]],
-   ["Închidere","3 min",[["Care dintre clienții voștri ar vorbi cu noi 20 de minute?","Prezentări."]]],
-   ["Abia la final: arătați soluția","3 min",[["(Arătați fluxul.) Ce s-ar strica la clienții voștri dacă ați instala asta?","Riscurile de instalare."],["Ați încerca să-l instalați la un client, ca test?","Angajament: pilot prin canal."]]]
+   ["Ce fac la clienți","10 min",[
+    ["La câte firme vă ocupați de calculatoare? Ce fel de firme sunt?","Canalul de distribuție."],
+    ["V-a întrebat vreun client ceva de ChatGPT în ultima vreme? Ce voia, de fapt?","Există cerere?"],
+    ["Ați blocat vreodată ChatGPT la cineva? Cum ați făcut și ce s-a întâmplat după?","Ocolirea și reacțiile."],
+    ["Ați pus vreodată certificate pe calculatoarele clienților, pentru filtrare sau pentru antivirus? Ce s-a stricat?","Se poate intercepta fără să strici ceva?"],
+    ["Ce calculatoare au de obicei clienții voștri? Câtă memorie, au placă video? Are vreunul server în birou?","Merge AI-ul local pe ce au?"]]],
+   ["Ce n-a mers","6 min",[
+    ["Ați renunțat vreodată la un program de securitate pentru că dădea prea multe alarme? Ce s-a întâmplat?","Cât de precis trebuie să fie."],
+    ["V-a prezentat cineva modulele noi de AI de la Bitdefender sau ESET? Ce ați făcut cu ele?","Concurența, din teren."]]],
+   ["La final","4 min",[
+    ["Care dintre clienții voștri ar sta de vorbă cu noi 20 de minute?","Prezentări."],
+    ["(Abia acum arătați fluxul.) Ce s-ar strica la clienții voștri dacă ați instala asta?","Riscurile reale de instalare."]]]
   ]},
- mentor:{l:"Mentor",who:"Mentorii joacă și rolul utilizatorilor. Întrebați-i ce au văzut și trăit, nu ce cred despre idee.",
+ mentor:{l:"Mentor",who:"Mentorii nu sunt clienți. Îi întrebăm ce au văzut și trăit, nu ce cred despre idee.",
   phases:[
    ["Ce au văzut","10 min",[
-    ["La ultima firmă mică pe care ați condus-o sau ați consiliat-o, cum folosea echipa AI-ul? Cine a început și pentru ce?","Problema, din experiența lor."],
-    ["Povestiți-mi ultimul caz în care cineva a pus date de client într-un instrument online fără să întrebe. Ce s-a întâmplat?","Incidente reale."],
-    ["Ultima dată când ați văzut o firmă mică cumpărând un soft de securitate: cine l-a propus, cine a aprobat?","Cine plătește."]]],
-   ["Expertiza lor","6 min",[
-    ["(Jurist, medic, contabil) Ce ați considerat până acum divulgare a secretului profesional? Ați întâlnit un caz cu un instrument online?","Limita juridică a soluției."],
-    ["(IT) Ați văzut angajați ocolind o blocare de la firmă? Cum și cât de repede?","Riscul ocolirii pe telefon."]]],
-   ["Închidere și angajament","4 min",[["Pe cine cunoașteți care conduce o firmă de contabilitate, o clinică sau un cabinet și ar vorbi 20 de minute cu noi?","Prezentări: semnalul cel mai puternic."],["(Abia acum, arătați matricea.) Ce caz din experiența dvs. n-ar încăpea aici?","Unde se rupe soluția."]]]
+    ["Ați condus sau ați lucrat cu firme mici. Cum au început oamenii de acolo să folosească AI-ul? Povestiți-mi un caz.","Problema, din experiența lor."],
+    ["Ați văzut vreodată pe cineva punând date de client într-un program online fără să întrebe? Ce s-a întâmplat?","Incidente reale."],
+    ["Ultima dată când ați văzut o firmă mică cumpărând ceva de securitate, cine a împins decizia?","Cine plătește."]]],
+   ["Din meseria lor","6 min",[
+    ["(Jurist, medic, contabil) Din ce ați văzut în practică, unde e granița dintre „am folosit un program” și „am divulgat”? Ați prins vreun caz?","Limita juridică a soluției."],
+    ["(IT) Ați văzut oameni ocolind o blocare de la firmă? Cât le-a luat?","Riscul ocolirii pe telefon."]]],
+   ["La final","4 min",[
+    ["Pe cine cunoașteți care conduce un cabinet sau o clinică și ar sta de vorbă cu noi 20 de minute?","Semnalul cel mai puternic."],
+    ["(Abia acum arătați matricea.) Ce caz din ce ați văzut dumneavoastră n-ar încăpea aici?","Unde se rupe soluția."]]]
   ]}
 };
 let role="angajat";
@@ -442,21 +489,22 @@ document.getElementById("roleBtns").addEventListener("click",e=>{const b=e.targe
 renderScript();
 document.getElementById("copyScript").addEventListener("click",async e=>{
   const b=e.currentTarget, old=b.textContent, r=ROLES[role]; let n=0;
-  let t=`Ghid de interviu: ${r.l}\nCu cine: ${r.who}\nReguli: despre viața lor, nu despre idee; despre trecut, concret; ascultați; notați citate exacte.\n`;
+  let t=`Ghid de interviu: ${r.l}\nCu cine: ${r.who}\nReguli: despre viața lor, nu despre idee; despre o zi anume, nu „de obicei”; ascultați; notați citate exacte.\nCum începeți: „Mersi că ne dați 20 de minute. Nu vindem nimic. Încercăm să înțelegem cum se lucrează de fapt la voi. Nu există răspunsuri greșite.”\nCa să săpați: Și apoi? · Cum adică? · Îmi dați un exemplu? · Când s-a întâmplat ultima dată? · Ce ați făcut atunci?\n`;
   r.phases.forEach(p=>{t+=`\n${p[0]} (${p[1]})\n`; p[2].forEach(q=>{n++; t+=`${n}. ${q[0]}\n   De ce: ${q[1]}\n`})});
   try{await navigator.clipboard.writeText(t); b.textContent="Copiat";}catch(err){const ta=document.createElement("textarea"); ta.value=t; ta.style.cssText="width:100%;min-height:160px"; b.after(ta); ta.select(); b.textContent="Selectat mai jos";}
   setTimeout(()=>b.textContent=old,2000);
 });
 const AVOID=[
- ["Ați folosi un program care ascunde datele?","Ultima dată când ați pus un document de client în AI, ce ați făcut cu datele din el?"],
- ["Cât ați plăti pentru asta?","Ce ați cheltuit în ultimul an pe protecția datelor? Pe ce?"],
- ["Vi se pare o problemă reală?","Când ați văzut ultima dată date ajunse unde nu trebuia?"],
- ["Ar accepta angajații blocarea?","Când a fost blocat ultima dată ceva la calculator și ce au făcut?"]
+ ["Ce documente deschideți zilnic?","Hai să luăm ziua de ieri. Cu ce v-ați apucat de lucru dimineață?"],
+ ["Ați folosi un program care ascunde datele?","Ultima dată când ați pus ceva de-al unui client în ChatGPT, ce ați făcut cu numele din el?"],
+ ["Cât ați plăti pentru asta?","Ultima dată când ați dat bani pe ceva de IT, ce a fost și cine v-a convins?"],
+ ["Vi se pare o problemă reală?","V-a scăpat vreodată ceva ce nu trebuia? Ce s-a întâmplat după?"],
+ ["Ar accepta angajații blocarea?","Ultima dată când v-a blocat calculatorul ceva, ce ați făcut?"]
 ];
 document.getElementById("avoid").innerHTML=AVOID.map(a=>`<div><s>${esc(a[0])}</s><br><b>→ ${esc(a[1])}</b></div>`).join("");
 
 /* surse */
-const SRC=[["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training"],["S32","Microsoft Learn: Purview și aplicațiile AI","https://learn.microsoft.com/en-us/purview/ai-other-apps"],["S33","Bitdefender: GravityZone AI Visibility and Control","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise"],["S34","IT Brief: ESET AI security tools","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents"],["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp"],["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm"],["S15","Baroul Dolj: secretul comercial","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf"],["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html"],["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/"]];
+const SRC=[["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training"],["S32","Microsoft Learn: Purview și aplicațiile AI","https://learn.microsoft.com/en-us/purview/ai-other-apps"],["S33","Bitdefender: GravityZone AI Visibility and Control","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise"],["S34","IT Brief: ESET AI security tools","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents"],["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp"],["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm"],["S15","Baroul Dolj: secretul comercial","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf"],["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html"],["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/"],["S48","LumaDock: Ollama hardware requirements (blog)","https://lumadock.com/tutorials/ollama-hardware-requirements"],["S49","IntuitionLabs: licențele modelelor open-weight","https://intuitionlabs.ai/articles/open-weight-ai-model-licenses"],["S50","OpenLLM-Ro pe Hugging Face","https://huggingface.co/OpenLLM-Ro"]];
 document.getElementById("srcList").innerHTML=SRC.map(s=>`<li>${s[0]} · <a href="${s[2]}" target="_blank" rel="noopener">${esc(s[1])}</a></li>`).join("");
 </script>
 </body>

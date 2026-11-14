@@ -205,8 +205,70 @@ Un singur calculator, Chrome, ChatGPT web, pachetul **Contabil**:
 3. Lipim o fișă medicală: ROȘU, cu explicație.
 4. Arătăm raportul lunar și ecranul de categorii, unde adăugăm pe loc un client nou în listă.
 
+## 11b. ROȘU nu mai e un capăt de drum: redirecționarea către un AI local
+
+### Ideea
+Datele care **nu pot pleca** într-un AI public (fișe medicale, contracte negociate, oferte, strategii, cod sursă) nu mai sunt doar blocate. Angajatul primește un buton **„Deschide în AI-ul local”**, iar sarcina se face pe un model (Qwen, Llama) care rulează **pe calculator sau pe un server din birou**. Datele nu ies din firmă.
+
+Asta rezolvă două probleme din critica de până acum [I]:
+1. **Paradoxul segmentelor:** avocații și medicii, unde durerea e cea mai mare, primesc acum valoare, nu doar blocări.
+2. **Ocolirea pe telefon:** dacă blocarea are o alternativă care funcționează, angajatul are mai puține motive să ia telefonul personal [V].
+
+### Noua regulă ROȘU
+| Clasa de date | Înainte | Acum |
+|---|---|---|
+| Sănătate, contracte negociate, strategii, oferte, cod sursă (A, B, D) | Blocat | **Redirecționat către AI-ul local** (dacă firma îl are); altfel blocat |
+| Parole, chei, token SPV (E) | Blocat | **Tot blocat**: nicio sarcină nu are nevoie de ele, nici local |
+| Excepții motivate | Aprobare de la patron | La fel |
+
+### Fluxul exact
+1. Angajatul trimite în ChatGPT o fișă medicală. Agentul o clasifică ROȘU.
+2. În locul trimiterii, pe pagină apare un mesaj: *„Textul conține date de sănătate despre un pacient. Nu poate pleca în ChatGPT.”* Butoane: **Deschide în AI-ul local** · Editează textul · Cere o excepție.
+3. La „Deschide în AI-ul local”, agentul deschide un tab nou cu interfața AI-ului local, **cu textul și atașamentele deja încărcate**.
+   - **Textul se transferă prin agentul local** (în memoria calculatorului), **niciodată prin adresa paginii (URL)**. Altfel datele ar ajunge în istoricul browserului și în jurnale [I].
+4. Tabul are un marcaj vizibil: **„AI local · datele nu părăsesc firma”**, ca angajatul să știe unde lucrează.
+5. Răspunsul rămâne local. Istoricul conversațiilor e criptat pe disc și se șterge după un termen configurabil.
+6. În raportul patronului apare categoria: *„3 sarcini mutate în AI-ul local”*.
+
+### Unde rulează modelul: două variante
+| Criteriu | A. Pe calculatorul angajatului | B. „AI-ul biroului”: un server în rețeaua locală |
+|---|---|---|
+| Pentru cine | Microfirme cu 1–5 oameni și laptopuri bune | Firme de 5–100 de oameni |
+| Hardware | Recomandat ≥ 16 GB RAM pentru modele de 7–8B cuantizate [F] S48 | Un calculator cu placă video, folosit de toată firma [I] |
+| Viteză | Pe procesor (fără placă video): în jur de 4–10 token-uri (bucăți de cuvânt) pe secundă la 7–8B, deci un răspuns lung durează zeci de secunde [F] S48 (bloguri, nu teste controlate) | Mult mai rapidă cu placă video [F] S48 |
+| Datele | Nu ies de pe calculator | Nu ies din rețeaua firmei; serverul trebuie protejat (acces doar din birou, autentificare) [I] |
+| Costul hardware-ului | Zero dacă laptopul e bun | **Necunoscut**: de aflat (preț de mini-PC sau server cu placă video) |
+
+**Recomandare [I]:** varianta B pentru firmele de 5–100 de oameni; varianta A ca rezervă pentru microfirme. Omul de IT extern instalează serverul, ceea ce se potrivește cu canalul de distribuție.
+
+### Ce modele
+| Model | Licență | Limba română | Sursă |
+|---|---|---|---|
+| **Qwen3** (familia) | Apache 2.0 pentru multe modele; **de verificat pe fișa fiecărui model** | Multilingv (119 limbi, după comparații); calitatea pe română **necunoscută** | [F] S49 |
+| **Llama 3.1 / 3.2** | Llama Community License: liber pentru firme mici; licență separată doar peste 700 de milioane de utilizatori lunari | Bun pe engleză; română **de testat** | [F] S49 |
+| **OpenLLM-Ro** (RoLlama3.1, RoGemma2, RoMistral) | Moștenită de la modelul de bază, **de verificat** | Antrenate special pentru română | [F] S50 |
+
+### Limitele, spuse deschis
+- **Modelele locale mici sunt mai slabe** decât ChatGPT sau Claude: rezumă și redactează decent, dar pot inventa articole de lege sau detalii medicale. Interfața trebuie să spună asta [I].
+- **Pe calculatoare fără placă video sunt lente.** Un angajat care așteaptă 40 de secunde s-ar putea întoarce la telefon [V].
+- **Documentele lungi** (un contract de 30 de pagini) pot depăși memoria de context a unui model mic [I].
+- **Juridic:** prelucrarea rămâne în firmă, deci nu mai există un terț căruia să i se divulge datele. Probabil asta rezolvă problema secretului profesional, **dar trebuie confirmat cu un jurist** [V]. GDPR se aplică în continuare (scop, securitate, păstrare).
+
+### Teste noi
+| # | Test | Criteriu de trecere [I] |
+|---|---|---|
+| T8 | Calitate pe română: 10 sarcini ROȘU fictivizate (rezumat de fișă, rezumat de contract, e-mail către pacient) cu Qwen3, Llama 3.1 și RoLlama3.1 | Un profesionist din domeniu acceptă cel puțin 7 din 10 răspunsuri fără corecturi mari |
+| T9 | Viteză pe un laptop de birou tipic (16 GB RAM, fără placă video) și pe un mini-PC cu placă video | Primul cuvânt apare în < 3 s; un răspuns de o pagină în < 30 s |
+| T10 | Transferul textului din ChatGPT în tabul local | Textul ajunge complet; nu apare în URL, în istoricul browserului sau în jurnale |
+
+### Propunerea de valoare, completată
+> … blochează parolele, **mută documentele care nu pot pleca într-un AI care rulează în firmă** și îi arată patronului, în fiecare lună, ce a fost oprit sau mutat.
+
 ## 11. Întrebări noi pentru interviuri (Mom Test)
 - „Ce document cu date de clienți ați deschis ultima dată pe calculator? Ce ați făcut cu el?” (calificare)
 - „Ultima dată când ați vrut să folosiți AI pe un document de client, ce ați făcut: l-ați trimis, l-ați rescris de mână sau ați renunțat?”
 - (patron) „Ce rapoarte primiți acum despre calculatoarele firmei? Pe care l-ați citit ultima dată?”
 - (IT) „Ați instalat vreodată un certificat la clienți (pentru filtrare web sau antivirus)? Ce s-a stricat?”
+- (IT) „Ce calculatoare au clienții voștri: câtă memorie, au placă video? Au vreun server în birou?” (fezabilitatea AI-ului local)
+- (angajat) „Ultima dată când n-ați putut folosi AI-ul pe un document, cum ați terminat sarcina? Cât v-a luat?” (valoarea AI-ului local)
+- (patron) „Ați cumpărat vreodată un echipament doar ca datele să rămână în firmă (server, NAS)? Ce v-a convins?” (disponibilitatea de a investi în varianta B)
