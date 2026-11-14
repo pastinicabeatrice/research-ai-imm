@@ -123,7 +123,7 @@ Răspunsul are forma `{"recognoscibil": {"type": "noul", "noul": 0.04}, …}`: p
 | **Qwen3.5-9B** (cel mai apropiat de „8B”) | Laptop bun sau un calculator obișnuit din birou | Un model de mărimea asta merge cuantizat cu ~16 GB RAM [F] S48 (bloguri); fără placă video e lent | De verificat pe fișa modelului [V] |
 | **Qwen3.8-27B** | Server în birou, cu placă video | Exemplele oficiale de rulare folosesc mai multe plăci video; varianta cuantizată pe o singură placă **de testat** (T9) | Apache-2.0 pentru repo; licența ponderilor e pe fișa modelului [F] S51 [V] |
 
-**Recomandare [I]:** **Qwen3.5-9B** implicit, pentru că rulează pe ce au firmele mici. **Qwen3.8-27B** ca variantă „AI-ul biroului” pentru firmele care au sau cumpără un server cu placă video. Agentul vorbește cu modelul printr-o interfață standard, așa că schimbarea modelului e o setare, nu o rescriere.
+**Decizia echipei (14.11.2026): Qwen3.5-9B.** Rulează pe ce au firmele mici: un laptop sau un calculator bun din birou ori un server mic. Qwen3.8-27B rămâne doar ca posibilă îmbunătățire ulterioară pentru firmele cu server cu placă video. Agentul vorbește cu modelul printr-o interfață standard, așa că o schimbare de model ar fi o setare, nu o rescriere.
 
 Pentru română: Qwen3.5 declară 201 limbi, dar calitatea pe documente românești de business **nu e cunoscută** (T8).
 
@@ -166,6 +166,7 @@ Serverul MCP rulează **în firmă**, pe calculatorul antreprenorului sau pe ser
 | T14 | În modul cloud, căutăm în tot ce întoarce serverul MCP nume de clienți, nume de angajați și text de prompt | Zero apariții |
 
 ## 5. Ce s-a schimbat în diagrame
+- **Modelul local:** Qwen3.5-9B, decizia echipei.
 - **Cazurile de utilizare:**
   - antreprenorul „alege presetul” și „adaugă date sensibile pe categorii”;
   - „vede raportul lunar” devine „întreabă asistentul AI (prin MCP)”;

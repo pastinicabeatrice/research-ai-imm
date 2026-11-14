@@ -177,7 +177,7 @@ box("EXT", 490, ["Plan B: extensie de browser", "în loc de proxy"], "#fbe5e6", 
 box("D", 610, ["3 · Detectare locală + verificare Jev pe textul curățat", "CNP, IBAN, CUI, nume, lista clienților, OCR (T4, T5, T11, T12)"])
 box("PS", 700, ["4 · Ascundere și restaurare în răspuns", "(T3, T7)"])
 box("POL", 790, ["5 · Preseturi pe domenii, categorii proprii,", "server MCP pentru antreprenor (T13, T14)"])
-box("LOC", 880, ["6 · AI local: Qwen3.5-9B (sau Qwen3.8-27B pe server)", "T8 calitate · T9 viteză · T10 transfer fără URL"])
+box("LOC", 880, ["6 · AI local: Qwen3.5-9B", "T8 calitate · T9 viteză · T10 transfer fără URL"])
 box("DEMO", 970, ["7 · Demo la hackathon", "ChatGPT web, pachetul Contabil"], "#0d8fa3", "#0d8fa3", "#ffffff", weight=700)
 box("PIL", 1060, ["8 · Pilot de o săptămână", "la 1–3 firme"])
 dia("G3", 1170, ["Ce a ieșit", "din pilot?"], w=200, h=90)

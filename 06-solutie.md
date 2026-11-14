@@ -1,6 +1,6 @@
 # 06 · Soluția: propunerea de valoare și cum funcționează exact
 
-> **Completări în [10-integrari.md](10-integrari.md):** preseturi pe domenii și categorii adăugate de firmă, Jev ca a doua verificare pe textul curățat, modelul local (Qwen3.5-9B sau Qwen3.8-27B; Qwen 3.8 nu are variantă de 8B) și serverul MCP prin care antreprenorul își vede datele în asistentul lui AI.
+> **Completări în [10-integrari.md](10-integrari.md):** preseturi pe domenii și categorii adăugate de firmă, Jev ca a doua verificare pe textul curățat, modelul local ales, **Qwen3.5-9B** (Qwen 3.8 nu are variantă de 8B) și serverul MCP prin care antreprenorul își vede datele în asistentul lui AI.
 
 > **[F]** faptă cu sursă ([surse.md](surse.md)) · **[I]** ipoteză / decizie de design · **[V]** de validat (la interviuri sau prin test tehnic)
 > Documentul e o specificație de produs, nu cod. Decizia de a intercepta traficul la nivel de rețea e a echipei. Mai jos e transformată în cerințe exacte, cu limitele ei.
@@ -246,6 +246,8 @@ Asta rezolvă două probleme din critica de până acum [I]:
 **Recomandare [I]:** varianta B pentru firmele de 5–100 de oameni; varianta A ca rezervă pentru microfirme. Omul de IT extern instalează serverul, ceea ce se potrivește cu canalul de distribuție.
 
 ### Ce modele
+> **Decizia echipei:** modelul local e **Qwen3.5-9B** (vezi [10 §3](10-integrari.md)). Tabelul de mai jos rămâne ca istoric al variantelor analizate.
+
 | Model | Licență | Limba română | Sursă |
 |---|---|---|---|
 | **Qwen3** (familia) | Apache 2.0 pentru multe modele; **de verificat pe fișa fiecărui model** | Multilingv (119 limbi, după comparații); calitatea pe română **necunoscută** | [F] S49 |
