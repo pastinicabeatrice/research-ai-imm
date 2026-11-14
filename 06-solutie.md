@@ -9,17 +9,17 @@
 
 Revizuită după [07-problema.md](07-problema.md): protejăm **cinci clase de date**, nu doar datele clienților.
 
-> **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte) și care nu au buget sau om de IT pentru soluțiile de protecție a datelor făcute pentru companii mari
-> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente, ca angajații să-și termine sarcinile mai repede, fără să mai scoată datele de mână și **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
-> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează în firmă și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat.
+> **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte), dar care nu-și permit o soluție enterprise de la producătorii licențiați de AI,
+> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
+> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează local în firmă și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat și totodată îi dă libertatea angajatului de a-și automatiza rezolvarea unui task.
 
-**Pe scurt, pentru slide:** *„AI pe documentele firmei, pentru firmele fără departament de IT: angajații lucrează mai repede, iar datele clienților și cifrele firmei nu pleacă din firmă.”*
+**Pe scurt, pentru slide:** *„AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă.”*
 
 ### De ce formularea asta, cuvânt cu cuvânt [I]
 | Bucată | De ce e aleasă |
 |---|---|
-| „nu au buget sau om de IT pentru soluțiile de protecție a datelor făcute pentru companii mari” | Arată de ce nu le ajunge ce există: Microsoft Purview cere licențe E5 [F] S32; Harmonic și Nightfall se vând direct către companii mari, fără prețuri publice [F] S35. **Nu** spunem „nu-și permit enterprise-ul de la producătorii de AI”: abonamentul de business e ieftin (~25 $/om/lună, după presă) și oricum nu oprește plecarea datelor [F] S26 |
-| „ca angajații să-și termine sarcinile mai repede, fără să mai scoată datele de mână” | Câștigul angajatului, pus la „să…”, unde e promisiunea. Nu promitem „automatizare”: produsul face AI-ul folosibil, nu face sarcina în locul omului. **De validat** [V]: „A fost vreo dată când ați vrut să folosiți AI-ul și v-ați răzgândit? Cum ați terminat treaba? Cât v-a luat?” |
+| „dar care nu-și permit o soluție enterprise de la producătorii licențiați de AI” | Delimitează clientul: firmele mici, nu companiile mari care cumpără soluții enterprise |
+| „îi dă libertatea angajatului de a-și automatiza rezolvarea unui task” | Câștigul angajatului: poate folosi AI-ul pe sarcinile lui, nu doar e protejat [V] |
 | „prelucrează zilnic documente cu date ale clienților” | Definește clientul după **ce face**, nu după domeniu. Testul de calificare la interviu e simplu: „ce documente cu date de clienți ați deschis ieri?” |
 | „să folosească … pe aceste documente” | Valoarea e **câștigul** (AI pe munca reală), nu frica. Antreprenorul cumpără productivitate fără risc, nu un al doilea antivirus |
 | „să plece din firmă în formă identificabilă” | Promisiune verificabilă și mai îngustă decât „datele sunt în siguranță”. Nu promitem anonimizare (vezi [03](03-anonimizare.md)). La cifrele firmei ascundem **a cui** sunt, nu cifrele însele (vezi [07 §4.3](07-problema.md)) |

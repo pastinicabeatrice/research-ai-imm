@@ -104,11 +104,11 @@ Problema specială: **la cifrele financiare, cifrele sunt chiar conținutul.** D
 
 Varianta din [06](06-solutie.md) spunea „datele care identifică un client”. Acum e prea îngustă. **Varianta corectată:**
 
-> **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte) și care nu au buget sau om de IT pentru soluțiile de protecție a datelor făcute pentru companii mari
-> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente, ca angajații să-și termine sarcinile mai repede, fără să mai scoată datele de mână și **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
-> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează în firmă și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat.
+> **Ajutăm** firmele de 1–100 de angajați care lucrează zilnic cu documente ce conțin date ale clienților, ale angajaților și cifrele firmei (facturi, balanțe, state de plată, fișe de pacient, contracte, oferte), dar care nu-și permit o soluție enterprise de la producătorii licențiați de AI,
+> **să** folosească ChatGPT, Claude, Gemini și Copilot pe aceste documente **fără ca datele clienților, ale angajaților și secretele financiare ale firmei să plece din firmă în formă identificabilă**,
+> **prin** un agent instalat pe calculatoarele firmei care interceptează local ce se trimite către aplicațiile AI, ascunde identitatea persoanelor și a firmelor (și, la nevoie, scalează sumele), pune datele la loc în răspuns, blochează parolele, mută documentele care nu pot pleca într-un AI care rulează local în firmă și îi arată antreprenorului, în fiecare lună, ce a fost oprit sau mutat și totodată îi dă libertatea angajatului de a-și automatiza rezolvarea unui task.
 
-**Pe slide:** *„AI pe documentele firmei, pentru firmele fără departament de IT: angajații lucrează mai repede, iar datele clienților și cifrele firmei nu pleacă din firmă.”*
+**Pe slide:** *„AI pe documentele firmei, fără ca datele clienților și cifrele firmei să plece din firmă.”*
 
 ## 6. Ce trebuie validat (întrebări Mom Test, pe ton natural)
 | # | Întrebare | Ce decide |
