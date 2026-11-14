@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research AI în IMM-uri</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: bară de navigare cu file sus, conținut pe o coloană lată de max 1120px; tabelele derulează în containerul lor */
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#18202b; --muted:#5b6676; --line:#dde2ea; --accent:#2f5bd3; --accent-soft:#e6ecfb;
+  --g:#1f7a4a; --g-soft:#e3f3ea; --y:#9a6200; --y-soft:#fbf0d9; --r:#b4232c; --r-soft:#fbe5e6;
+  --f:#2f5bd3; --i:#7a4fc0; --v:#b05a12;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141b; --surface:#171e28; --ink:#e7ebf1; --muted:#9aa5b4; --line:#2a3340; --accent:#7f9ff0; --accent-soft:#1e2a44;
+  --g:#5cc78d; --g-soft:#15301f; --y:#e3ab4a; --y-soft:#33280f; --r:#f07a80; --r-soft:#3a1a1d;
+  --f:#7f9ff0; --i:#b495ec; --v:#e39a5a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --surface:#171e28; --ink:#e7ebf1; --muted:#9aa5b4; --line:#2a3340; --accent:#7f9ff0; --accent-soft:#1e2a44;
+  --g:#5cc78d; --g-soft:#15301f; --y:#e3ab4a; --y-soft:#33280f; --r:#f07a80; --r-soft:#3a1a1d;
+  --f:#7f9ff0; --i:#b495ec; --v:#e39a5a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.brand{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding-block:14px 6px}
+.brand h1{font-family:var(--display);font-size:1.45rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.brand .meta{color:var(--muted);font-size:.82rem}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;padding-bottom:0;scrollbar-width:thin}
+nav.tabs a{flex:0 0 auto;padding:9px 12px;color:var(--muted);text-decoration:none;font-weight:500;font-size:.9rem;border-bottom:2px solid transparent;white-space:nowrap}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs a[aria-current="page"]{color:var(--accent);border-bottom-color:var(--accent)}
+nav.tabs a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{padding-block:22px 60px}
+section.view{display:flex;flex-direction:column;gap:22px}
+h2{font-family:var(--display);font-size:1.3rem;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-size:1.05rem;margin:0}
+p{margin:0;max-width:72ch}
+.lede{color:var(--muted);max-width:75ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.82rem;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.72rem;font-weight:600;padding:1px 6px;border-radius:4px;border:1px solid currentColor;vertical-align:1px;letter-spacing:.02em}
+.tag.F{color:var(--f)} .tag.I{color:var(--i)} .tag.V{color:var(--v)}
+a.src{font-family:var(--mono);font-size:.74rem;color:var(--accent);text-decoration:none;background:var(--accent-soft);padding:0 5px;border-radius:4px;white-space:nowrap}
+a.src:hover{text-decoration:underline}
+.vendor{font-size:.72rem;color:var(--v);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.kpi .num{font-family:var(--display);font-size:2rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .lbl{color:var(--muted);font-size:.86rem}
+.answers{display:grid;gap:10px}
+details.qa{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+details.qa summary{cursor:pointer;font-weight:600;list-style:none;display:flex;gap:10px;align-items:baseline}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary .n{font-family:var(--mono);color:var(--muted);font-size:.8rem;min-width:1.6em}
+details.qa[open] summary{margin-bottom:8px}
+details.qa .body{display:flex;flex-direction:column;gap:6px;padding-left:2.1em}
+.risk{border-left:4px solid var(--r);}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill.VERDE{background:var(--g-soft);color:var(--g)} .pill.GALBEN{background:var(--y-soft);color:var(--y)} .pill.ROSU{background:var(--r-soft);color:var(--r)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar input[type=search],.toolbar select{font:inherit;font-size:.9rem;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0}
+.toolbar input[type=search]{flex:1 1 220px}
+button.chip{font:inherit;font-size:.85rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;background:var(--surface);position:sticky;top:0}
+tr:last-child td{border-bottom:none}
+td.num{font-family:var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.count{color:var(--muted);font-size:.85rem}
+.seg-layout{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:16px}
+@media (max-width:760px){.seg-layout{grid-template-columns:1fr}}
+.seg-list{display:flex;flex-direction:column;gap:6px}
+.seg-list button{font:inherit;text-align:left;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.seg-list button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.meter{display:inline-flex;gap:3px}
+.meter i{width:7px;height:14px;border-radius:2px;background:var(--line)}
+.meter i.on{background:var(--r)}
+dl.facts{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:8px 16px;margin:0}
+dl.facts dt{color:var(--muted);font-size:.84rem;font-weight:600}
+dl.facts dd{margin:0;min-width:0}
+@media (max-width:520px){dl.facts{grid-template-columns:1fr} dl.facts dd{margin-bottom:6px}}
+.example{font-family:var(--mono);font-size:.82rem;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;white-space:pre-wrap;word-break:break-word}
+.example .lbl{color:var(--accent);font-weight:600}
+mark.ph{background:var(--y-soft);color:var(--y);padding:0 3px;border-radius:3px}
+.cols2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+ul.clean{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+ol.qs{margin:0;padding-left:1.5em;display:flex;flex-direction:column;gap:8px}
+.qrow{display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+button.copy{font:inherit;font-size:.75rem;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:6px;padding:2px 8px;cursor:pointer;flex:0 0 auto}
+.note{font-size:.84rem;color:var(--muted)}
+.callout{background:var(--accent-soft);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.crit h3{display:flex;gap:8px;align-items:center}
+.sev{font-size:.7rem;font-family:var(--mono);padding:1px 6px;border-radius:4px;background:var(--r-soft);color:var(--r)}
+.sev.m{background:var(--y-soft);color:var(--y)}
+.notebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.notebar label{font-weight:600;font-size:.88rem}
+.notebar input{font:inherit;font-size:.9rem;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);flex:1 1 220px;min-width:0}
+.store-status{font-size:.8rem;color:var(--muted);flex:1 1 100%}
+.store-status.warn{color:var(--v)}
+button.act{font:inherit;font-size:.82rem;border:1px solid var(--accent);background:var(--accent);color:var(--surface);border-radius:7px;padding:5px 12px;cursor:pointer}
+button.act.ghost{background:transparent;color:var(--accent)}
+button.act:disabled{opacity:.5;cursor:default}
+.qitem{display:flex;flex-direction:column;gap:8px}
+.qtools{display:flex;gap:6px;flex:0 0 auto}
+.answers-list{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.answers-list li{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.88rem;display:flex;flex-direction:column;gap:3px}
+.answers-list .who{font-size:.76rem;color:var(--muted);display:flex;gap:8px;justify-content:space-between;align-items:center}
+.answers-list .txt{white-space:pre-wrap;word-break:break-word}
+button.del{font:inherit;font-size:.72rem;border:none;background:none;color:var(--r);cursor:pointer;padding:0}
+.composer{display:flex;flex-direction:column;gap:6px}
+.composer textarea{font:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-height:84px;resize:vertical;width:100%}
+.composer .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:.72rem;font-family:var(--mono);color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:0 7px}
+footer{color:var(--muted);font-size:.8rem;padding-block:24px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){details.qa[open] .body{animation:fade .18s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Research AI în IMM-uri</h1>
+      <span class="meta">Hackathon · analiza problemei · actualizat 14.11.2026 · <span class="tag F">F</span> faptă cu sursă · <span class="tag I">I</span> ipoteză · <span class="tag V">V</span> de validat</span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Secțiuni">
+      <a href="#rezumat">Rezumat</a>
+      <a href="#segmente">Clienți</a>
+      <a href="#date">Date sensibile</a>
+      <a href="#anonimizare">Anonimizare</a>
+      <a href="#matrice">Matrice decizie</a>
+      <a href="#ipoteze">Ipoteze și interviuri</a>
+      <a href="#mentori">Întrebări mentori</a>
+      <a href="#critica">Critică</a>
+      <a href="#surse">Surse</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+
+<!-- ================= REZUMAT ================= -->
+<section class="view" id="v-rezumat" data-view="rezumat">
+  <div class="grid" id="kpis"></div>
+  <div class="callout">
+    <h3>Concluzia de până acum</h3>
+    <p>Problema e reală juridic, dar nedovedită comportamental în România. Pseudonimizarea (GALBEN) merge bine pe date structurate (contabilitate) și slab exact acolo unde durerea e cea mai mare (avocați, medici). Interviurile trebuie să lămurească întâi dacă angajații firmelor mici chiar pun date de clienți în AI.</p>
+  </div>
+  <div>
+    <h2>Răspunsurile la cele 9 întrebări</h2>
+  </div>
+  <div class="answers" id="answers"></div>
+  <div>
+    <h2>Cele mai riscante 3 ipoteze</h2>
+  </div>
+  <div class="grid" id="topRisks"></div>
+</section>
+
+<!-- ================= SEGMENTE ================= -->
+<section class="view" id="v-segmente" data-view="segmente" hidden>
+  <div class="flex-col">
+    <h2>Cui vindem și cine are cea mai mare durere</h2>
+    <p class="lede">Durerea e estimarea noastră <span class="tag I">I</span>, pornind de la obligațiile legale. Nimic din clasament nu e validat.</p>
+  </div>
+  <div class="panel">
+    <h3>Cine decide, cine plătește</h3>
+    <div class="tablewrap"><table><thead><tr><th>Rol</th><th>Ce face</th><th>Ce știm</th></tr></thead><tbody id="roles"></tbody></table></div>
+  </div>
+  <div class="seg-layout">
+    <div class="seg-list" id="segList" role="group" aria-label="Alege segmentul"></div>
+    <div class="panel" id="segDetail" aria-live="polite"></div>
+  </div>
+  <div class="panel">
+    <h3>Ce folosesc deja firmele (alternative și concurență)</h3>
+    <div class="tablewrap"><table><thead><tr><th>Alternativă</th><th>Ce face</th><th>Pentru IMM?</th></tr></thead><tbody id="competitors"></tbody></table></div>
+    <p class="note">Diferențiatorul nostru <span class="tag I">I</span>: pseudonimizare reversibilă direct în interfața web a AI-ului public, pentru utilizatorul final, în română, la preț de IMM. Bucățile tehnice există deja separat <a class="src" href="#surse" data-s="S36">S36</a>.</p>
+  </div>
+</section>
+
+<!-- ================= DATE SENSIBILE ================= -->
+<section class="view" id="v-date" data-view="date" hidden>
+  <div>
+    <h2>Patru regimuri juridice care se suprapun</h2>
+    <p class="lede">Secretul profesional e mai larg decât GDPR: acoperă tot ce a aflat profesionistul, inclusiv fapte fără nume. Anonimizarea poate satisface GDPR, dar nu satisface automat secretul profesional <span class="tag I">I</span>.</p>
+  </div>
+  <div class="grid" id="regimes"></div>
+  <div class="toolbar">
+    <label for="dataSeg" class="count">Segment</label>
+    <select id="dataSeg"></select>
+    <button class="chip" data-nev="all" aria-pressed="true">Toate</button>
+    <button class="chip" data-nev="DA" aria-pressed="false">Doar „niciodată”</button>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Dată</th><th>Bază legală</th><th>Niciodată în AI public?</th></tr></thead><tbody id="dataRows"></tbody></table></div>
+  <div class="panel risk">
+    <h3>Lista „niciodată”, în orice segment <span class="tag I">I</span></h3>
+    <ul class="clean">
+      <li>Parole, chei API, tokenuri, certificate</li>
+      <li>Date de sănătate legate de o persoană identificabilă, inclusiv prin context</li>
+      <li>Copii de acte de identitate; date penale</li>
+      <li>Cod sursă și secrete comerciale ale clienților sub NDA</li>
+      <li>Strategii juridice sau comerciale pe un caz concret și recognoscibil</li>
+      <li>Rapoarte AML / ONPCSB</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ANONIMIZARE ================= -->
+<section class="view" id="v-anonimizare" data-view="anonimizare" hidden>
+  <div>
+    <h2>Anonimizare sau pseudonimizare?</h2>
+    <p class="lede">Ce face sistemul nostru la GALBEN (înlocuiește cu etichete și păstrează local cheia) e <strong>pseudonimizare</strong>. Pentru firmă datele rămân personale. Pentru furnizorul AI pot fi nepersonale doar dacă textul rămas nu permite reidentificarea.</p>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Concept</th><th>Ce spune</th><th>Consecință</th><th>Sursă</th></tr></thead><tbody id="defs"></tbody></table></div>
+  <div><h2>Tehnici</h2></div>
+  <div class="tablewrap"><table><thead><tr><th>Tehnică</th><th>Exemplu</th><th>Reversibilă</th><th>Rămâne util</th><th>Riscul rămas</th></tr></thead><tbody id="techs"></tbody></table></div>
+  <div><h2>Limite</h2></div>
+  <div class="grid" id="limits"></div>
+  <div><h2>Exemple în română</h2></div>
+  <div class="cols2" id="examples"></div>
+</section>
+
+<!-- ================= MATRICE ================= -->
+<section class="view" id="v-matrice" data-view="matrice" hidden>
+  <div>
+    <h2>Matricea de decizie</h2>
+    <p class="lede">22 de tipuri de date. Când nu e sigur, agentul alege culoarea mai strictă: un fals pozitiv costă timp, un fals negativ costă o amendă sau secretul profesional. Toată matricea e propunerea noastră <span class="tag I">I</span>.</p>
+  </div>
+  <div class="grid" id="mxSummary"></div>
+  <div class="toolbar">
+    <input type="search" id="mxSearch" placeholder="Caută: CNP, contract, sume…" aria-label="Caută în matrice">
+    <button class="chip" data-mx="all" aria-pressed="true">Toate</button>
+    <button class="chip" data-mx="VERDE" aria-pressed="false">Verde</button>
+    <button class="chip" data-mx="GALBEN" aria-pressed="false">Galben</button>
+    <button class="chip" data-mx="ROSU" aria-pressed="false">Roșu</button>
+    <span class="count" id="mxCount"></span>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>Tip de date</th><th>Se poate anonimiza?</th><th>Tehnica</th><th>Riscul rămas</th><th>Decizie</th></tr></thead><tbody id="mxRows"></tbody></table></div>
+  <div class="cols2">
+    <div class="panel"><h3><span class="pill VERDE"><span class="dot"></span>VERDE</span></h3><p>Trece normal. Se înregistrează doar metadate (oră, aplicație, categorie), <strong>fără textul promptului</strong>, altfel produsul devine el însuși monitorizare a angajaților.</p></div>
+    <div class="panel"><h3><span class="pill GALBEN"><span class="dot"></span>GALBEN</span></h3><p>Întâi minimizare (CNP-ul se elimină), apoi etichete reversibile. Cheia rămâne locală, criptată, ștearsă la finalul sesiunii. Angajatul vede ce s-a înlocuit înainte de trimitere.</p></div>
+    <div class="panel"><h3><span class="pill ROSU"><span class="dot"></span>ROȘU</span></h3><p>Blocare cu explicație și alternativă. <strong>Propunere:</strong> fără tăierea automată a accesului, ci escaladare (explicație → notificare → suspendare decisă de un om), ca să nu împingem angajații spre telefonul personal.</p></div>
+  </div>
+</section>
+
+<!-- ================= IPOTEZE ================= -->
+<section class="view" id="v-ipoteze" data-view="ipoteze" hidden>
+  <div>
+    <h2>Ipoteze, de la cea mai riscantă</h2>
+    <p class="lede">Ce ar invalida fiecare ipoteză contează mai mult decât ce ar confirma-o.</p>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>Ipoteza</th><th>De ce e riscantă</th><th>Ce ar invalida-o</th><th>Semnal pozitiv</th></tr></thead><tbody id="hyps"></tbody></table></div>
+  <div class="callout">
+    <h3>Regulile The Mom Test <a class="src" href="#surse" data-s="S42">S42</a></h3>
+    <p>Vorbește despre viața lor, nu despre ideea ta. Întreabă despre situații concrete din trecut, nu despre opinii sau viitor. Vorbește puțin, ascultă mult. Interzis: „ați folosi…?”, „cât ați plăti…?”. Notează citate exacte; complimentele nu se numără.</p>
+  </div>
+  <div class="toolbar" role="group" aria-label="Alege interlocutorul">
+    <button class="chip" data-role="patroni" aria-pressed="true">Patroni</button>
+    <button class="chip" data-role="angajati" aria-pressed="false">Angajați</button>
+    <button class="chip" data-role="it" aria-pressed="false">Omul de IT / MSP</button>
+  </div>
+  <div class="notebar">
+    <label for="who-interviu">Interviu cu</label>
+    <input id="who-interviu" type="text" placeholder="ex. Patron 1, cabinet contabilitate, 12 angajați" autocomplete="off">
+    <button type="button" class="act ghost" data-export="interviu">Copiază răspunsurile ca Markdown</button>
+    <span class="store-status" data-status></span>
+  </div>
+  <div class="panel"><ol class="qs" id="questions"></ol></div>
+  <p class="note">Întrebările pentru mentori sunt în fila <a href="#mentori">Întrebări mentori</a>.</p>
+</section>
+
+<!-- ================= MENTORI ================= -->
+<section class="view" id="v-mentori" data-view="mentori" hidden>
+  <div>
+    <h2>Întrebări pentru mentori</h2>
+    <p class="lede">Mentorii nu sunt clienți, deci părerea lor despre idee nu validează nimic. Validează însă ce <strong>au văzut și au trăit</strong>: firme pe care le-au condus sau consiliat, incidente, achiziții, reguli de profesie. Le punem aceleași reguli Mom Test: situații concrete din trecut, nu păreri despre viitor. Ideea o prezentăm abia la final, dacă o prezentăm.</p>
+  </div>
+  <div class="notebar">
+    <label for="who-mentori">Mentor</label>
+    <input id="who-mentori" type="text" placeholder="ex. Mentor A, avocat, 15 ani de barou" autocomplete="off">
+    <button type="button" class="act ghost" data-export="mentori">Copiază răspunsurile ca Markdown</button>
+    <span class="store-status" data-status></span>
+  </div>
+  <p class="count" id="mqCount"></p>
+  <div class="cols2" id="mentorBlocks"></div>
+  <div class="panel">
+    <h3>Cum reformulăm o întrebare proastă</h3>
+    <div class="tablewrap"><table><thead><tr><th>Greșit (opinie, viitor, pitch)</th><th>Corect (fapt, trecut, concret)</th></tr></thead><tbody id="rewrites"></tbody></table></div>
+  </div>
+  <div class="cols2">
+    <div class="panel">
+      <h3>Ce notăm de la fiecare mentor</h3>
+      <ul class="clean">
+        <li>Citate exacte, cu data și rolul („avocat, 15 ani de barou”), pentru juriu</li>
+        <li>Fiecare caz povestit: ce s-a întâmplat, când, cât a costat, ce s-a schimbat după</li>
+        <li>Ipoteza atinsă (H1–H8) și dacă o confirmă sau o infirmă</li>
+        <li>Prezentări promise: nume, rol, termen</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Semnale care contează</h3>
+      <ul class="clean">
+        <li><strong>Puternic:</strong> ne prezintă un patron, un MSP sau un profesionist; ne dă un caz real (fictivizat) de testat</li>
+        <li><strong>Mediu:</strong> povestește un incident concret cu date ajunse unde nu trebuia</li>
+        <li><strong>Zero:</strong> „e o idee super”, „sigur s-ar vinde”: notăm separat, nu numărăm</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CRITICĂ ================= -->
+<section class="view" id="v-critica" data-view="critica" hidden>
+  <div>
+    <h2>Recitit ca un critic sever</h2>
+    <p class="lede">Unde nu stă în picioare brief-ul, unde soluția nu rezolvă problema și ce rămâne deschis.</p>
+  </div>
+  <div class="cols2" id="crit"></div>
+  <div class="panel">
+    <h3>Întrebări deschise</h3>
+    <ol class="qs" id="openQs"></ol>
+  </div>
+</section>
+
+<!-- ================= SURSE ================= -->
+<section class="view" id="v-surse" data-view="surse" hidden>
+  <div>
+    <h2>Surse</h2>
+    <p class="lede">Toate accesate la 14.11.2026. Cifrele vânzătorilor sunt afirmații de vânzător, nu fapte independente.</p>
+  </div>
+  <div class="toolbar">
+    <input type="search" id="srcSearch" placeholder="Caută o sursă…" aria-label="Caută surse">
+    <select id="srcType" aria-label="Filtrează după tip">
+      <option value="">Toate tipurile</option><option>Primară</option><option>Oficială-copie</option><option>Secundară</option><option>Vânzător</option>
+    </select>
+    <span class="count" id="srcCount"></span>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>ID</th><th>Sursă</th><th>Tip</th><th>Ce am luat</th></tr></thead><tbody id="srcRows"></tbody></table></div>
+</section>
+
+<footer>Document de research pentru interviuri, nu înlocuiește interviurile. Juriul acceptă ca dovadă doar notițe și citate de la oameni reali. Versiunea completă, în Markdown, e în fișierele 00–05 și surse.md.</footer>
+</main>
+
+<script>
+const S = [
+ ["S1","Eurostat: 20% of EU enterprises use AI technologies (11.12.2025)","https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20251211-2","Primară","UE 20,0% în 2025; România 5,2%, ultimul loc"],
+ ["S2","Eurostat Statistics Explained: Use of AI in enterprises","https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Use_of_artificial_intelligence_in_enterprises","Primară","Firme mici 17%, mijlocii 30,36%; motive: expertiză 70,89%, juridic 52,52%, protecția datelor 48,83%"],
+ ["S3","Comisia Europeană: SME Performance Review 2026, fișa România (copie)","https://www.joi.or.jp/wp-content/uploads/2026/07/20260722_ROU.pdf","Oficială-copie","44.894 firme mici, 7.659 mijlocii (2025, estimări JRC)"],
+ ["S4","Regulamentul (UE) 2026/1744, Digital Omnibus on AI (JO 24.07.2026)","https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601744","Primară","Art. 4 rescris: „măsuri pentru a sprijini”, fără nivel garantat; fără sancțiune proprie"],
+ ["S5","lawandtechnology.eu: Digital Omnibus rewrites Article 4","https://lawandtechnology.eu/en/ai-literacy-digital-omnibus-article-4-ai-act/","Secundară","Textul original al art. 4, aplicabil din 02.02.2025"],
+ ["S6","Hunton: Commission AI literacy Q&A","https://www.hunton.com/privacy-and-information-security-law/european-commission-publishes-q-a-on-ai-literacy","Secundară","Nu cere certificare; aplicarea revine autorităților naționale"],
+ ["S7","Statutul profesiei de avocat (UNBR, 13.09.2024)","https://unbr.ro/wp-content/uploads/2024/09/sintact-statut-din-2011-al-profesiei-de-avocat_2024-09-13.pdf","Primară","Secretul profesional e absolut și nelimitat în timp; Legea 51/1995 art. 11, 35"],
+ ["S8","Chertes: divulgarea secretului profesional de către avocat (UNBR)","https://www.unbr.ro/wp-content/uploads/2018/03/Dan-Sebastian-CHERTES-Infractiunea-de-divulgare-a-secretului-profesional-de-catre-avocat.pdf","Secundară","Infracțiune introdusă prin Legea 25/2017"],
+ ["S9","CECCAR Dolj: regulament care citează OG 65/1994 art. 20","https://ceccardolj.ro/ro/wp-content/uploads/2018/10/regulament_audit_2012.pdf","Secundară","Confidențialitate față de terți; Codul etic de verificat"],
+ ["S10","Legea 46/2003 a drepturilor pacientului (MS, 2023)","https://audit.ms.ro/media/documents/LEGE_Nr._46_2003_forma_la_data_de_20.11.2023.pdf","Primară","Art. 21: confidențialitate, inclusiv după deces"],
+ ["S11","Codul de deontologie medicală CMR (consolidat 28.04.2026)","https://www.cmr.ro/wp-content/uploads/2026/04/codul-de-deontologie-medicala-al-colegiului-medicilor-din-romania-actualizat-aprilie-2026.pdf","Primară","Art. 30–31 secret; art. 35 telemedicină; art. 36 AI permis cu respectarea legii"],
+ ["S12","ONPCSB: regulament entități raportoare (Legea 129/2019)","https://www.onpcsb.ro/uploads/articole/attachments/649e99f9ce4d6862456314.pdf","Primară","Contabili, avocați, agenți imobiliari sunt entități raportoare AML"],
+ ["S13","Legea 190/2018 (legislatie.just.ro)","https://legislatie.just.ro/Public/DetaliiDocumentAfis/220052","Primară","Art. 4: garanții pentru CNP"],
+ ["S14","Codul penal art. 227 (e-juridic)","https://e-juridic.manager.ro/codul-penal/legislatie-divulgarea+secretului+profesional/","Secundară","3 luni–3 ani sau amendă; la plângerea prealabilă"],
+ ["S15","Baroul Dolj: secretul comercial (Legea 11/1991, OUG 25/2019)","https://www.barouldolj.ro/assets/docs/articles/ana-galgotiu-alina-stan,63975a3471d16.pdf","Secundară","Protecție doar cu „măsuri rezonabile”"],
+ ["S16","ASF: Legea 236/2018 distribuția de asigurări","https://www.asfromania.ro/","Primară","Articolul de confidențialitate negăsit, de verificat"],
+ ["S17","GDPR, EUR-Lex (citit prin gdpr-text.com/ro)","https://gdpr-text.com/ro/read/recital-26","Primară","Art. 4(5) pseudonimizare; considerentul 26 anonimizare"],
+ ["S18","Bloomberg Law despre WP29 Opinia 05/2014","https://news.bloomberglaw.com/privacy-and-data-security/the-eu-article-29-working-partys-opinion-on-privacy-and-anonymity-its-harder-than-you-think","Secundară","Individualizare, corelare, deducție; nicio tehnică nu le acoperă singură"],
+ ["S19","EDPB: Ghidurile 01/2025 privind pseudonimizarea (rezumat)","https://edpb.europa.eu/system/files/2025-02/edpb_summary_202501_pseudonymisation_en.pdf","Primară","Datele pseudonimizate rămân date personale"],
+ ["S20","Bird & Bird: CJUE C-413/23 P EDPS v SRB","https://cm.twobirds.com/en/insights/2025/eu-the-srb-decision-a-new-era-for-personal-data-and-data-processing-agreements","Secundară","Relativitate: nepersonale pentru destinatarul fără cheie"],
+ ["S21","EDPB: Ghidurile 02/2026 privind anonimizarea, v1","https://www.edpb.europa.eu/system/files/2026-07/edpb_guidelines_202602_anonymisation_v1_en_0.pdf","Primară","Fără izolare, fără corelare, fără deducție; consultare până la 30.10.2026"],
+ ["S22","Sweeney 2000: Simple Demographics Often Identify People Uniquely","https://dataprivacylab.org/projects/identifiability","Primară","87% unici după cod poștal, sex, data nașterii"],
+ ["S23","Rocher et al., Nature Communications 2019","https://pmc.ncbi.nlm.nih.gov/articles/PMC6650473","Primară","99,98% reidentificați cu 15 atribute (estimare de model)"],
+ ["S24","Pilán et al. 2022: Text Anonymization Benchmark","https://aclanthology.org/2022.cl-4.19","Primară","Textul liber: identificatorii indirecți scapă detectării"],
+ ["S25","Microsoft Presidio: anonymizer","https://microsoft.github.io/presidio/anonymizer","Vânzător","Înlocuire, eliminare, mascare, hash, criptare (reversibilă)"],
+ ["S26","OpenAI Help: politica de date ChatGPT","https://help.openai.com/en/articles/8983130-what-if-i-want-to-keep-my-history-on-but-disable-model-training","Vânzător","Free/Plus antrenează implicit; Business/Enterprise nu"],
+ ["S27","Anthropic: Updates to our consumer terms (28.08.2025)","https://www.anthropic.com/news/updates-to-our-consumer-terms","Vânzător","Consumer: antrenare dacă nu refuzi, până la 5 ani; planurile comerciale excluse"],
+ ["S28","Google Workspace Admin: Gemini app","https://knowledge.workspace.google.com/admin/generative-ai/gemini-app","Vânzător","Workspace: fără evaluatori umani, fără antrenare"],
+ ["S29","Harmonic Security: GenAI Data Exposure","https://www.harmonic.security/blog-posts/genai-data-exposure-report","Vânzător","4,37% din prompturi, ~22% din fișiere cu date sensibile (T2 2025)"],
+ ["S30","Microsoft & LinkedIn Work Trend Index 2024","https://news.microsoft.com/2024/05/08/microsoft-and-linkedin-release-the-2024-work-trend-index-on-the-state-of-ai-at-work/","Vânzător","78% din utilizatorii de AI își aduc propriile instrumente"],
+ ["S31","Cyberhaven AI Risk Report 2026","https://info.cyberhaven.com/hubfs/Webflow_Resources/Cyberhaven-AI-Risk-Report-2026.pdf","Vânzător","32,3% din utilizarea ChatGPT pe conturi personale"],
+ ["S32","Microsoft Learn: Purview și alte aplicații AI","https://learn.microsoft.com/en-us/purview/ai-other-apps","Vânzător","DLP pe dispozitiv avertizează/blochează în Edge; licențe E5"],
+ ["S33","Bitdefender: GravityZone AI Visibility and Control (23.09.2026)","https://www.bitdefender.com/en-us/news/bitdefender-launches-gravityzone-ai-visibility-and-control-a-powerful-solution-for-securing-ai-use-in-the-enterprise","Vânzător","Descoperă și blochează instrumente AI; fără inspecția promptului"],
+ ["S34","IT Brief: ESET AI security tools (05.08.2026)","https://itbrief.news/story/eset-unveils-ai-security-tools-for-business-agents","Secundară","AI Conversation Security inspectează fișierele încărcate"],
+ ["S35","Decryption Digest: Harmonic vs Nightfall","https://www.decryptiondigest.com/blog/harmonic-security-vs-nightfall-ai-shadow-ai-dlp","Secundară","Extensii de browser; prețuri nepublice"],
+ ["S36","WSO2: PII redaction for LLM","https://wso2.com/api-platform/learn/pii-redaction-llm","Vânzător","Înlocuiește cu etichete, trimite, restaurează: tipar existent"],
+ ["S37","The Register: Samsung bans generative AI (02.05.2023)","https://www.theregister.com/2023/05/02/samsung_generative_ai_ban/","Secundară","Cod sursă lipit în ChatGPT, apoi interdicție"],
+ ["S38","Euronews: Italia amendează OpenAI cu 15 mil. €","https://www.euronews.com/2024/12/20/italys-privacy-watchdog-fines-openai-15-million-after-probe-into-chatgpt-data-collection","Secundară","Garante, 20.12.2024; statut suspendare de verificat"],
+ ["S39","StartupCafe: amendă ANSPDCP pentru o clinică","https://startupcafe.ro/?p=109230","Secundară","Amenzi de ~2.000–3.000 € pentru clinici mici"],
+ ["S40","e-juridic: ce este CNP-ul","https://e-juridic.manager.ro/articole/ce-este-cnp-ul-si-cum-functioneaza-30361.html","Secundară","S AA LL ZZ JJ NNN C: sex, data nașterii, județ"],
+ ["S41","Lewis Silkin: Latombe v Comisia (03.09.2025)","https://www.lewissilkin.com/insights/2025/09/03/transatlantic-trouble-not-this-time-latombes-challenge-to-eu-us-data-transfers-fails","Secundară","Cadrul UE–SUA (DPF) menținut; recurs posibil"],
+ ["S42","M. Lynch: rezumat The Mom Test","https://mtlynch.io/book-reports/the-mom-test/","Secundară","Trei reguli de interviu"]
+];
+const SRC = Object.fromEntries(S.map(s=>[s[0],s]));
+const esc = t => String(t).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// text cu marcaje: {F}, {I}, {V}, [S12] -> HTML
+function rich(t){
+  return esc(t)
+    .replace(/\{(F|I|V)\}/g,(m,k)=>`<span class="tag ${k}">${k}</span>`)
+    .replace(/\[(S\d+)\]/g,(m,id)=>`<a class="src" href="#surse" data-s="${id}" title="${SRC[id]?esc(SRC[id][1]):''}">${id}</a>`)
+    .replace(/\{vendor\}/g,'<span class="vendor">afirmație de vânzător</span>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+}
+const pill = d => {const k=d.replace("Ș","S").replace("ROȘU","ROSU"); const lbl={VERDE:"Verde",GALBEN:"Galben",ROSU:"Roșu"}[k]||d; return `<span class="pill ${k}"><span class="dot"></span>${lbl}</span>`};
+
+/* ---------- REZUMAT ---------- */
+const kpis = [
+ ["5,2%","firme RO cu ≥10 angajați care folosesc oficial AI (UE: 20%)","[S1]"],
+ ["52.553","firme mici (10–49) și mijlocii (50–249) în RO, 2025","[S3]"],
+ ["48,83%","firme UE care au renunțat la AI din cauza protecției datelor","[S2]"],
+ ["78%","utilizatori de AI care își aduc propriile instrumente {vendor}","[S30]"]
+];
+document.getElementById("kpis").innerHTML = kpis.map(k=>`<div class="panel kpi"><div class="num">${k[0]}</div><div class="lbl">${rich(k[1])} ${rich(k[2])}</div></div>`).join("");
+
+const answers = [
+ ["Cui vindem? Cine decide și plătește?","{I} Patronului unei firme de 10–100 de oameni dintr-o profesie reglementată: el plătește și răspunde. MSP-ul e canalul. {F} Bitdefender își vinde modulul AI „organizațiilor și MSP-urilor” [S33]. {V} Cine a ales ultimul soft de securitate?"],
+ ["Ce firme au cea mai mare durere?","{I} Juridic: avocatură și clinici. Ca potrivire cu produsul: **contabilitatea**, pentru că are date structurate (CNP, IBAN, CUI, sume). Piața: 44.894 firme mici și 7.659 mijlocii [S3]."],
+ ["Cu ce lucrează, pentru ce ar folosi AI, ce obligații au?","Vezi fila Clienți. {F} GDPR, inclusiv art. 9 și CNP [S13]; secret profesional pentru avocați [S7], medici [S10] [S11] (codul CMR are din 2026 un articol despre AI) și contabili [S9]; Cod penal art. 227 [S14]; AML [S12]; secret comercial [S15]."],
+ ["Ce nu trebuie să ajungă NICIODATĂ într-un AI public?","{I} Parole și chei; date de sănătate legate de o persoană; copii de acte; date penale; cod sursă sub NDA; strategii pe cazuri recognoscibile; rapoarte AML."],
+ ["Ce înseamnă „a anonimiza”?","{F} Anonimizare: persoana nu mai e identificabilă cu mijloace rezonabile, deci GDPR nu se aplică [S17]. Pseudonimizare: identificarea cere informații suplimentare, iar datele **rămân personale** [S19]. Datele pot fi nepersonale pentru destinatarul fără cheie [S20]. EDPB 02/2026: fără izolare, fără corelare, fără deducție [S21]. **GALBEN = pseudonimizare.**"],
+ ["Limitele anonimizării?","{F} 87% unici după cod poștal + sex + data nașterii [S22]; 99,98% cu 15 atribute (model) [S23]; textul liber scapă detectării [S24]. {I} În contracte, cod sursă și oferte, conținutul însuși e secretul."],
+ ["Ce se poate anonimiza util?","{I} Nume în texte scurte, IBAN, CUI, e-mail, telefon, număr de înmatriculare: etichete reversibile. CNP: se elimină. Sume: etichete sau scalare (nu la praguri fixe). Date calendaristice: generalizare."],
+ ["Ce nu se poate anonimiza util?","{I} Date de sănătate cu context, documente scanate, contracte negociate, cod sursă, strategii de preț și procesuale, tabele mari cu date de clienți."],
+ ["Ce lăsăm să treacă și ce protejăm?","Vezi fila Matrice: 22 de tipuri de date. Două schimbări propuse: ROȘU fără tăiere automată a accesului (escaladare cu decizie umană) și VERDE fără salvarea textului promptului."]
+];
+document.getElementById("answers").innerHTML = answers.map((a,i)=>`<details class="qa"${i<2?" open":""}><summary><span class="n">${i+1}.</span>${esc(a[0])}</summary><div class="body"><p>${rich(a[1])}</p></div></details>`).join("");
+
+const top3 = [
+ ["H1","Problema există la scară în IMM-urile românești","Toate cifrele de „shadow AI” vin de la vânzători și din afara RO [S29] [S31]. Adoptarea oficială în RO e 5,2% [S1]."],
+ ["H3","GALBEN păstrează răspunsul util","Paradoxul: unde durerea e mare (avocați, medici), produsul blochează; unde ajută (contabilitate), durerea juridică e mai mică."],
+ ["H2","Patronii plătesc, nu doar își fac griji","Lipsa expertizei (70,89%) bate protecția datelor (48,83%) [S2]. Abonamentele AI business rezolvă deja antrenarea [S26] [S27]."]
+];
+document.getElementById("topRisks").innerHTML = top3.map(r=>`<div class="panel risk"><span class="tag V">${r[0]}</span><h3>${esc(r[1])}</h3><p>${rich(r[2])}</p></div>`).join("");
+
+/* ---------- SEGMENTE ---------- */
+const roles = [
+ ["Patronul / asociatul administrator","Semnează, plătește, răspunde personal","{I} Cumpărătorul în firmele de 10–50 de oameni"],
+ ["Firma IT externă (MSP) / omul de IT","Instalează antivirusul, recomandă","{F} Bitdefender vinde prin MSP-uri [S33]. {I} MSP-ul e canalul, nu cumpărătorul"],
+ ["DPO / consultantul GDPR extern","Redactează politici, recomandă","{I} Influențează decizia. {V} Câte firme mici au DPO extern?"],
+ ["Contabilul extern","Plătește facturi","{I} Rol minor în decizie"],
+ ["Angajatul","Folosește AI-ul; poate ocoli controlul","{F} Conturile personale se antrenează implicit [S26] [S27]"]
+];
+document.getElementById("roles").innerHTML = roles.map(r=>`<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${rich(r[2])}</td></tr>`).join("");
+
+const segs = [
+ {id:"contab",n:"Contabilitate / expertiză",pain:4,fit:"Cea mai bună potrivire cu GALBEN",data:"CNP-uri, salarii, state de plată, IBAN, CUI, facturi, balanțe, declarații, datorii",obl:"GDPR; Legea 190/2018 art. 4 [S13]; OG 65/1994 art. 20 [S9]; Codul etic CECCAR (de verificat); AML [S12]",ai:"E-mailuri către clienți, explicații fiscale, formule Excel, rezumate de legislație",note:"{I} Prioritate 1: date structurate, ușor de pseudonimizat, răspuns AI util."},
+ {id:"avoc",n:"Cabinete de avocatură",pain:5,fit:"Conținutul e secretul: multe ROȘU",data:"Dosare, părți, contracte, strategie procesuală, corespondență, date penale",obl:"Secret profesional absolut [S7]; infracțiune Legea 51/1995 [S8]; Cod penal art. 227 [S14]; GDPR art. 10",ai:"Redactare și sintetizare de contracte, cereri, cercetare juridică, traduceri",note:"{I} Prioritate 3: durere maximă, dar produsul blochează mult și valoarea percepută poate fi mică."},
+ {id:"med",n:"Clinici și cabinete medicale",pain:5,fit:"Sancțiuni reale; multe ROȘU",data:"Diagnostic, analize, tratament, CNP, istoric, imagini",obl:"GDPR art. 9; Legea 46/2003 art. 21 [S10]; Codul CMR art. 30–31 și art. 36 AI [S11]; Cod penal art. 227 [S14]",ai:"Scrisori medicale, rezumate de fișe, răspunsuri către pacienți, administrativ",note:"{F} ANSPDCP a amendat clinici mici pentru divulgare [S39]. {I} Prioritate 2."},
+ {id:"asig",n:"Brokeri de asigurări",pain:3,fit:"Mixt",data:"CNP, vehicule, locuințe, daune, uneori date medicale, IBAN",obl:"GDPR art. 9 pentru sănătate; Legea 236/2018 (de verificat) [S16]; AML",ai:"Comparații de oferte, e-mailuri, rezumate de polițe",note:"{I} Medie–ridicată."},
+ {id:"imob",n:"Agenții imobiliare",pain:2,fit:"Multe sarcini fără date personale",data:"Identitate cumpărători și vânzători, prețuri, extrase CF, contracte, IBAN",obl:"GDPR; AML [S12]; secret comercial pentru prețuri și mandate [S15]",ai:"Anunțuri, descrieri de proprietăți, e-mailuri",note:"{I} Medie: multe sarcini AI sunt pe VERDE."},
+ {id:"hr",n:"Recrutare / HR",pain:4,fit:"GDPR + AI Act",data:"CV-uri, evaluări, salarii, date medicale, uneori date sensibile",obl:"GDPR art. 9 și 88; Codul muncii; AI Act Anexa III, risc ridicat (de verificat)",ai:"Filtrare de CV-uri, anunțuri, rezumate de interviuri",note:"{I} Ridicată: și risc AI Act, nu doar GDPR."},
+ {id:"it",n:"Firme IT de outsourcing",pain:4,fit:"Capcană: codul nu se poate anonimiza",data:"Cod sursă al clienților, chei API, date de test, arhitecturi, NDA",obl:"Secret comercial [S15]; NDA; GDPR ca împuternicit; cazul Samsung [S37]",ai:"Asistenți de cod, depanare, documentație",note:"{I} Prioritate 4: dezvoltatorii vor ocoli blocarea."}
+];
+const meter = n => `<span class="meter" aria-label="durere ${n} din 5">${[1,2,3,4,5].map(i=>`<i class="${i<=n?"on":""}"></i>`).join("")}</span>`;
+function renderSeg(id){
+  const s = segs.find(x=>x.id===id)||segs[0];
+  document.querySelectorAll("#segList button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.id===s.id));
+  document.getElementById("segDetail").innerHTML = `<h3>${esc(s.n)}</h3><div class="legend">${meter(s.pain)} durere estimată <span class="tag I">I</span> · ${esc(s.fit)}</div>
+  <dl class="facts"><dt>Date zilnice</dt><dd>${esc(s.data)}</dd><dt>Obligații</dt><dd>${rich(s.obl)}</dd><dt>Utilizări AI probabile</dt><dd>${esc(s.ai)} <span class="tag I">I</span></dd><dt>Concluzie</dt><dd>${rich(s.note)}</dd></dl>`;
+}
+document.getElementById("segList").innerHTML = segs.map(s=>`<button type="button" data-id="${s.id}" aria-pressed="false"><span>${esc(s.n)}</span>${meter(s.pain)}</button>`).join("");
+document.getElementById("segList").addEventListener("click",e=>{const b=e.target.closest("button"); if(b) renderSeg(b.dataset.id)});
+renderSeg("contab");
+
+const comps = [
+ ["Interdicție totală (ex. Samsung)","Interzice AI-ul generativ [S37]","Gratuit, dar împinge spre telefoane {I}"],
+ ["Abonament AI de business","Fără antrenare implicită [S26] [S27] [S28]","Ieftin; nu rezolvă secretul profesional {I}"],
+ ["Microsoft Purview DLP","Avertizează/blochează în Edge [S32]","Cere E5 sau suplimente: scump pentru IMM {I}"],
+ ["Bitdefender GravityZone AIVC","Descoperă și blochează instrumente AI, fără inspecția promptului [S33]","Vândut prin MSP; firmă românească"],
+ ["ESET AI Conversation Security","Inspectează fișierele încărcate [S34]","Integrat în ESET PROTECT"],
+ ["Harmonic, Nightfall, LayerX","Extensii care inspectează, avertizează, blochează [S35]","Pentru companii mari, prețuri nepublice"],
+ ["Gateway-uri cu pseudonimizare","Etichete + restaurare [S36]","Pentru dezvoltatori, nu utilizator final"]
+];
+document.getElementById("competitors").innerHTML = comps.map(c=>`<tr><td><strong>${esc(c[0])}</strong></td><td>${rich(c[1])}</td><td>${rich(c[2])}</td></tr>`).join("");
+
+/* ---------- DATE SENSIBILE ---------- */
+const regimes = [
+ ["GDPR, date personale","Orice informație despre o persoană identificabilă. Fără temei legal și fără contract de prelucrare (art. 28) = prelucrare nelegală.","[S17] [S39]"],
+ ["GDPR art. 9, categorii speciale","Sănătate, etnie, religie, sindicat, genetice, biometrice. Interzise în principiu.","[S17]"],
+ ["Secret profesional","Avocat, medic, expert contabil: tot ce a aflat profesionistul. Disciplinar și penal (art. 227: 3 luni–3 ani sau amendă).","[S7] [S11] [S14]"],
+ ["Secret comercial","Protejat doar dacă firma ia „măsuri rezonabile”. {I} Un instrument anti-scurgere poate deveni dovada acestor măsuri.","[S15]"]
+];
+document.getElementById("regimes").innerHTML = regimes.map(r=>`<div class="panel"><h3>${esc(r[0])}</h3><p>${rich(r[1])}</p><div>${rich(r[2])}</div></div>`).join("");
+
+const dataRows = {
+ "Contabilitate":[["CNP angajați și clienți","GDPR + Legea 190/2018 art. 4 [S13]","ANON"],["Salarii, state de plată","GDPR + OG 65/1994 [S9]","ANON"],["IBAN, CUI, denumiri clienți","GDPR, confidențialitate","ANON"],["Situația fiscală a unui client identificabil","OG 65/1994 [S9]","ANON"],["Rapoarte de tranzacții suspecte (AML)","Legea 129/2019 [S12]","DA"],["Parole SPV / ANAF, certificate","GDPR art. 32","DA"]],
+ "Avocatură":[["Identitatea clientului și a părților","Secret profesional [S7] + GDPR","ANON"],["Strategia procesuală pe un caz concret","Secret profesional absolut [S7]","DA"],["Date penale","GDPR art. 10","DA"],["Contract negociat (M&A)","Secret profesional + comercial","DA"],["Corespondența avocat–client","Legea 51/1995 art. 35 [S7]","DA"]],
+ "Medical":[["Diagnostic + identitate","Art. 9 + Legea 46/2003 [S10] + CMR art. 30 [S11]","DA"],["Fișă cu boală rară + localitate mică + vârstă","Art. 9 + reidentificare [S22] [S23]","DA"],["Imagini medicale","Art. 9; amendă pentru radiografii postate [S39]","DA"],["Date genetice, HIV, psihiatrie","Art. 9","DA"],["Programări fără diagnostic","GDPR","ANON"]],
+ "Asigurări":[["Chestionare medicale","GDPR art. 9","DA"],["CNP, șasiu, înmatriculare, adresă","GDPR","ANON"],["Istoric de daune, sume","GDPR + Legea 236/2018 [S16]","ANON"]],
+ "Imobiliare":[["Copie CI, CNP, stare civilă","GDPR + Legea 190/2018","DA"],["Preț minim acceptat, motivul vânzării","Secret comercial {I}","DA"],["Adresă + nume proprietar","GDPR","ANON"]],
+ "HR":[["CV-uri","GDPR","ANON"],["Medicina muncii, concedii medicale","GDPR art. 9","DA"],["Evaluări, motive de concediere","GDPR + Codul muncii","ANON"],["Decizii automate de selecție","AI Act Anexa III (de verificat)","DA"]],
+ "IT outsourcing":[["Cod sursă al clientului","NDA + secret comercial [S15] [S37]","DA"],["Chei API, parole, .env","Securitate","DA"],["Date de producție ale clienților","GDPR (împuternicit)","DA"],["Arhitectură, IP-uri interne","Secret comercial / NDA","ANON"]]
+};
+const dsSel = document.getElementById("dataSeg");
+dsSel.innerHTML = `<option value="">Toate segmentele</option>`+Object.keys(dataRows).map(k=>`<option>${k}</option>`).join("");
+let nevF="all";
+function renderData(){
+  const seg=dsSel.value; let rows=[];
+  for(const [k,v] of Object.entries(dataRows)) if(!seg||seg===k) v.forEach(r=>rows.push([k,...r]));
+  if(nevF==="DA") rows=rows.filter(r=>r[3]==="DA");
+  document.getElementById("dataRows").innerHTML = rows.map(r=>`<tr><td><span class="note">${esc(r[0])}</span><br><strong>${esc(r[1])}</strong></td><td>${rich(r[2])}</td><td>${r[3]==="DA"?pill("ROȘU").replace("Roșu","Niciodată"):'<span class="pill GALBEN"><span class="dot"></span>Doar pseudonimizat</span>'}</td></tr>`).join("");
+}
+dsSel.addEventListener("change",renderData);
+document.querySelectorAll("[data-nev]").forEach(b=>b.addEventListener("click",()=>{nevF=b.dataset.nev;document.querySelectorAll("[data-nev]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderData()}));
+renderData();
+
+/* ---------- ANONIMIZARE ---------- */
+const defs = [
+ ["Date personale","Orice informație despre o persoană identificată sau identificabilă","Se aplică GDPR","[S17]"],
+ ["Pseudonimizare (art. 4(5))","Atribuirea cere informații suplimentare păstrate separat","Rămân date personale pentru cine are cheia","[S17] [S19]"],
+ ["Anonimizare (cons. 26)","Neidentificabil cu toate mijloacele rezonabile (costuri, timp, tehnologie)","GDPR nu se mai aplică","[S17]"],
+ ["Relativitatea (C-413/23 P)","Nepersonale pentru destinatarul care nu poate reidentifica","Contează cine primește și ce mijloace are","[S20]"],
+ ["EDPB 02/2026 (proiect)","Fără izolare, fără corelare, fără deducție; contextual vs. simplificat","Deducțiile din prompturi AI pot încălca criteriul","[S21]"]
+];
+document.getElementById("defs").innerHTML = defs.map(d=>`<tr><td><strong>${esc(d[0])}</strong></td><td>${esc(d[1])}</td><td>${esc(d[2])}</td><td>${rich(d[3])}</td></tr>`).join("");
+const techs = [
+ ["Eliminare","Clientul ███ datorează…","Nu","Structura frazei","Contextul identifică"],
+ ["Mascare parțială","IBAN RO49 AAAA ****** 1234","Nu","Formatul","Primele 7 cifre ale CNP dezvăluie sexul și data nașterii [S40]"],
+ ["Etichete reversibile","[PERSOANA_1] din [ORAS_1] plătește [SUMA_1]","Da (tabel local)","Relațiile dintre entități","Context; cheia e și ea date personale"],
+ ["Valori fictive realiste","Ion Popescu → Mihai Ionescu","Da (tabel local)","Text natural","Poate coincide cu o persoană reală"],
+ ["Generalizare","34 ani, Sibiu → 30–40, Regiunea Centru","Nu","Tendințe","Pierde precizie [S18]"],
+ ["Scalarea sumelor","125.000 × 1,37 → 171.250","Da (factor local)","Proporții, procente","Pragurile fixe din lege se strică {I}"],
+ ["Date sintetice","Tabel nou cu aceeași structură","Nu","Testarea formulelor","Memorare; criteriul de deducție [S21]"],
+ ["Hash","sha256(CNP)","Nu","Corelare","CNP-ul se inversează prin forță brută {I}"]
+];
+document.getElementById("techs").innerHTML = techs.map(t=>`<tr><td><strong>${esc(t[0])}</strong></td><td><code>${esc(t[1])}</code></td><td>${esc(t[2])}</td><td>${esc(t[3])}</td><td>${rich(t[4])}</td></tr>`).join("");
+const limits = [
+ ["Combinații de date","87% unici după cod poștal + sex + data nașterii [S22]; 99,98% cu 15 atribute (model) [S23]."],
+ ["Text liber","Identificatorii indirecți (funcții, fapte unice) scapă detectării de entități [S24]. {I} În română se adaugă declinări și diacritice lipsă."],
+ ["Conținutul e secretul","{I} Contracte M&A, cod sursă, oferte la licitații, strategii procesuale: fără conținut, AI-ul n-are ce analiza."],
+ ["Restaurarea în răspuns","{I} AI-ul modifică etichetele, inventează entități, calculează pe sume scalate; fișierele cer OCR."]
+];
+document.getElementById("limits").innerHTML = limits.map(l=>`<div class="panel"><h3>${esc(l[0])}</h3><p>${rich(l[1])}</p></div>`).join("");
+const ph = s => esc(s).replace(/\[([A-Z_0-9]+)\]/g,'<mark class="ph">[$1]</mark>');
+const examples = [
+ ["GALBEN","Contabilitate","Scrie un e-mail către Ana Ionescu (CNP 2850312400123) că Alfa Construct SRL (CUI 12345678) are de plată 14.320 lei TVA până pe 25 noiembrie, din contul RO49BTRL0000000000001234.","Scrie un e-mail către [PERSOANA_1] că [FIRMA_1] (CUI [CUI_1]) are de plată [SUMA_1] TVA până pe 25 noiembrie, din contul [IBAN_1].","CNP-ul nu e necesar, deci se elimină. Răspunsul e restaurat local."],
+ ["ROȘU","Medical","Rezumă fișa: pacient 67 ani, Comuna X, mielom multiplu, a refuzat chimioterapia, fiica lucrează la primărie.",null,"Fără nume, dar reidentificabil prin context. Date de sănătate sub secret medical."],
+ ["ROȘU","Avocatură","Clientul meu, acționarul majoritar al unei rețele de farmacii din Cluj, vrea să mute activele înainte de partaj.",null,"Niciun identificator direct, dar conținutul e secretul și faptele sunt unice."],
+ ["GALBEN","HR","Evaluează CV-ul lui Andrei Pop, 52 de ani, absolvent 1997…","Evaluează CV-ul lui [PERSOANA_1], absolvent [AN_ABSOLVIRE]…","Vârsta se elimină: e și un risc de discriminare."]
+];
+document.getElementById("examples").innerHTML = examples.map(e=>`<div class="panel"><div class="legend">${pill(e[0])} <span>${esc(e[1])}</span></div>
+<div class="example"><span class="lbl">Original</span>\n${esc(e[2])}</div>${e[3]?`<div class="example"><span class="lbl">Trimis la AI</span>\n${ph(e[3])}</div>`:`<div class="example"><span class="lbl">Rezultat</span>\nBlocat, cu explicație și alternativă</div>`}<p class="note">${esc(e[4])}</p></div>`).join("");
+
+/* ---------- MATRICE ---------- */
+const MX = [
+ ["Text generic fără date despre persoane sau firme","n/a","Niciuna","Neglijabil","VERDE"],
+ ["Cod sau formule fără logică de business","n/a","Niciuna","Mic","VERDE"],
+ ["Nume de persoane în text scurt și generic","Da","Etichete [PERSOANA_n]","Context; declinări","GALBEN"],
+ ["CNP","Da, dar de obicei inutil","Eliminare (minimizare)","Primele 7 cifre dezvăluie sexul și data nașterii [S40]","GALBEN"],
+ ["IBAN, număr de card","Da","Etichetă [IBAN_n]","Mic","GALBEN"],
+ ["CUI, nume de firmă client","Da","Etichetă [FIRMA_n]","Firmele unice sunt recognoscibile","GALBEN"],
+ ["E-mail, telefon, adresă","Da","Etichetă","Mic","GALBEN"],
+ ["Număr de înmatriculare, serie de șasiu","Da","Etichetă","Mic","GALBEN"],
+ ["Sume (facturi, salarii, datorii)","Parțial","Etichetă sau scalare","Pragurile fixe se strică {I}","GALBEN"],
+ ["Date calendaristice legate de o persoană","Parțial","Generalizare sau deplasare","Combinate, reidentifică [S22]","GALBEN"],
+ ["Vârstă + localitate + profesie în același text","Parțial","Generalizare","Individualizare [S18] [S23]","GALBEN"],
+ ["Tabel Excel cu date de clienți","Parțial","Etichete pe coloane + sintetice","O coloană ratată = scurgere masivă","ROȘU"],
+ ["Date de sănătate legate de o persoană","Nu util","—","Art. 9 + secret medical [S10] [S11]","ROȘU"],
+ ["Imagini medicale, acte de identitate, documente scanate","Nu","—","OCR incomplet; biometrie","ROȘU"],
+ ["Date penale","Nu","—","GDPR art. 10","ROȘU"],
+ ["Strategie juridică pe un caz concret","Nu","—","Secret profesional absolut [S7]","ROȘU"],
+ ["Contract negociat (M&A, clauze de preț)","Nu","—","Conținutul e secretul","ROȘU"],
+ ["Cod sursă al clientului / proprietar","Nu","—","Secret comercial, NDA [S15] [S37]","ROȘU"],
+ ["Parole, chei API, tokenuri, .env","Nu (și inutil)","Eliminare","—","ROȘU"],
+ ["Strategie de preț, ofertă la licitație, restructurare","Nu","—","Secret comercial","ROȘU"],
+ ["Rapoarte AML / ONPCSB","Nu","—","Legea 129/2019 [S12]","ROȘU"],
+ ["CV-uri pentru redactare (selecția automată: ROȘU)","Parțial","Etichete + eliminarea vârstei, sexului, fotografiei","AI Act risc ridicat (de verificat)","GALBEN"]
+];
+let mxF="all";
+function renderMx(){
+  const q=document.getElementById("mxSearch").value.trim().toLowerCase();
+  const rows = MX.map((r,i)=>[i+1,...r]).filter(r=>(mxF==="all"||r[5].replace("Ș","S")===mxF)&&(!q||r.slice(1,5).join(" ").toLowerCase().includes(q)));
+  document.getElementById("mxRows").innerHTML = rows.map(r=>`<tr><td class="num">${r[0]}</td><td><strong>${esc(r[1])}</strong></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${rich(r[4])}</td><td>${pill(r[5])}</td></tr>`).join("") || `<tr><td colspan="6" class="note">Niciun rând nu se potrivește. Șterge căutarea sau alege „Toate”.</td></tr>`;
+  document.getElementById("mxCount").textContent = `${rows.length} din ${MX.length}`;
+}
+const cnt = k => MX.filter(r=>r[4].replace("Ș","S")===k).length;
+document.getElementById("mxSummary").innerHTML = [["VERDE","trec normal"],["GALBEN","pseudonimizate automat"],["ROSU","blocate cu explicație"]].map(([k,l])=>`<div class="panel kpi"><div>${pill(k)}</div><div class="num">${cnt(k)}</div><div class="lbl">tipuri de date ${l}</div></div>`).join("");
+document.getElementById("mxSearch").addEventListener("input",renderMx);
+document.querySelectorAll("[data-mx]").forEach(b=>b.addEventListener("click",()=>{mxF=b.dataset.mx;document.querySelectorAll("[data-mx]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderMx()}));
+renderMx();
+
+/* ---------- IPOTEZE ---------- */
+const H = [
+ ["H1","Angajații firmelor mici din RO chiar lipesc date de clienți în AI public","5,2% adoptare oficială [S1]; datele de „shadow AI” vin de la vânzători [S29] [S31]","Nu-și amintesc niciun caz concret","„Săptămâna trecută am pus un contract în ChatGPT”"],
+ ["H2","Patronii sunt îngrijorați și ar plăti","Expertiza (70,89%) bate protecția datelor (48,83%) [S2]","N-au făcut nimic: nici politică, nici interdicție","Au căutat soluții, au interzis AI-ul sau au plătit un consultant"],
+ ["H3","GALBEN păstrează răspunsul util","Textul liber și conținutul secret nu se pseudonimizează util [S24]","Sarcinile reale sunt majoritar ROȘU","Sarcini cu identificatori structurați"],
+ ["H4","Blocarea nu împinge angajații spre telefon","Ocolirea e greu de observat","Folosesc deja telefonul ca să ocolească regulile","Preferă un instrument aprobat"],
+ ["H5","Cumpără patronul, canalul e MSP-ul","Bitdefender vinde deja prin MSP-uri [S33]","MSP-ul decide și are deja Bitdefender/ESET","MSP-ul n-are ce vinde pentru AI"],
+ ["H6","Abonamentele AI de business nu rezolvă problema","Elimină antrenarea [S26] [S27] [S28]","Au ChatGPT Business și se simt acoperiți","Se tem în continuare de secretul profesional"],
+ ["H7","AI Act art. 4 motivează achiziția","Slăbit în 07.2026, fără sancțiune proprie [S4]","N-au auzit de art. 4","Clienți sau auditori cer dovezi de instruire"],
+ ["H8","Contabilitatea e segmentul de început","Nevalidat {I}","Contabilii nu folosesc AI","Au exemple de e-mailuri și tabele trecute prin AI"]
+];
+document.getElementById("hyps").innerHTML = H.map(h=>`<tr><td class="num">${h[0]}</td><td><strong>${esc(h[1])}</strong></td><td>${rich(h[2])}</td><td>${esc(h[3])}</td><td>${esc(h[4])}</td></tr>`).join("");
+const Q = {
+ patroni:["Povestiți-mi ultima dată când ați aflat că cineva din firmă a folosit ChatGPT sau alt AI pentru muncă. Ce făcea?","Cum ați aflat? Ce ați făcut după aceea?","Ce reguli scrise sau nescrise aveți acum despre AI? Cine le-a stabilit și când?","Când ați avut ultima dată o problemă cu datele unui client? Ce s-a întâmplat concret?","Ați avut vreodată un control ANSPDCP, o reclamație GDPR sau o întrebare de la un client despre datele lui? Povestiți-mi.","Ce ați făcut în ultimul an ca să protejați datele firmei? Cât a costat și cine a propus?","Cine v-a vândut ultimul antivirus sau soft de securitate? Cum a decurs decizia?","Ați plătit vreodată pentru un abonament AI pentru angajați? De ce da sau de ce nu?","Ce sarcini v-ați dori să delegați mai repede? Ultima dată când ați rămas în urmă, cu ce a fost?","Dacă ar ajunge la un client un document intern, care ar fi cel mai grav? Ați trecut prin așa ceva?","Ați auzit de cerințele AI Act privind instruirea personalului? De unde? Ați făcut ceva concret?","Pe cine mai întrebați când luați decizii de IT sau GDPR?"],
+ angajati:["Povestiți-mi ultima sarcină la care ați folosit un AI. Ce ați scris sau lipit acolo?","Pe ce cont ați făcut-o: personal sau al firmei? Pe calculator sau pe telefon?","Ați scos sau ați modificat vreodată nume sau cifre înainte să lipiți ceva? Cum anume?","Ați avut vreodată o ezitare înainte să trimiteți ceva la AI? Ce v-a oprit sau convins?","Ce sarcină vă ia cel mai mult timp săptămânal? Ultima dată, cât v-a luat?","V-a spus cineva din firmă ce aveți voie să puneți în AI? Când și cum?","Când un instrument de la firmă v-a blocat ultima dată ceva? Ce ați făcut?","Ați folosit vreodată telefonul personal pentru ceva ce nu mergea pe calculatorul de serviciu? Ce anume?","Ultima dată când răspunsul AI a fost greșit sau inutil, ce i-ați dat ca input?","Ce documente primiți zilnic de la clienți? În ce format?","Ați trimis vreodată un fișier întreg (Excel, PDF) la AI? Ce conținea?","Ați trecut deja printr-o interdicție a unui instrument la birou? Ce ați făcut atunci?"],
+ it:["La câte firme mici administrați IT-ul? Ce antivirus sau EDR rulează la ele?","V-a cerut vreun client în ultimele 6 luni ceva legat de AI? Ce ați făcut?","Ați blocat vreodată ChatGPT la un client? Cum? Ce s-a întâmplat după?","Ce soluții DLP ați instalat la clienți? Ce a mers și ce nu?","Cât de des vă cer clienții rapoarte de securitate? Cine le citește?","Ultima dată când ați încercat să vindeți un serviciu nou de securitate unui client mic, cum a decurs?","Ce licențe Microsoft 365 au clienții voștri?","Cum instalați extensii de browser la clienți? Sunt administrate centralizat?","Ce vă costă (timp, plângeri) când un instrument de securitate dă alarme false?","Câți clienți folosesc telefoane personale la muncă? Le administrați?","Vi s-au prezentat modulele AI lansate în 2026 de Bitdefender sau ESET? Ce ați făcut cu ele?"]
+};
+const MQ = [
+ {t:"Ce au văzut la firmele pe care le conduc sau le consiliază",h:"H1, H2",q:[
+  "La ultima firmă mică pe care ați condus-o sau ați consiliat-o, cum folosea echipa AI-ul? Cine a început și pentru ce?",
+  "Povestiți-mi ultimul caz în care ați aflat că cineva a pus date de client într-un instrument online fără să întrebe. Ce date erau și ce s-a întâmplat după?",
+  "Când ați văzut ultima dată un patron interzicând un instrument (AI, WhatsApp, Dropbox)? Ce l-a determinat și cât a ținut interdicția?",
+  "Ce a făcut concret ultima firmă pe care o știți după ce a avut o problemă cu datele: a schimbat ceva, a cumpărat ceva, a angajat pe cineva?",
+  "Dintre firmele pe care le cunoașteți, care a cheltuit ultima oară bani pe protecția datelor? Pe ce și cine a decis?"]},
+ {t:"Cum cumpără firmele mici securitate",h:"H2, H5",q:[
+  "Ultima dată când ați văzut o firmă de 10–100 de oameni cumpărând un soft de securitate, cine l-a propus, cine a aprobat și cât a durat?",
+  "Ce rol a avut firma IT externă în ultimele achiziții de software pe care le-ați văzut?",
+  "Ați văzut vreun patron plătind pentru conformitate GDPR fără să fi avut un incident sau un control? Ce l-a împins?",
+  "Ce abonamente AI plătite (ChatGPT Business, Copilot, Gemini) ați văzut în firme mici? Cine le-a cerut?"]},
+ {t:"Reguli de profesie (pentru mentorii jurist, medic, contabil)",h:"H3, H6",q:[
+  "În practica dumneavoastră, ce ați considerat până acum divulgare a secretului profesional? Ați întâlnit un caz cu un instrument online?",
+  "Ați primit vreodată o îndrumare scrisă de la barou, CMR sau CECCAR despre folosirea AI? Ce spunea?",
+  "Ultima dată când ați folosit (sau ați refuzat să folosiți) un AI pentru un dosar, ce ați scos din text înainte? De ce?",
+  "Ați văzut un control sau o sancțiune legată de date la cineva din profesie? Ce s-a constatat?",
+  "Ce informație dintr-un dosar ar fi gravă chiar și fără nume? Dați-mi un exemplu real, fictivizat."]},
+ {t:"Partea tehnică (pentru mentorii IT / securitate)",h:"H4, H5",q:[
+  "Ultima dată când ați implementat o extensie de browser sau un agent pe toate calculatoarele unei firme, ce a mers prost?",
+  "Ați văzut angajați ocolind o blocare de la firmă? Cum au făcut-o și cât de repede?",
+  "Ce instrument de securitate ați văzut abandonat din cauza alarmelor false? Ce rată de alarme a dus la renunțare?",
+  "Ați testat vreodată detectarea de date personale pe texte în română? Ce a ratat?"]},
+ {t:"Prezentări și angajament (la final, obligatoriu)",h:"toate",q:[
+  "Pe cine cunoașteți care conduce o firmă de contabilitate, o clinică sau un cabinet și ar vorbi 20 de minute cu noi despre cum lucrează?",
+  "Ne puteți pune în legătură cu o firmă IT care administrează calculatoarele unor firme mici?",
+  "Aveți un exemplu real de sarcină trecută prin AI (fictivizat) pe care să-l putem testa cu politica VERDE/GALBEN/ROȘU?",
+  "Abia acum, după toate cele de mai sus: v-am arătat matricea. Ce caz din experiența dumneavoastră n-ar încăpea în ea?"]}
+];
+const REW = [
+ ["Credeți că firmele ar plăti pentru asta?","Ultima dată când ați văzut o firmă plătind pentru protecția datelor, ce a cumpărat și cât a dat?"],
+ ["Vi se pare o problemă reală?","Când ați văzut ultima dată date de client ajunse unde nu trebuia? Ce s-a întâmplat?"],
+ ["Ați recomanda produsul nostru?","Cui i-ați cerut ultima dată sfatul când ați ales un soft pentru firmă?"],
+ ["E legal să trimiți date pseudonimizate la AI?","Ați întâlnit un caz în care s-a discutat dacă trimiterea datelor către un furnizor e divulgare? Cum s-a tranșat?"],
+ ["Angajații ar accepta blocarea?","Ați văzut angajați ocolind o regulă IT? Cum?"]
+];
+/* ---------- RĂSPUNSURI SALVATE ---------- */
+// Pe claude.ai: colecția „raspunsuri” din baza de date a paginii (comună pentru cei cu acces).
+// În afara claude.ai (GitHub Pages): doar în acest browser (localStorage).
+const LS_KEY="raspunsuri-v1";
+const store={mode:"local",list:[],col:null,uid:null,ready:false};
+function lsLoad(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch(e){return []}}
+function lsSave(){try{localStorage.setItem(LS_KEY,JSON.stringify(store.list));return true}catch(e){return false}}
+store.list=lsLoad();
+function setStatus(msg,warn){document.querySelectorAll("[data-status]").forEach(s=>{s.textContent=msg;s.classList.toggle("warn",!!warn)})}
+function localStatus(){setStatus("Răspunsurile se salvează doar în acest browser. Ca să le vedeți amândouă, folosiți pagina de pe claude.ai sau exportați în Markdown.",true)}
+localStatus();
+const qid=(set,i)=>`${set}-${i+1}`;
+const fmtDate=ms=>{try{return new Date(ms).toLocaleString("ro-RO",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}catch(e){return ""}};
+function answersFor(id){return store.list.filter(a=>a.qid===id).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0))}
+function answersHTML(id){
+  const list=answersFor(id);
+  if(!list.length) return "";
+  return `<ul class="answers-list">${list.map(a=>`<li><div class="who"><span><strong>${esc(a.interlocutor||"fără nume")}</strong> · ${esc(fmtDate(a.createdAt))}</span><button type="button" class="del" data-del="${esc(a.id)}">Șterge</button></div><div class="txt">${esc(a.text)}</div></li>`).join("")}</ul>`;
+}
+function qItem(set,i,q){
+  const id=qid(set,i), n=answersFor(id).length;
+  return `<li><div class="qitem" data-qid="${id}" data-set="${set}">
+    <div class="qrow"><span>${esc(q)} ${n?`<span class="badge" data-count="${id}">${n}</span>`:`<span class="badge" data-count="${id}" hidden></span>`}</span>
+      <span class="qtools"><button type="button" class="copy" data-q="${esc(q)}">Copiază</button><button type="button" class="copy" data-open="${id}">Răspuns</button></span></div>
+    <div data-answers="${id}">${answersHTML(id)}</div>
+    <div class="composer" data-composer="${id}" hidden>
+      <textarea id="ta-${id}" aria-label="Răspuns la: ${esc(q)}" placeholder="Notează cuvânt cu cuvânt ce a spus. Fapte din trecut, cifre, nume de roluri (nu de persoane)."></textarea>
+      <div class="row"><button type="button" class="act" data-save="${id}">Salvează</button><button type="button" class="act ghost" data-cancel="${id}">Renunță</button><span class="note" data-msg="${id}"></span></div>
+    </div></div></li>`;
+}
+function refreshAnswers(){
+  document.querySelectorAll("[data-answers]").forEach(el=>{el.innerHTML=answersHTML(el.dataset.answers)});
+  document.querySelectorAll("[data-count]").forEach(b=>{const n=answersFor(b.dataset.count).length; b.textContent=n; b.hidden=!n;});
+}
+const QTEXT={};
+function whoFor(set){return document.getElementById(set==="mentori"?"who-mentori":"who-interviu").value.trim()}
+async function saveAnswer(id){
+  const box=document.querySelector(`[data-qid="${id}"]`), set=box.dataset.set, ta=document.getElementById("ta-"+id), msg=document.querySelector(`[data-msg="${id}"]`), btn=document.querySelector(`[data-save="${id}"]`);
+  const text=ta.value.trim(); if(!text){msg.textContent="Scrie răspunsul înainte să salvezi.";return}
+  const who=whoFor(set); if(!who){msg.textContent=`Completează sus câmpul „${set==="mentori"?"Mentor":"Interviu cu"}”.`;return}
+  const a={qid:id,set,q:QTEXT[id]||"",interlocutor:who.slice(0,120),text:text.slice(0,8000),createdAt:Date.now()};
+  if(store.uid) a.author=store.uid;
+  btn.disabled=true; msg.textContent="Se salvează…";
+  try{
+    if(store.mode==="db"){await store.col.add(a)}
+    else{a.id="l"+a.createdAt.toString(36)+Math.random().toString(36).slice(2,6); store.list.push(a); if(!lsSave()){store.list.pop(); throw {code:"local"}} refreshAnswers();}
+    ta.value=""; msg.textContent="Salvat."; document.querySelector(`[data-composer="${id}"]`).hidden=true;
+  }catch(e){
+    msg.textContent = e&&e.code==="quota_exceeded" ? "Baza de date e plină; șterge răspunsuri vechi." : e&&e.code==="local" ? "Browserul nu permite salvarea (fereastră privată?). Copiază textul în altă parte." : "Nu am putut salva. Verifică dacă ai drept de editare pe pagină și încearcă din nou.";
+  }finally{btn.disabled=false}
+}
+async function deleteAnswer(docId){
+  try{
+    if(store.mode==="db"){await store.col.doc(docId).delete()}
+    else{store.list=store.list.filter(a=>a.id!==docId); lsSave(); refreshAnswers();}
+  }catch(e){setStatus("Nu am putut șterge răspunsul. Doar cine are drept de editare poate șterge.",true)}
+}
+function exportMd(scope){
+  const sets = scope==="mentori"?["mentori"]:["patroni","angajati","it"];
+  const titles={patroni:"Patroni",angajati:"Angajați",it:"Omul de IT / MSP",mentori:"Mentori"};
+  let md=`# Răspunsuri interviuri (${scope==="mentori"?"mentori":"clienți"})\n\nExportat ${fmtDate(Date.now())}\n`;
+  for(const s of sets){
+    const items=store.list.filter(a=>a.set===s); if(!items.length) continue;
+    md+=`\n## ${titles[s]}\n`;
+    const byQ={}; items.forEach(a=>{(byQ[a.qid]=byQ[a.qid]||[]).push(a)});
+    Object.keys(byQ).sort((x,y)=>parseInt(x.split("-").pop())-parseInt(y.split("-").pop())).forEach(k=>{
+      md+=`\n### ${byQ[k][0].q||k}\n`;
+      byQ[k].sort((a,b)=>a.createdAt-b.createdAt).forEach(a=>{md+=`\n- **${a.interlocutor}** (${fmtDate(a.createdAt)}): „${a.text.replace(/\n+/g," ")}”\n`});
+    });
+  }
+  return md;
+}
+document.getElementById("app").addEventListener("click",async e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.open){const c=document.querySelector(`[data-composer="${t.dataset.open}"]`); c.hidden=!c.hidden; if(!c.hidden) document.getElementById("ta-"+t.dataset.open).focus();}
+  else if(t.dataset.cancel){document.querySelector(`[data-composer="${t.dataset.cancel}"]`).hidden=true}
+  else if(t.dataset.save){saveAnswer(t.dataset.save)}
+  else if(t.dataset.del){deleteAnswer(t.dataset.del)}
+  else if(t.dataset.export){
+    const md=exportMd(t.dataset.export), old=t.textContent;
+    try{await navigator.clipboard.writeText(md); t.textContent="Copiat";}catch(err){
+      const ta=document.createElement("textarea"); ta.value=md; ta.style.cssText="width:100%;min-height:160px;margin-top:8px"; t.parentElement.appendChild(ta); ta.select(); t.textContent="Selectat mai jos";}
+    setTimeout(()=>t.textContent=old,2000);
+  }
+});
+try{["who-interviu","who-mentori"].forEach(id=>{const el=document.getElementById(id); el.value=sessionStorage.getItem(id)||""; el.addEventListener("input",()=>{try{sessionStorage.setItem(id,el.value)}catch(e){}})})}catch(e){}
+(async()=>{
+  if(!(window.claude && typeof window.claude.use==="function")) return;
+  const db=await window.claude.use("db"); if(!db) return;
+  const user=await window.claude.use("user");
+  try{store.uid=user?await user.id():null}catch(e){store.uid=null}
+  store.col=db.collection("raspunsuri"); store.mode="db";
+  setStatus("Se încarcă răspunsurile salvate…");
+  const timer=setTimeout(()=>setStatus("Răspunsurile se încarcă greu. Poți scrie în continuare; salvarea merge când revine conexiunea.",true),10000);
+  store.col.orderBy("createdAt").onSnapshot(s=>{
+    clearTimeout(timer); store.list=s.docs.map(d=>Object.assign({id:d.id},d.data())); refreshAnswers();
+    setStatus(`Salvat pentru toată echipa. ${s.size} răspunsuri până acum.`);
+  },err=>{clearTimeout(timer); setStatus("Nu pot citi răspunsurile salvate acum. Reîncarcă pagina mai târziu.",true)});
+})();
+
+function renderQ(role){
+  document.querySelectorAll("[data-role]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.role===role));
+  Q[role].forEach((q,i)=>QTEXT[qid(role,i)]=q);
+  document.getElementById("questions").innerHTML = Q[role].map((q,i)=>qItem(role,i,q)).join("");
+}
+document.querySelectorAll("[data-role]").forEach(b=>b.addEventListener("click",()=>renderQ(b.dataset.role)));
+let mIdx=0; const MFLAT=[];
+MQ.forEach(b=>b.q.forEach(q=>{MFLAT.push(q)}));
+MFLAT.forEach((q,i)=>QTEXT[qid("mentori",i)]=q);
+document.getElementById("mentorBlocks").innerHTML = MQ.map(b=>`<div class="panel"><div class="legend"><span class="tag V">${esc(b.h)}</span></div><h3>${esc(b.t)}</h3><ol class="qs" start="${mIdx+1}">${b.q.map(q=>qItem("mentori",mIdx++,q)).join("")}</ol></div>`).join("");
+document.getElementById("mqCount").textContent = `${MQ.reduce((n,b)=>n+b.q.length,0)} întrebări în ${MQ.length} teme · eticheta arată ipotezele (H1–H8) pe care le atinge fiecare temă`;
+document.getElementById("rewrites").innerHTML = REW.map(r=>`<tr><td style="color:var(--r)">${esc(r[0])}</td><td style="color:var(--g)">${esc(r[1])}</td></tr>`).join("");
+document.getElementById("app").addEventListener("click",async e=>{
+  const b=e.target.closest("button.copy[data-q]"); if(!b) return;
+  try{await navigator.clipboard.writeText(b.dataset.q); b.textContent="Copiat";}
+  catch(err){const span=b.closest(".qrow").firstElementChild; const r=document.createRange(); r.selectNodeContents(span); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent="Selectat";}
+  setTimeout(()=>b.textContent="Copiază",1500);
+});
+renderQ("patroni");
+
+/* ---------- CRITICĂ ---------- */
+const CRIT = [
+ ["Brief","AI Act art. 4 nu mai e un argument tare","Regulamentul 2026/1744 l-a rescris din 27.07.2026: „măsuri pentru a sprijini”, fără nivel garantat, fără sancțiune proprie [S4]. Rămâne argument secundar.",""],
+ ["Brief","„Anonimizare” e termenul greșit","Ce facem e pseudonimizare cu cheie locală [S17] [S19]. Un jurist din juriu ar observa.","m"],
+ ["Soluție","Ocolirea pe telefonul personal","Extensia acoperă doar dispozitivele firmei. Tăierea automată a accesului accelerează ocolirea. Purview are aceeași limită [S32].",""],
+ ["Soluție","Paradoxul segmentelor","Unde durerea e mare (avocați, medici), majoritatea sarcinilor sunt pe ROȘU.",""],
+ ["Soluție","Produsul e el însuși o prelucrare","Citim toate prompturile angajaților: monitorizare, probabil DPIA, procesare 100% locală obligatorie.",""],
+ ["Soluție","Calitatea detectării în română e necunoscută","Un nume ratat anulează promisiunea; prea multe ROȘU = interdicție mascată.","m"],
+ ["Soluție","Restaurarea se poate strica","Etichete modificate de AI, sume scalate comparate cu praguri fixe.","m"],
+ ["Piață","Bitdefender e aproape","Firmă românească, canal MSP, modul AI lansat în 09.2026 [S33]. Diferențiatorul nostru e îngust.",""],
+ ["Piață","Abonamentul AI business e alternativa ieftină","Elimină antrenarea [S26] [S27]; mulți patroni îl pot considera suficient.","m"],
+ ["Surse","Articole de lege citite prin reproduceri","Avocați, contabili, Cod penal, secret comercial, GDPR [S7] [S9] [S14] [S15] [S17]: de confruntat cu legislatie.just.ro și EUR-Lex.","m"]
+];
+document.getElementById("crit").innerHTML = CRIT.map(c=>`<div class="panel crit"><span class="note">${esc(c[0])}</span><h3><span class="sev ${c[3]}">${c[3]?"mediu":"ridicat"}</span>${esc(c[1])}</h3><p>${rich(c[2])}</p></div>`).join("");
+const OQ = ["Secretul profesional permite trimiterea pseudonimizată către un AI cu contract de prelucrare? (jurist / mentori)","Câte firme din cele 7 segmente au 10–100 de angajați? (INS TEMPO pe cod CAEN)","Cât folosesc AI, concret, angajații firmelor mici din RO și pe ce conturi? (interviuri)","Ce procent din sarcinile reale ar ieși GALBEN vs. ROȘU? (20 de exemple fictivizate de la 3 firme)","Ce face MSP-ul azi când un client întreabă de AI?","Cât de bine detectează Presidio + modele pentru română CNP, nume declinate și CUI?","Acceptă patronii și angajații ca un instrument să citească local fiecare prompt?","Ce ne diferențiază de Bitdefender dacă adaugă inspecția prompturilor?"];
+document.getElementById("openQs").innerHTML = OQ.map(q=>`<li>${esc(q)}</li>`).join("");
+
+/* ---------- SURSE ---------- */
+let srcFocus="";
+function renderSrc(){
+  const q=document.getElementById("srcSearch").value.trim().toLowerCase(), t=document.getElementById("srcType").value;
+  const rows=S.filter(s=>(!t||s[3]===t)&&(!q||s.join(" ").toLowerCase().includes(q)));
+  document.getElementById("srcRows").innerHTML = rows.map(s=>`<tr id="row-${s[0]}"${s[0]===srcFocus?' style="background:var(--accent-soft)"':""}><td class="num">${s[0]}</td><td><a href="${esc(s[2])}" target="_blank" rel="noopener">${esc(s[1])}</a></td><td>${s[3]==="Vânzător"?'<span class="vendor">vânzător</span>':esc(s[3])}</td><td>${esc(s[4])}</td></tr>`).join("");
+  document.getElementById("srcCount").textContent=`${rows.length} din ${S.length}`;
+}
+document.getElementById("srcSearch").addEventListener("input",renderSrc);
+document.getElementById("srcType").addEventListener("change",renderSrc);
+renderSrc();
+
+/* ---------- NAVIGARE ---------- */
+const VIEWS=["rezumat","segmente","date","anonimizare","matrice","ipoteze","mentori","critica","surse"];
+function show(){
+  const h=(location.hash||"#rezumat").slice(1), v=VIEWS.includes(h)?h:"rezumat";
+  document.querySelectorAll("section.view").forEach(s=>s.hidden = s.dataset.view!==v);
+  document.querySelectorAll("#tabs a").forEach(a=>a.setAttribute("aria-current", a.getAttribute("href")==="#"+v?"page":"false"));
+  if(v==="surse"&&srcFocus){renderSrc(); const r=document.getElementById("row-"+srcFocus); if(r) r.scrollIntoView({block:"center"});}
+  else window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{const a=e.target.closest("a.src[data-s]"); if(a){srcFocus=a.dataset.s; document.getElementById("srcSearch").value=""; document.getElementById("srcType").value="";}});
+addEventListener("hashchange",show);
+show();
+</script>
+</body>
+</html>
